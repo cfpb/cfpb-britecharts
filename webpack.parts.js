@@ -1,18 +1,5 @@
-const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const constants = require('./webpack.constants');
-
-exports.babelLoader = () => ({
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: ['babel-loader'],
-            },
-        ],
-    },
-});
 
 exports.bundleTreeChart = (analyzerPort = 8888) => ({
     plugins: [
@@ -48,7 +35,8 @@ exports.noParseD3Vendor = () => ({
 
 exports.externals = () => ({
     externals: {
-        d3: 'd3'
+        d3: 'd3',
+        react: 'react',
     },
 });
 

@@ -1,4 +1,7 @@
-define(['jquery', 'd3', 'tooltip'], function($, d3, tooltip) {
+import { loadTestContainer, clearTestContainer } from '../support.js';
+import * as d3 from 'd3';
+import tooltip from '../../src/charts/tooltip.js';
+
     'use strict';
 
     const topicColorMap = {
@@ -17,9 +20,7 @@ define(['jquery', 'd3', 'tooltip'], function($, d3, tooltip) {
             tooltipChart = tooltip();
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container').append('svg');
             containerFixture.datum(dataset).call(tooltipChart);
@@ -27,9 +28,7 @@ define(['jquery', 'd3', 'tooltip'], function($, d3, tooltip) {
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -470,4 +469,3 @@ define(['jquery', 'd3', 'tooltip'], function($, d3, tooltip) {
             });
         });
     });
-});

@@ -1,36 +1,41 @@
-define(function(require){
-    'use strict';
+import { extent, group, max as d3Max, range, sum as d3Sum } from 'd3-array';
+import { axisBottom, axisRight } from 'd3-axis';
+import { dispatch } from 'd3-dispatch';
+import { easeQuadInOut } from 'd3-ease';
+import { scaleLinear, scaleTime } from 'd3-scale';
+import { area as d3Area, line as d3Line, stack, stackOffsetNone, stackOrderNone } from 'd3-shape';
+import { pointer, select as d3Select } from 'd3-selection';
+import 'd3-transition';
+import { timeFormat } from 'd3-time-format';
+import { getTextWidth } from './helpers/text.js';
+import { exportChart } from './helpers/export.js';
+import { colorGradients, colorSchemas } from './helpers/color.js';
+import { getTimeSeriesAxis } from './helpers/axis.js';
+import { axisTimeCombinations, curveMap } from './helpers/constants.js';
+import { formatIntegerValue, formatDecimalValue, isInteger } from './helpers/number.js';
+import { createFilterContainer, createGlowWithMatrix, bounceCircleHighlight } from './helpers/filter.js';
+import { addDays, diffDays } from './helpers/date.js';
+import { stackedArea as stackedAreaLoadingMarkup } from './helpers/load.js';
+import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
 
-    const d3Array = require('d3-array');
-    const d3Axis = require('d3-axis');
-    const d3Dispatch = require('d3-dispatch');
-    const d3Ease = require('d3-ease');
-    const d3Scale = require('d3-scale');
-    const d3Shape = require('d3-shape');
-    const d3Selection = require('d3-selection');
-    const d3Transition = require('d3-transition');
-    const d3TimeFormat = require('d3-time-format');
-    const assign = require('lodash.assign');
-    const textHelper = require('./helpers/text');
-    const { exportChart } = require('./helpers/export');
-    const colorHelper = require('./helpers/color');
-    const { getTimeSeriesAxis } = require('./helpers/axis');
-    const { axisTimeCombinations, curveMap } = require('./helpers/constants');
-    const {
-        formatIntegerValue,
-        formatDecimalValue,
-        isInteger
-    } = require('./helpers/number');
-    const {
-        createFilterContainer,
-        createGlowWithMatrix,
-        bounceCircleHighlight
-    } = require('./helpers/filter');
-    const {
-        addDays,
-        diffDays
-    } = require('./helpers/date');
-    const { stackedArea: stackedAreaLoadingMarkup } = require('./helpers/load');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     const uniq = (arrArg) => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
@@ -71,13 +76,13 @@ define(function(require){
      * stackedArea
      *     .width(containerWidth);
      *
-     * d3Selection.select('.css-selector')
+     * d3Select('.css-selector')
      *     .datum(dataset.data)
      *     .call(stackedArea);
      *
      */
 
-    return function module() {
+export default function module() {
 
         let margin = {
                 top: 70,
@@ -103,8 +108,8 @@ define(function(require){
             yTickTextXOffset = -20,
             tickPadding = 5,
 
-            colorSchema = colorHelper.colorSchemas.britecharts,
-            lineGradient = colorHelper.colorGradients.greenBlue,
+            colorSchema = colorSchemas.britecharts,
+            lineGradient = colorGradients.greenBlue,
 
             highlightFilter = null,
             highlightFilterId = null,
@@ -125,7 +130,6 @@ define(function(require){
             xAxisCustomFormat = null,
             locale,
 
-            baseLine,
             areaCurve = 'monotoneX',
 
             layers,
@@ -137,7 +141,7 @@ define(function(require){
             // Area Animation
             maxAreaNumber = 12,
             areaAnimationDelayStep = 20,
-            areaAnimationDelays = d3Array.range(areaAnimationDelayStep, maxAreaNumber * areaAnimationDelayStep, areaAnimationDelayStep),
+            areaAnimationDelays = range(areaAnimationDelayStep, maxAreaNumber * areaAnimationDelayStep, areaAnimationDelayStep),
 
             overlay,
             overlayColor = 'rgba(0, 0, 0, 0)',
@@ -145,14 +149,10 @@ define(function(require){
             verticalMarkerLine,
             epsilon,
 
-            dataPoints            = {},
-            pointsSize            = 1.5,
-            pointsColor           = '#c0c6cc',
-            pointsBorderColor     = '#ffffff',
             initializeVerticalMarker = false,
             isAnimated = false,
             isPrintMode = false,
-            ease = d3Ease.easeQuadInOut,
+            ease = easeQuadInOut,
             areaAnimationDuration = 1000,
 
             hasOutline = true,
@@ -164,8 +164,6 @@ define(function(require){
             dataByDateFormatted,
             dataByDateZeroed,
 
-            verticalGridLines,
-            horizontalGridLines,
             grid = null,
 
             tooltipThreshold = 480,
@@ -193,22 +191,16 @@ define(function(require){
             circleYOffset = 8,
             entryLineLimit = 5,
             initialTooltipTextXPosition = -25,
-            tooltipTextLinePadding = 5,
             tooltipRightWidth,
             tooltipMaxTopicLength = 200,
             tooltipTextContainer,
-            tooltipDivider,
             tooltipBody,
             tooltipTitle,
             tooltipWidth = 300,
-            tooltipHeight = 48,
-            tooltipBorderRadius = 3,
             ttTextX = -15,
             ttTextY = 37,
             textHeight,
-            bodyFillColor = '#FFFFFF',
             borderStrokeColor = '#D2D6DF',
-            titleFillColor = '#6D717A',
             textFillColor = '#282C35',
             tooltipTextColor = '#000000',
 
@@ -217,7 +209,7 @@ define(function(require){
             getDate = ({date}) => date,
 
             // events
-            dispatcher = d3Dispatch.dispatch(
+            dispatcher = dispatch(
                 'customMouseOver',
                 'customMouseOut',
                 'customMouseMove',
@@ -232,6 +224,7 @@ define(function(require){
          * @param {areaChartData} _data The data to attach and generate the chart
          */
         function exports(_selection) {
+            exports.__selection = _selection;
             _selection.each(function(_data) {
                 const printWidth = isPrintMode ? tooltipWidth : 0;
 
@@ -262,6 +255,8 @@ define(function(require){
                     initVerticalMarker();
                 }
             });
+        
+            finalizeChart(exports);
         }
 
         /**
@@ -275,7 +270,7 @@ define(function(require){
                 highlightFilterId = createGlowWithMatrix(highlightFilter);
             }
 
-            let glowEl = d3Selection.select(el);
+            let glowEl = d3Select(el);
 
             glowEl
                 .style('stroke-width', highlightCircleActiveStrokeWidth)
@@ -346,26 +341,25 @@ define(function(require){
             if (xAxisFormat === 'custom' && typeof xAxisCustomFormat === 'string') {
                 minor = {
                     tick: xTicks,
-                    format:  d3TimeFormat.timeFormat(xAxisCustomFormat)
+                    format:  timeFormat(xAxisCustomFormat)
                 };
-                major = null;
             } else {
                 ({minor, major} = getTimeSeriesAxis(dataByDate, width, xAxisFormat, locale));
 
-                xMonthAxis = d3Axis.axisBottom(xScale)
+                xMonthAxis = axisBottom(xScale)
                     .ticks(major.tick)
                     .tickSize(0, 0)
                     .tickFormat(major.format);
             }
 
-            xAxis = d3Axis.axisBottom(xScale)
+            xAxis = axisBottom(xScale)
                 .ticks(minor.tick)
                 .tickSize(10, 0)
                 .tickPadding(tickPadding)
                 .tickFormat(minor.format);
 
 
-            yAxis = d3Axis.axisRight(yScale)
+            yAxis = axisRight(yScale)
                 .ticks(yTicks)
                 .tickSize([0])
                 .tickPadding(tickPadding)
@@ -417,7 +411,7 @@ define(function(require){
          */
         function buildLayers() {
             dataByDateFormatted = dataByDate
-                .map(d => assign({}, d, d.values))
+                .map(d => Object.assign({}, d, d.values))
                 .map(d => {
                     Object.keys(d).forEach(k => {
                         const entry = d[k];
@@ -427,13 +421,13 @@ define(function(require){
                         }
                     });
 
-                    return assign({}, d, {
+                    return Object.assign({}, d, {
                         date: new Date(d['key'])
                     });
                 });
 
             dataByDateZeroed = dataByDate
-                .map(d => assign({}, d, d.values))
+                .map(d => Object.assign({}, d, d.values))
                 .map(d => {
                     Object.keys(d).forEach(k => {
                         const entry = d[k];
@@ -443,27 +437,27 @@ define(function(require){
                         }
                     });
 
-                    return assign({}, d, {
+                    return Object.assign({}, d, {
                         date: new Date(d['key'])
                     });
                 });
 
             let initialTotalsObject = uniq(data.map(getName))
                                         .reduce((memo, key) => (
-                                            assign({}, memo, {[key]: 0})
+                                            Object.assign({}, memo, {[key]: 0})
                                         ), {});
 
             let totals = data
                 .reduce((memo, item) => (
-                    assign({}, memo, {[item.name]: memo[item.name] += item.value})
+                    Object.assign({}, memo, {[item.name]: memo[item.name] += item.value})
                 ), initialTotalsObject);
 
             order = topicsOrder || formatOrder(totals);
 
-            let stack3 = d3Shape.stack()
+            let stack3 = stack()
                 .keys(order)
-                .order(d3Shape.stackOrderNone)
-                .offset(d3Shape.stackOffsetNone);
+                .order(stackOrderNone)
+                .offset(stackOffsetNone);
 
             layersInitial = stack3(dataByDateZeroed);
             layers = stack3(dataByDateFormatted);
@@ -503,17 +497,17 @@ define(function(require){
         function buildScales() {
             const maxValueByDate = isUsingFakeData ? emptyDataConfig.maxY : getMaxValueByDate();
 
-            xScale = d3Scale.scaleTime()
-                .domain(d3Array.extent(dataByDate, ({date}) => date))
+            xScale = scaleTime()
+                .domain(extent(dataByDate, ({date}) => date))
                 .rangeRound([0, chartWidth]);
 
-            yScale = d3Scale.scaleLinear()
+            yScale = scaleLinear()
                 .domain([0, maxValueByDate])
                 .rangeRound([chartHeight, 0])
                 .nice();
 
             categoryColorMap =  order.reduce((memo, topic, index) => (
-                assign({}, memo, {[topic]: colorSchema[index]})
+                Object.assign({}, memo, {[topic]: colorSchema[index]})
             ), {});
 
             hiddenAreaMap = getAreaVisibility();
@@ -525,7 +519,7 @@ define(function(require){
          */
         function buildSVG(container) {
             if (!svg) {
-                svg = d3Selection.select(container)
+                svg = d3Select(container)
                     .append('svg')
                     .classed('britechart stacked-area', true);
 
@@ -541,6 +535,7 @@ define(function(require){
             svg
                 .attr('width', width)
                 .attr('height', height);
+            noteChartRender(exports, svg, container);
         }
 
         /**
@@ -548,7 +543,7 @@ define(function(require){
          * @return {array}      Fake data built from emptyDataConfig settings
          */
         function createFakeData() {
-            const numDays = diffDays(emptyDataConfig.minDate, emptyDataConfig.maxDate)
+            const numDays = diffDays(emptyDataConfig.minDate, emptyDataConfig.maxDate);
             const emptyArray = Array.apply(null, Array(numDays));
 
             isUsingFakeData = true;
@@ -580,7 +575,7 @@ define(function(require){
 
             return originalData.reduce((acc, d) => {
                 d.date = new Date(d[dateLabel]),
-                d.value = +d[valueLabel]
+                d.value = +d[valueLabel];
 
                 return [...acc, d];
             }, []);
@@ -619,11 +614,11 @@ define(function(require){
                                 .attr('y', yAxisLabelOffset)
                                 .attr('text-anchor', 'middle')
                                 .attr('transform', 'rotate(270 0 0)')
-                                .text(yAxisLabel)
+                                .text(yAxisLabel);
                 }
 
             // Moving the YAxis tick labels to the right side
-            // d3Selection.selectAll('.y-axis-group .tick text')
+            // d3SelectAll('.y-axis-group .tick text')
             //     .attr('transform', `translate( ${-chartWidth - yTickTextXOffset}, ${yTickTextYOffset})` );
         }
 
@@ -635,44 +630,6 @@ define(function(require){
         function adjustYTickLabels(selection) {
             selection.selectAll('.tick text')
                 .attr('transform', `translate(${yTickTextXOffset}, ${yTickTextYOffset})`);
-        }
-
-        /**
-         * Creates SVG dot elements for each data entry and draws them
-         * TODO: Plug
-         */
-        function drawDataReferencePoints() {
-            // Creates Dots on Data points
-            var points = svg.select('.chart-group').selectAll('.dots')
-                .data(layers)
-                .enter()
-                  .append('g')
-                    .attr('class', 'dots')
-                    .attr('d', ({values}) => area(values))
-                    .attr('clip-path', 'url(#clip)');
-
-            // Processes the points
-            // TODO: Optimize this code
-            points.selectAll('.dot')
-                .data(({values}, index) => values.map((point) => ({index, point})))
-                .enter()
-                  .append('circle')
-                    .attr('class','dot')
-                    .attr('r', () => pointsSize)
-                    .attr('fill', () => pointsColor)
-                    .attr('stroke-width', '0')
-                    .attr('stroke', pointsBorderColor)
-                    .attr('transform', function(d) {
-                        let {point} = d;
-                        let key = xScale(point.date);
-
-                        dataPoints[key] = dataPoints[key] || [];
-                        dataPoints[key].push(d);
-
-                        let {date, y, y0} = point;
-
-                        return `translate( ${xScale(date)}, ${yScale(y + y0)} )`;
-                    });
         }
 
         /**
@@ -737,7 +694,6 @@ define(function(require){
                 .text(tooltipRightText);
 
             textHeight = elementText.node().getBBox().height;
-            tooltipHeight += textHeight + tooltipTextLinePadding;
             // update the width if it exists because IE renders the elements
             // too slow and cant figure out the width?
             tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
@@ -763,7 +719,7 @@ define(function(require){
             tooltipLeftText = 'Total';
             tooltipRightText = total.toLocaleString();
 
-            tooltipDivider = tooltipBody
+            tooltipBody
                 .append('line')
                 .classed('tooltip-divider', true)
                 .attr('x1', ttTextX - 28)
@@ -797,7 +753,6 @@ define(function(require){
 
             textHeight = elementText.node().getBBox().height;
 
-            tooltipHeight += textHeight + tooltipTextLinePadding;
             // update the width if it exists because IE renders the elements
             // too slow and cant figure out the width?
             tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
@@ -828,7 +783,7 @@ define(function(require){
                     dy,
                     tspan;
 
-                text = d3Selection.select(this);
+                text = d3Select(this);
 
                 words = text.text().split(/\s+/).reverse();
                 line = [];
@@ -848,7 +803,7 @@ define(function(require){
                     tspan.text(line.join(' '));
 
                     // fixes for IE wrap text issue
-                    const textWidth = textHelper.getTextWidth(line.join(' '), fontSize, 'Karla, sans-serif');
+                    const textWidth = getTextWidth(line.join(' '), fontSize, 'Karla, sans-serif');
 
                     if (textWidth > width) {
                         line.pop();
@@ -878,7 +833,7 @@ define(function(require){
                 .remove();
 
             if (grid === 'horizontal' || grid === 'full') {
-                horizontalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.horizontal-grid-line')
                     .data(yScale.ticks(yTicks))
                     .enter()
@@ -891,7 +846,7 @@ define(function(require){
             }
 
             if (grid === 'vertical' || grid === 'full') {
-                verticalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.vertical-grid-line')
                     .data(xScale.ticks(xTicks))
                     .enter()
@@ -904,7 +859,7 @@ define(function(require){
             }
 
             //draw a horizontal line to extend x-axis till the edges
-            baseLine = svg.select('.grid-lines-group')
+            svg.select('.grid-lines-group')
                 .selectAll('line.extended-x-line')
                 .data([0])
                 .enter()
@@ -942,7 +897,7 @@ define(function(require){
          * @private
          */
         function drawEmptyDataLine() {
-            let emptyDataLine = d3Shape.line()
+            let emptyDataLine = d3Line()
                 .x( (d) => xScale(d.date) )
                 .y( () => yScale(0) - 1 );
 
@@ -991,13 +946,13 @@ define(function(require){
                 return;
             }
 
-            area = d3Shape.area()
+            area = d3Area()
                 .curve(curveMap[areaCurve])
                 .x(({data})=> xScale(data.date))
                 .y0((d) => yScale(d[0]))
                 .y1((d) => yScale(d[1]));
 
-            areaOutline = d3Shape.line()
+            areaOutline = d3Line()
                 .curve(area.curve())
                 .x(({data}) => xScale(data.date))
                 .y((d) => yScale(d[1]));
@@ -1126,7 +1081,7 @@ define(function(require){
                 .style('fill', textFillColor)
                 .style('font-size', '12px');
 
-            tooltipDivider = tooltipTextContainer
+            tooltipTextContainer
                 .append('line')
                 .classed('tooltip-divider', true)
                 .attr('x1', ttTextX - 28)
@@ -1212,14 +1167,14 @@ define(function(require){
          * @private
          */
         function getDataByDate(data) {
-            // Replace d3Collection.nest() with d3Array.group()
-            const groupedByDate = d3Array.group(
+            // Replace d3Collection.nest() with group()
+            const groupedByDate = group(
                 data.sort((a, b) => a.date - b.date),
                 getDate
             );
 
             return Array.from(groupedByDate, ([key, values]) => {
-                return assign({}, {
+                return Object.assign({}, {
                     key,
                     values,
                     date: new Date(key)
@@ -1234,10 +1189,10 @@ define(function(require){
          */
         function getMaxValueByDate() {
             let keys = uniq(data.map(o => o.name));
-            let maxValueByDate = d3Array.max(dataByDateFormatted, function(d){
+            let maxValueByDate = d3Max(dataByDateFormatted, function(d){
                 let vals = keys.map((key) => d[key]);
 
-                return d3Array.sum(vals);
+                return d3Sum(vals);
             });
 
             return maxValueByDate;
@@ -1250,7 +1205,7 @@ define(function(require){
             names.forEach(n=>{
                 const needle = data.find(o=>o.name === n);
 
-                if (needle.hasOwnProperty('show')){
+                if (Object.hasOwn(needle, 'show')){
                     visibleAreas[n] = needle.show;
                 } else {
                     // default for old data
@@ -1292,7 +1247,7 @@ define(function(require){
         function handleMouseMove(element, event) {
             epsilon || setEpsilon();
 
-            let [xPosition, yPosition] = d3Selection.pointer(event, element),
+            let [xPosition, yPosition] = pointer(event, element),
                 dataPoint = getNearestDataPoint(xPosition - margin.left),
                 dataPointXPosition;
 
@@ -1336,7 +1291,7 @@ define(function(require){
             verticalMarkerLine.classed('bc-is-active', false);
             // don't hide vertical marker
             //verticalMarkerContainer.attr('transform', 'translate(9999, 0)');
-            dispatcher.call('customMouseOut', element, event, d3Selection.pointer(event, element));
+            dispatcher.call('customMouseOut', element, event, pointer(event, element));
         }
 
         /**
@@ -1347,7 +1302,7 @@ define(function(require){
             overlay.style('display', 'block');
             verticalMarkerLine.classed('bc-is-active', true);
 
-            dispatcher.call('customMouseOver', element, event, d3Selection.pointer(event, element));
+            dispatcher.call('customMouseOver', element, event, pointer(event, element));
         }
 
         /**
@@ -1356,7 +1311,7 @@ define(function(require){
          * @private
          */
         function handleTouchMove(element, event) {
-            dispatcher.call('customTouchMove', element, event, d3Selection.pointer(event, element));
+            dispatcher.call('customTouchMove', element, event, pointer(event, element));
         }
 
         /**
@@ -1365,7 +1320,7 @@ define(function(require){
          * @private
          */
         function handleHighlightClick(element, event) {
-            dispatcher.call('customDataEntryClick', element, event, d3Selection.pointer(event, element));
+            dispatcher.call('customDataEntryClick', element, event, pointer(event, element));
         }
 
         /**
@@ -1400,11 +1355,11 @@ define(function(require){
                             return hiddenAreaMap[key] ? areaOpacity : 0;
                         })
                         .style('cursor', 'pointer')
-                        .on('click', function(event, clickedData) {
+                        .on('click', function(event) {
                             addGlowFilter(this);
                             handleHighlightClick(this, event, d);
                         })
-                        .on('mouseout', function(event) {
+                        .on('mouseout', function() {
                             removeFilter(this);
                         });
 
@@ -1428,7 +1383,7 @@ define(function(require){
          * @param {DOMElement} point  Point to reset
          */
         function removeFilter(point) {
-            d3Selection.select(point)
+            d3Select(point)
                 .attr('filter', 'none');
         }
 
@@ -1461,7 +1416,7 @@ define(function(require){
             areaCurve = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the opacity of the stacked areas in the chart (all of them will have the same opacity)
@@ -1569,7 +1524,7 @@ define(function(require){
             hasOutline = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the height of the chart
@@ -1762,8 +1717,8 @@ define(function(require){
 
         /**
          * Gets or Sets the valueLabel of the chart
-         * @param  {Number} _x Desired valueLabel for the graph
-         * @return {Number | module} Current valueLabel or Chart module to chain calls
+         * @param  {String} _x Desired valueLabel for the graph
+         * @return {String | module} Current valueLabel or Chart module to chain calls
          * @public
          */
         exports.valueLabel = function(_x) {
@@ -1895,7 +1850,53 @@ define(function(require){
             return this;
         };
 
-        return exports;
-    };
+        
+        /**
+         * Redraw when the parent container changes size.
+         * @param {Boolean} [_x] true to follow the container with a ResizeObserver
+         * @return {Boolean|module} Current flag or the chart for chaining
+         * @public
+         */
+        exports.autoResize = function (_x) {
+            if (!arguments.length) {
+                return !!exports.__autoResize;
+            }
+            exports.__autoResize = !!_x;
+            bindAutoResize(exports);
 
-});
+            return this;
+        };
+
+        /**
+         * Sets the accessible name announced for the chart.
+         * @param {String} [_x] Label rendered in the SVG title
+         * @return {String|module} Current label or the chart for chaining
+         * @public
+         */
+        exports.ariaLabel = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaLabel || null;
+            }
+            exports.__ariaLabel = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible description announced for the chart.
+         * @param {String} [_x] Description rendered in the SVG desc
+         * @return {String|module} Current description or the chart for chaining
+         * @public
+         */
+        exports.ariaDescription = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaDescription || null;
+            }
+            exports.__ariaDescription = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+return exports;
+    };

@@ -1,4 +1,8 @@
-define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
+import { loadTestContainer, clearTestContainer, createSpy } from '../support.js';
+import * as d3 from 'd3';
+import chart from '../../src/charts/row.js';
+import dataBuilder from '../fixtures/rowChartDataBuilder.js';
+
     'use strict';
 
     const aTestDataSet = () => new dataBuilder.RowDataBuilder();
@@ -17,9 +21,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
             rowChart = chart();
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container');
             containerFixture.datum(dataset).call(rowChart);
@@ -27,9 +29,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -140,7 +140,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
             describe('when clicking on a row', () => {
 
                 it('should trigger a callback on mouse click', () => {
-                    const callbackSpy = jasmine.createSpy('callback');
+                    const callbackSpy = createSpy();
                     const row = containerFixture.select('.bg:first-child');
                     const expectedCalls = 1;
                     const expectedArgumentsNumber = 3;
@@ -163,7 +163,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
                     row
 
                 beforeEach(()=>{
-                    callbackSpy = jasmine.createSpy('callback');
+                    callbackSpy = createSpy();
                 })
 
                 it('should trigger a callback on mouse over', () => {
@@ -691,9 +691,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
             rowChart = chart().enableLabels(true);
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container');
             containerFixture.datum(dataset).call(rowChart);
@@ -701,9 +699,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -734,9 +730,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
                         .wrapLabels(false);
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container');
             containerFixture.datum(dataset).call(rowChart);
@@ -744,9 +738,7 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -759,4 +751,3 @@ define(['d3', 'row', 'rowChartDataBuilder'], function(d3, chart, dataBuilder) {
             });
         });
     });
-});

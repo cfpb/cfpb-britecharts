@@ -1,4 +1,4 @@
-define(function() {
+
 
     // Color Gradients
     const colorGradients = {
@@ -184,12 +184,21 @@ define(function() {
         purpleColor: 'Purple',
     };
 
-    return {
-        colorSchemas,
-        colorSchemasHuman,
-        colorGradients,
-        colorGradientsHuman,
-        singleColors,
-        singleColorsHuman,
-    };
-});
+
+export {
+    colorSchemas,
+    colorSchemasHuman,
+    colorGradients,
+    colorGradientsHuman,
+    singleColors,
+    singleColorsHuman,
+};
+
+export default {
+    colorSchemas,
+    colorSchemasHuman,
+    colorGradients,
+    colorGradientsHuman,
+    singleColors,
+    singleColorsHuman,
+};

@@ -1,16 +1,7 @@
-define(function(require) {
-    'use strict';
-    const {colorSchemas} = require('./color');
-    const constants = require('./constants');
-    const serializeWithStyles = require('./style');
+import { colorSchemas } from './color.js';
+import { initializeSerializer } from './style.js';
 
-    const isBrowser = (typeof window !== 'undefined');
-
-    let encoder = isBrowser && window.btoa;
-
-    if (!encoder) {
-        encoder = require('base-64').encode;
-    }
+    const encoder = globalThis.btoa;
 
     // Base64 doesn't work really well with Unicode strings, so we need to use this function
     // Ref: https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
@@ -73,7 +64,7 @@ define(function(require) {
 
         d3svg.attr('version', 1.1)
             .attr('xmlns', 'http://www.w3.org/2000/svg');
-        let serializer = serializeWithStyles.initializeSerializer();
+        let serializer = initializeSerializer();
         let html = serializer(d3svg.node());
 
         html = formatHtmlByBrowser(html);
@@ -183,10 +174,17 @@ define(function(require) {
         return html;
     }
 
-    return {
-        exportChart,
-        convertSvgToHtml,
-        createImage,
-        drawImageOnCanvas
-    };
-});
+
+export {
+    exportChart,
+    convertSvgToHtml,
+    createImage,
+    drawImageOnCanvas,
+};
+
+export default {
+    exportChart,
+    convertSvgToHtml,
+    createImage,
+    drawImageOnCanvas,
+};

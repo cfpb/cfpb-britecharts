@@ -1,4 +1,4 @@
-define(function() {
+
 
     const linearGradient = `
             <defs>
@@ -35,19 +35,6 @@ define(function() {
                         </g>
                     </g>
                     <polygon fill="#D2D6DF" fill-rule="nonzero" points="0 295 711 295 711 294 0 294"/>
-                </g>
-                <rect class="chart-filter" fill="url(#lgrad)" x="-100%" y="0" width="300%" height="100%"></rect>
-            </svg>
-        `;
-    const donut = `
-            <svg class="load-state donut-load-state" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 376 331">
-                ${linearGradient}
-                <g fill="none" fill-rule="evenodd">
-                    <g transform="translate(116 107)">
-                        <circle cx="72" cy="72" r="72" stroke="#EFF2F5" stroke-linecap="round" stroke-width="9.6"/>
-                        <path stroke="#D2D6DF" stroke-width="19.2" d="M126.153559,119.524055 C137.264629,106.845712 144,90.2321371 144,72.0444604 C144,32.2554036 111.764502,0 72,0"/>
-                        <circle cx="72" cy="72" r="67.2" fill="#FFF"/>
-                    </g>
                 </g>
                 <rect class="chart-filter" fill="url(#lgrad)" x="-100%" y="0" width="300%" height="100%"></rect>
             </svg>
@@ -128,11 +115,17 @@ define(function() {
             </svg>
         `;
 
-    return {
-        bar,
-        donut,
-        line,
-        row,
-        stackedArea
-    };
-});
+
+export {
+    bar,
+    line,
+    row,
+    stackedArea,
+};
+
+export default {
+    bar,
+    line,
+    row,
+    stackedArea,
+};

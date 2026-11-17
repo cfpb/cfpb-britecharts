@@ -1,6 +1,6 @@
-define(function(require) {
+import { select } from 'd3-selection';
 
-    const d3Selection = require('d3-selection');
+    
 
     const wrapConfig = {
         lineHeight: 1.2,
@@ -26,7 +26,7 @@ define(function(require) {
      * @return {void}
      */
     const wrapText = function(xOffset, fontSize, availableWidth, node) {
-        let text = d3Selection.select(node),
+        let text = select(node),
             words = text.text().split(/\s+/).reverse(),
             word,
             line = [],
@@ -50,7 +50,9 @@ define(function(require) {
             .attr('dy', ++lineNumber * smallLineHeight + dy + 'em')
             .style('font-size', smallFontSize + 'px');
 
-        while (word = words.pop()) {
+        word = words.pop();
+
+        while (word) {
             line.push(word);
             tspan.text(line.join(' '));
             if (tspan.node() && tspan.node().getComputedTextLength() > availableWidth - 50) {
@@ -65,6 +67,8 @@ define(function(require) {
                     .text(word)
                     .style('font-size', smallFontSize + 'px');
             }
+
+            word = words.pop();
         }
     };
 
@@ -91,7 +95,7 @@ define(function(require) {
                 dy,
                 tspan;
 
-            text = d3Selection.select(this);
+            text = select(this);
 
             words = text.text().split(/\s+/).reverse();
             line = [];
@@ -147,11 +151,17 @@ define(function(require) {
         b.font = fontSize + 'px ' + fontFace;
 
         return b.measureText(text).width;
-    }
-
-    return {
-        getTextWidth,
-        wrapText,
-        wrapTextWithEllipses
     };
-});
+
+
+export {
+    getTextWidth,
+    wrapText,
+    wrapTextWithEllipses,
+};
+
+export default {
+    getTextWidth,
+    wrapText,
+    wrapTextWithEllipses,
+};

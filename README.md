@@ -9,10 +9,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 [![Twitter Follow](https://img.shields.io/twitter/follow/britecharts.svg?style=social&label=Follow)](https://twitter.com/Britecharts/followers)
 
-| [![Bar Chart][barchartimg]][barchartdemo]                       | [![Line Chart][linechartimg]][linechartdemo]                            | [![Donut Chart][donutchartimg]][donutchartdemo]                 |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [![Stacked Bar Chart][stackedbarchartimg]][stackedbarchartdemo] | [![Stacked Area Chart][stackedareachartlargeimg]][stackedareachartdemo] | [![Grouped Bar Chart][groupedbarchartimg]][groupedbarchartdemo] |
-| [![Sparkline Chart][sparklinechartimg]][sparklinechartdemo]     | [![Legend Chart][legendchartimg]][donutchartdemo]                       | [![Brush Chart][brushchartimg]][brushchartdemo]                 |
+| [![Line Chart][linechartimg]][linechartdemo] | [![Stacked Area Chart][stackedareachartlargeimg]][stackedareachartdemo] | [Row Chart][rowchartdemo] |
+| ------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------- |
 
 Britecharts [components][32] have been written in ES2016 with a Test Driven methodology, so they are **fully tested**, and we are committed to keeping them that way.
 
@@ -26,37 +24,28 @@ Britecharts [components][32] have been written in ES2016 with a Test Driven meth
 
 The typical use of Britecharts involves creating a chart using its simple API, then rendering it on a container which has previously had data applied to it. The code will look like this:
 
-    barChart
+    lineChart
         .width(500)
         .height(300);
 
-    barContainer.datum(dataset).call(barChart);
+    lineContainer.datum(dataset).call(lineChart);
 
 ## API
 
 All the components expose some **common API methods** like width, height, and margin. Additionally, each chart or component can expose specific methods you can find in the documentation:
 
 -   [API][25], [Demo][linechartdemo] Line Chart
--   [API][22], [Demo][barchartdemo] Bar Chart
--   [API][21], [Demo][donutchartdemo] Donut Chart
--   [API][38], [Demo][stackedbarchartdemo] Stacked Bar Chart
--   [API][40], [Demo][groupedbarchartdemo] Grouped Bar Chart
--   [API][43], [Demo][bulletchartdemo] Bullet Chart
--   [API][23], [Demo][brushchartdemo] Brush Chart
--   [API][41], [Demo][scatterplotdemo] Scatter Plot
--   [API][29], [Demo][sparklinechartdemo] Sparkline Chart
 -   [API][30], [Demo][stackedareachartdemo] Stacked Area Chart
--   [API][28], [Demo][stepchartdemo] Step Chart
--   [API][26], [Demo][barchartdemo] Mini Tooltip
+-   [Demo][rowchartdemo] Row Chart
 -   [API][27], [Demo][linechartdemo] Tooltip
--   [API][24], [Demo][donutchartdemo] Legend
+-   [API][26], [Demo][rowchartdemo] Mini Tooltip
 
 ## Installation
 
 Britecharts components are distributed in **UMD modules**, each one exposing a D3.js component written with the [Reusable API pattern][3]. To use any of the Britecharts modules, you will need to require the chart in your JS file using AMD/CommonJS modules or adding a script tag with the `src` pointing to the file. You would also need to load the [d3-selection][37] submodule to select the chart container.
 
 ```
-   npm install britecharts d3-selection
+   npm install cfpb-britecharts d3
 ```
 
 You can also load Britecharts from our [CDN][cdnhome] as we do in this [demo][cdndemo] page or play around in our [JSBin][jsbinsandbox] and [CodePen][codependemos] demo projects.
@@ -133,14 +122,9 @@ Read more in the [license document][15]
 [19]: https://bleedingedgepress.com/our-books/developing-a-d3-js-edge/
 [20]: https://www.packtpub.com/web-development/mastering-d3js
 [21]: http://localhost:8001/module-Donut.html
-[22]: http://localhost:8001/module-Bar.html
-[23]: http://localhost:8001/module-Brush.html
-[24]: http://localhost:8001/module-Legend.html
 [25]: http://localhost:8001/module-Line.html
 [26]: http://localhost:8001/module-Mini-tooltip.html
 [27]: http://localhost:8001/module-Tooltip.html
-[28]: http://localhost:8001/module-Step.html
-[29]: http://localhost:8001/module-Sparkline.html
 [30]: http://localhost:8001/module-Stacked-area.html
 [31]: http://localhost:8001/
 [32]: http://localhost:8001/demos/kitchen-sink.html
@@ -149,11 +133,6 @@ Read more in the [license document][15]
 [35]: https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md
 [36]: http://localhost:8001/img/logo-stripes-small.png
 [37]: https://github.com/d3/d3-selection
-[38]: http://localhost:8001/module-Stacked-bar.html
-[40]: http://localhost:8001/module-Grouped-bar.html
-[41]: http://localhost:8001/module-Scatter-plot.html
-[42]: https://scrimba.com/casts/cZWm2tb
-[43]: http://localhost:8001/module-Bullet.html
 [cdndemo]: http://localhost:8001/cdn.html
 [cdnhome]: https://cdn.jsdelivr.net/npm/britecharts/dist/
 [jsbinsandbox]: https://jsbin.com/wativun/3/edit?html,js,output
@@ -167,30 +146,11 @@ Read more in the [license document][15]
 [d3slack]: https://d3js.slack.com/
 [proposals]: https://github.com/eventbrite/britecharts/issues?q=is%3Aissue+is%3Aopen+label%3Aproposal
 [release3project]: https://github.com/eventbrite/britecharts/projects/2
-[barchartdemo]: http://localhost:8001/demos/bar.html "Check the Demo"
 [linechartdemo]: http://localhost:8001/demos/line.html "Check the Demo"
-[donutchartdemo]: http://localhost:8001/demos/donut.html "Check the Demo"
-[scatterplotdemo]: http://localhost:8001/demos/scatter-plot.html "Check the Demo"
-[sparklinechartdemo]: http://localhost:8001/demos/sparkline.html "Check the Demo"
+[rowchartdemo]: http://localhost:8001/demos/row.html "Check the Demo"
 [stackedareachartdemo]: http://localhost:8001/demos/stacked-area.html "Check the Demo"
-[stepchartdemo]: http://localhost:8001/demos/step.html "Check the Demo"
-[brushchartdemo]: http://localhost:8001/demos/brush.html "Check the Demo"
-[bulletchartdemo]: http://localhost:8001/demos/bullet.html "Check the Demo"
-[stackedbarchartdemo]: http://localhost:8001/demos/stacked-bar.html "Check the Demo"
-[groupedbarchartdemo]: http://localhost:8001/demos/grouped-bar.html "Check the Demo"
-[stackedareademo]: http://localhost:8001-react/#stacked-area-chart "Check the Demo"
-[stackedareaimg]: https://raw.githubusercontent.com/eventbrite/britecharts-react/master/src/docs/images/thumbnails/stacked-area.png
-[barchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/bar-chart.png
 [linechartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/line-chart.png
-[donutchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/donut-chart.png
-[sparklinechartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/sparkline-chart.png
-[stackedareachartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/stacked-area-chart.png
 [stackedareachartlargeimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/stacked-area-chart-large.png
-[stepchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/step-chart.png
-[brushchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/brush-chart.png
-[stackedbarchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/stacked-bar-chart.png
-[groupedbarchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/grouped-bar-chart.png
-[legendchartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/legend-chart.png
 [tutorialsindex]: http://localhost:8001/tutorials-index.html
 [howtoindex]: http://localhost:8001/how-to-index.html
 [topicsindex]: http://localhost:8001/topics-index.html

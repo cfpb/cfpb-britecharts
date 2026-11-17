@@ -6,64 +6,10 @@ module.exports = (function() {
     return {
         chartDependencies: [
             'helpers/color',
-            'legend',
             'tooltip',
             'mini-tooltip'
         ],
         chartConfigs: {
-            bar: {
-                ...baseConfig,
-                chartConfig: {
-                    width: 400,
-                    height: 300
-                },
-                initialDataType: 'basicBar',
-            },
-            brush: {
-                ...baseConfig,
-                chartConfig: {
-                    width: 300,
-                    height: 150
-                },
-                initialDataType: 'basicBrush'
-            },
-            donut: {
-                ...baseConfig,
-                chartConfig: {
-                    width: 300,
-                    height: 300,
-                },
-                initialDataType: 'basicDonut',
-            },
-            'grouped-bar': {
-                ...baseConfig,
-                chartConfig: {
-                    margin: {
-                        top: 20,
-                        bottom: 20,
-                        left: 20,
-                        right: 20
-                    },
-                    width: 300,
-                    height: 300
-                },
-                initialDataType: 'basicGroupedBar'
-            },
-            legend: {
-                ...baseConfig,
-                chartConfig: {
-                    isHorizontal: true,
-                    margin: {
-                        top: 20,
-                        bottom: 20,
-                        left: 20,
-                        right: 20
-                    },
-                    width: 300,
-                    height: 300
-                },
-                initialDataType: 'basicLegend'
-            },
             line: {
                 ...baseConfig,
                 chartConfig: {
@@ -79,23 +25,6 @@ module.exports = (function() {
                 initialDataType: 'basicLine',
                 tooltipSelector: '.metadata-group .hover-marker'
             },
-            sparkline: {
-                ...baseConfig,
-                chartConfig: {
-                    width: 300,
-                    height: 150
-                },
-                initialDataType: 'basicSparkLine'
-            },
-            step: {
-                ...baseConfig,
-                chartConfig: {
-                    width: 400,
-                    height: 275
-                },
-                initialDataType: 'basicStep',
-
-            },
             'stacked-area': {
                 ...baseConfig,
                 chartConfig: {
@@ -103,15 +32,6 @@ module.exports = (function() {
                     height:300
                 },
                 initialDataType: 'basicStackedArea',
-                tooltipSelector: '.metadata-group .vertical-marker-container'
-            },
-            'scatter-plot': {
-                ...baseConfig,
-                chartConfig: {
-                    width: 500,
-                    height:300
-                },
-                initialDataType: 'basicScatterPlot',
                 tooltipSelector: '.metadata-group .vertical-marker-container'
             }
         },

@@ -4,8 +4,8 @@ const d3Scale = require('d3-scale');
 const d3Selection = require('d3-selection');
 const PubSub = require('pubsub-js');
 
-const row = require('./../../src/charts/row');
-const miniTooltip = require('./../../src/charts/mini-tooltip');
+const row = require('./../../src/charts/row').default;
+const miniTooltip = require('./../../src/charts/mini-tooltip').default;
 const colors = require('./../../src/charts/helpers/color');
 const dataBuilder = require('./../../test/fixtures/rowChartDataBuilder');
 

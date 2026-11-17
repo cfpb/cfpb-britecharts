@@ -1,76 +1,60 @@
-define([
-    'underscore',
-    'jquery',
-    'd3',
-    'legend',
-    'donutChartDataBuilder',
-    'lineChartDataBuilder',
-    'helpers/style',
-    'helpers/text',
-    'helpers/number',
-    'helpers/date',
-    'helpers/export',
-    'helpers/axis',
-    'helpers/locale'
-], function (
-    _,
-    $,
-    d3,
-    legend,
-    donutDataBuilder,
-    lineDataBuilder,
-    style,
-    textHelper,
-    number,
-    date,
-    exportChart,
-    axis,
-    locale
-) {
+import { loadTestContainer, clearTestContainer } from '../support.js';
+import $ from 'jquery';
+import * as d3 from 'd3';
+import lineDataBuilder from '../fixtures/lineChartDataBuilder.js';
+import style from '../../src/charts/helpers/style.js';
+import textHelper from '../../src/charts/helpers/text.js';
+import number from '../../src/charts/helpers/number.js';
+import date from '../../src/charts/helpers/date.js';
+import exportChart from '../../src/charts/helpers/export.js';
+import axis from '../../src/charts/helpers/axis.js';
+import locale from '../../src/charts/helpers/locale.js';
+
     'use strict';
 
     const randomColor = 'rgb(222,163,12)';
     let f, containerFixture, styles, node;
 
-    const aDonutTestDataSet = () => new donutDataBuilder.DonutDataBuilder();
     const aLineTestDataSet = () => new lineDataBuilder.LineDataBuilder();
+    const chartStub = {
+        margin() {
+            return { top: 0, right: 0, bottom: 0, left: 10 };
+        }
+    };
 
     describe('Helpers', () => {
 
         beforeEach(() => {
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
             containerFixture = $('.test-container');
         });
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('style', () => {
             let styledHTML;
+            let serializer;
 
             beforeEach(() => {
                 containerFixture.append($('<span></span>', { class: 'child' }));
 
-                this.serializer = style.initializeSerializer();
+                serializer = style.initializeSerializer();
                 styles = document.createElement('style');
                 styles.innerHTML = `.child{background:${randomColor};}`;
                 document.body.appendChild(styles);
             });
 
             afterEach(() => {
-                this.serializer = null;
+                serializer = null;
                 document.body.removeChild(styles);
             });
 
             it('should expect serializer to be defined', () => {
                 const expected = 'function';
-                const actual = typeof this.serializer;
+                const actual = typeof serializer;
 
                 expect(actual).toEqual(expected);
             });
@@ -79,7 +63,7 @@ define([
                 let actual;
                 node = containerFixture[0];
 
-                styledHTML = this.serializer(node).replace(' ', '');
+                styledHTML = serializer(node).replace(' ', '');
                 actual = styledHTML.indexOf(randomColor).length;
 
                 expect(styledHTML).not.toBe(node.outerHTML.replace(' ', ''));
@@ -164,21 +148,16 @@ define([
         describe('export chart', () => {
             const regularHTML = '<svg class="britechart britechart-legend" width="200" version="1.1" xmlns="http://www.w3.org/2000/svg"><style>svg{background:white;}</style><text x="0" y="30" font-family="Benton Sans, sans-serif" font-size="15px" fill="#45494E"> test title </text><g  class="legend-container-group" transform="translate(0,0)"><g class="legend-group"><g class="legend-line" data-item="1" transform="translate(26,25.714285714285715)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(106, 237, 199); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 30px; perspective-origin: 15px 7px;">Shiny</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">86.0000</text></g><g class="legend-line" data-item="2" transform="translate(26,51.42857142857143)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(57, 194, 201); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 40.3125px; perspective-origin: 20.1562px 7px;">Blazing</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">300.000</text></g><g class="legend-line" data-item="3" transform="translate(26,77.14285714285714)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(255, 206, 0); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 46.8125px; perspective-origin: 23.4062px 7px;">Dazzling</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">276.000</text></g><g class="legend-line" data-item="4" transform="translate(26,102.85714285714286)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(255, 167, 26); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 40.3281px; perspective-origin: 20.1562px 7px;">Radiant</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">195.000</text></g><g class="legend-line" data-item="5" transform="translate(26,128.57142857142858)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(248, 102, 185); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 50.6562px; perspective-origin: 25.3281px 7px;">Sparkling</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">36.0000</text></g><g class="legend-line" data-item="0" transform="translate(26,154.28571428571428)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(153, 140, 227); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 29.3438px; perspective-origin: 14.6719px 7px;">Other</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">814.000</text></g></g></g></svg>';
             const specialHTML = '<svg class="britechart britechart-legend" width="200" version="1.1" xmlns="http://www.w3.org/2000/svg"><style>svg{background:white;}</style><text x="0" y="30" font-family="Benton Sans, sans-serif" font-size="15px" fill="#45494E"> XXIV CONGRESO ARGENTINO DE HIPERTENSIÓN ARTERIAL </text><g  class="legend-container-group" transform="translate(0,0)"><g class="legend-group"><g class="legend-line" data-item="1" transform="translate(26,25.714285714285715)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(106, 237, 199); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 30px; perspective-origin: 15px 7px;">Shiny</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">86.0000</text></g><g class="legend-line" data-item="2" transform="translate(26,51.42857142857143)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(57, 194, 201); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 40.3125px; perspective-origin: 20.1562px 7px;">Blazing</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">300.000</text></g><g class="legend-line" data-item="3" transform="translate(26,77.14285714285714)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(255, 206, 0); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 46.8125px; perspective-origin: 23.4062px 7px;">Dazzling</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">276.000</text></g><g class="legend-line" data-item="4" transform="translate(26,102.85714285714286)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(255, 167, 26); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 40.3281px; perspective-origin: 20.1562px 7px;">Radiant</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">195.000</text></g><g class="legend-line" data-item="5" transform="translate(26,128.57142857142858)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(248, 102, 185); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 50.6562px; perspective-origin: 25.3281px 7px;">Sparkling</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">36.0000</text></g><g class="legend-line" data-item="0" transform="translate(26,154.28571428571428)"><circle class="legend-circle" cx="0" cy="-5" r="8" style="fill: rgb(153, 140, 227); stroke-width: 1; cy: -5px; r: 8px;"></circle><text class="legend-entry-name" x="28" style="font-size: 12px; letter-spacing: 0.5px; display: block; height: 14px; white-space: nowrap; width: 29.3438px; perspective-origin: 14.6719px 7px;">Other</text><text class="legend-entry-value" x="280" style="font-size: 12px; letter-spacing: 0.8px; text-anchor: end; display: block; height: 14px; white-space: nowrap; width: 43.8125px; perspective-origin: 21.9062px 7px;">814.000</text></g></g></g></svg>';
-            let legendChart, dataset, containerFixture, f;
+            let containerFixture, f;
 
             beforeEach(() => {
-                dataset = aDonutTestDataSet()
-                    .withFivePlusOther()
-                    .build();
-                legendChart = legend();
-
-                f = jasmine.getFixtures();
-                f.fixturesPath = 'base/test/fixtures/';
-                f.load('testContainer.html');
+                loadTestContainer();
 
                 containerFixture = d3.select('.test-container');
-                containerFixture.datum(dataset).call(legendChart);
-                d3.select('.test-container svg').attr('width', 200);
+                containerFixture.append('svg')
+                    .attr('class', 'britechart')
+                    .attr('width', 200)
+                    .attr('height', 100);
             });
 
             xdescribe('convertSvgToHtml', () => {
@@ -188,7 +167,7 @@ define([
                     it('should add the title to the chart html', () => {
                         let expected = 1;
                         let testTitle = 'test title';
-                        let actual = exportChart.convertSvgToHtml.call(legendChart, d3.select('.test-container svg'), testTitle).match(testTitle).length;
+                        let actual = exportChart.convertSvgToHtml.call(chartStub, d3.select('.test-container svg'), testTitle).match(testTitle).length;
 
                         expect(actual).toEqual(expected);
                     });
@@ -199,7 +178,7 @@ define([
                     it('should add the title to the chart html', () => {
                         let expected = 1;
                         let testTitle = 'XXIV CONGRESO ARGENTINO DE HIPERTENSIÓN ARTERIAL';
-                        let actual = exportChart.convertSvgToHtml.call(legendChart, d3.select('.test-container svg'), testTitle).match(testTitle).length;
+                        let actual = exportChart.convertSvgToHtml.call(chartStub, d3.select('.test-container svg'), testTitle).match(testTitle).length;
 
                         expect(actual).toEqual(expected);
                     });
@@ -509,4 +488,3 @@ define([
             });
         });
     });
-});

@@ -52,24 +52,8 @@ const demosConfig = merge([
             minimize: false,
         },
     },
-    parts.babelLoader(),
 ]);
 
-
-const testConfig = merge([
-    {
-        mode: 'development',
-        resolve: {
-            modules: [
-                path.resolve(__dirname, './src/charts'),
-                path.resolve(__dirname, './test/fixtures'),
-                'node_modules',
-            ],
-        }
-    },
-    parts.babelLoader(),
-    parts.aliasD3ToVendorPath(),
-]);
 
 const sandboxConfig = merge([
     {
@@ -85,13 +69,13 @@ const sandboxConfig = merge([
         },
         resolve: {
             fallback: {
-                "path": false,
-                "fs": false,
-                "os": false,
-                "crypto": false,
-                "stream": false,
-                "buffer": false,
-                "util": false
+                'path': false,
+                'fs': false,
+                'os': false,
+                'crypto': false,
+                'stream': false,
+                'buffer': false,
+                'util': false
             }
         },
         devServer: {
@@ -104,7 +88,6 @@ const sandboxConfig = merge([
             allowedHosts: 'all',
         },
     },
-    parts.babelLoader(),
     parts.sassLoader(),
 ]);
 
@@ -124,9 +107,7 @@ const prodBundleConfig = merge([
             }
         },
     },
-    parts.babelLoader(),
     parts.aliasD3ToVendorPath(),
-    // parts.bundleTreeChart(9999),
     parts.noParseD3Vendor(),
     parts.externals(),
 ]);
@@ -135,7 +116,10 @@ const prodChartsConfig = merge([
     {
         mode: 'production',
         devtool: 'source-map',
-        entry: constants.CHARTS,
+        entry: {
+            ...constants.CHARTS,
+            useBritechart: './src/react/use-britechart.js',
+        },
         output: {
             path: path.resolve(__dirname, './dist/umd'),
             filename: '[name].min.js',
@@ -145,23 +129,17 @@ const prodChartsConfig = merge([
             }
         },
     },
-    parts.babelLoader(),
     parts.aliasD3ToVendorPath(),
-    // parts.bundleTreeChart(),
     parts.noParseD3Vendor(),
     parts.externals(),
 ]);
 
 module.exports = (env) => {
-    // eslint-disable-next-line no-console
+     
     console.log('%%%%%%%% env', env);
 
     if (env.demos || env === 'demos') {
         return demosConfig;
-    }
-
-    if (env.test || env === 'test') {
-        return testConfig;
     }
 
     if (env.sandbox || env === 'sandbox') {

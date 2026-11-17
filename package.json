@@ -1,8 +1,11 @@
 {
     "name": "cfpb-britecharts",
     "version": "2.6.0",
-    "description": "D3.js based Modular Charting Library by Eventbrite",
-    "main": "dist/bundled/britecharts.min.js",
+    "description": "Standards-based charting library for D3 v7",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "sideEffects": false,
     "contributors": [
         {
             "name": "Marcos Iglesias",
@@ -32,6 +35,7 @@
     "scripts": {
         "demos:compile": "webpack --progress --env demos",
         "demos:watch": "webpack --watch --progress --env demos",
+        "predemos:serve": "yarn docs",
         "demos:serve": "webpack serve --env demos",
         "start": "concurrently \"yarn run docs:watch\" \"yarn run demos:serve\" \"yarn run sandbox\"",
         "styles": "yarn run styles:lint && yarn run styles:build && yarn run styles:minify",
@@ -45,18 +49,21 @@
         "docs:watch": "node scripts/watch-docs.js",
         "docs:serve": "http-server ./docs -p 8001 -c-1 -o",
         "prebuild": "yarn run styles",
-        "build": "webpack --progress --env production",
+        "build:js": "tsup",
+        "build:umd": "node scripts/build-umd.mjs",
+        "build:types": "tsc -p tsconfig.build.json && node scripts/enrich-chart-types.mjs",
+        "build": "yarn build:js && yarn build:umd && yarn build:types",
         "lint": "eslint src/charts/ webpack.*.js --cache",
         "lint:fix": "eslint src/charts/ webpack.*.js --cache --fix",
-        "test": "karma start --env test",
-        "test:travis": "karma start --single-run --browsers ChromeHeadless --env test",
+        "test": "rstest run",
+        "test:coverage": "rstest run --coverage",
         "sandbox:compile": "webpack --progress --env sandbox",
         "sandbox": "webpack serve --env sandbox",
         "clean": "yarn cache clean && rimraf node_modules",
         "release": "yarn run release:patch",
-        "release:patch": "standard-version --release-as patch",
-        "release:minor": "standard-version --release-as minor",
-        "release:major": "standard-version --release-as major"
+        "release:patch": "release-it patch",
+        "release:minor": "release-it minor",
+        "release:major": "release-it major"
     },
     "repository": {
         "type": "git",
@@ -79,58 +86,133 @@
         "url": "https://github.com/cfpb/cfpb-britecharts/issues"
     },
     "homepage": "http://localhost:8001/",
-    "dependencies": {
-        "base-64": "^1.0.0",
-        "d3": "^7.9.0",
-        "lodash.assign": "^4.2.0"
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/bundled/britecharts.min.js"
+        },
+        "./line": {
+            "types": "./dist/types/charts/line.d.ts",
+            "import": "./dist/esm/charts/line.js",
+            "require": "./dist/umd/line.min.js"
+        },
+        "./tooltip": {
+            "types": "./dist/types/charts/tooltip.d.ts",
+            "import": "./dist/esm/charts/tooltip.js",
+            "require": "./dist/umd/tooltip.min.js"
+        },
+        "./stacked-area": {
+            "types": "./dist/types/charts/stacked-area.d.ts",
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js"
+        },
+        "./stackedArea": {
+            "types": "./dist/types/charts/stacked-area.d.ts",
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js"
+        },
+        "./row": {
+            "types": "./dist/types/charts/row.d.ts",
+            "import": "./dist/esm/charts/row.js",
+            "require": "./dist/umd/row.min.js"
+        },
+        "./mini-tooltip": {
+            "types": "./dist/types/charts/mini-tooltip.d.ts",
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js"
+        },
+        "./miniTooltip": {
+            "types": "./dist/types/charts/mini-tooltip.d.ts",
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js"
+        },
+        "./react": {
+            "types": "./dist/types/react/use-britechart.d.ts",
+            "import": "./dist/esm/react/use-britechart.js",
+            "require": "./dist/umd/useBritechart.min.js"
+        },
+        "./dist/umd/line.min": {
+            "types": "./dist/types/charts/line.d.ts",
+            "import": "./dist/esm/charts/line.js",
+            "require": "./dist/umd/line.min.js"
+        },
+        "./dist/umd/stackedArea.min": {
+            "types": "./dist/types/charts/stacked-area.d.ts",
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js"
+        },
+        "./dist/umd/row.min": {
+            "types": "./dist/types/charts/row.d.ts",
+            "import": "./dist/esm/charts/row.js",
+            "require": "./dist/umd/row.min.js"
+        },
+        "./dist/umd/tooltip.min": {
+            "types": "./dist/types/charts/tooltip.d.ts",
+            "import": "./dist/esm/charts/tooltip.js",
+            "require": "./dist/umd/tooltip.min.js"
+        },
+        "./dist/umd/miniTooltip.min": {
+            "types": "./dist/types/charts/mini-tooltip.d.ts",
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js"
+        },
+        "./dist/umd/*": "./dist/umd/*",
+        "./dist/css/*": "./dist/css/*"
+    },
+    "peerDependencies": {
+        "d3": "^7.0.0",
+        "react": ">=17"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
     },
     "devDependencies": {
-        "@babel/core": "^7.29.0",
-        "@babel/preset-env": "^7.29.2",
-        "babel-loader": "^10.1.1",
-        "babel-plugin-istanbul": "^8.0.2",
-        "baseline-browser-mapping": "^2.10.19",
+        "@eslint/js": "^10.0.1",
+        "@release-it/conventional-changelog": "^12.0.2",
+        "@rstest/core": "^0.12.6",
+        "@rstest/coverage-istanbul": "0.12.6",
+        "@types/react": "^19.2.7",
+        "baseline-browser-mapping": "^2.11.37",
         "brace": "^0.11.1",
         "chokidar": "^5.0.0",
         "concurrently": "^9.2.1",
-        "css-loader": "^7.1.4",
+        "css-loader": "^7.1.5",
         "cssnano": "^7.1.5",
+        "d3": "^7.9.2",
         "docdash": "^2.0.2",
-        "eslint": "^10.2.0",
-        "fs-extra": "^11.3.4",
+        "esbuild": "^0.28.2",
+        "eslint": "^10.15.0",
+        "fs-extra": "^11.4.1",
         "glob": "^13.0.6",
+        "globals": "^17.14.0",
+        "happy-dom": "20",
         "http-server": "^14.1.1",
-        "jasmine-core": "^6.2.0",
         "jquery": "^4.0.0",
         "jsdoc": "^4.0.5",
-        "karma": "^6.4.4",
-        "karma-chrome-launcher": "^3.2.0",
-        "karma-coverage": "^2.2.1",
-        "karma-coverage-istanbul-reporter": "^3.0.3",
-        "karma-jasmine": "^5.1.0",
-        "karma-sourcemap-loader": "^0.4.0",
-        "karma-webpack": "^5.0.1",
-        "moment": "^2.30.1",
-        "postcss": "^8.5.9",
+        "postcss": "^8.5.33",
         "postcss-cli": "^11.0.1",
         "prismjs": "^1.30.0",
         "pubsub-js": "^1.9.5",
-        "rimraf": "^6.1.3",
-        "sanitize-html": "^2.17.2",
-        "sass": "^1.99.0",
+        "react": "^19.2.0",
+        "release-it": "^21.1.2",
+        "rimraf": "^6.1.4",
+        "sanitize-html": "^2.18.2",
+        "sass": "^1.108.2",
         "sass-loader": "^16.0.7",
-        "sinon": "^21.1.2",
-        "standard-version": "^9.5.0",
         "style-loader": "^4.0.0",
         "stylelint": "^17.7.0",
         "stylelint-config-standard-scss": "^17.0.0",
-        "underscore": "^1.13.8",
-        "webpack": "^5.106.1",
-        "webpack-bundle-analyzer": "^5.3.0",
-        "webpack-cli": "^7.0.2",
+        "tsup": "^9.0.0",
+        "typescript": "~5.9.3",
+        "webpack": "^5.112.2",
+        "webpack-bundle-analyzer": "^5.4.3",
+        "webpack-cli": "^7.3.1",
         "webpack-dev-server": "^5.2.3",
         "webpack-merge": "^6.0.1",
-        "ws": "^8.20.0",
-        "yargs": "^18.0.0"
+        "ws": "^8.23.0",
+        "yargs": "^18.2.0"
     }
 }

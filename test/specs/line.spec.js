@@ -1,16 +1,8 @@
-define([
-    'underscore',
-    'jquery',
-    'd3',
-    'line',
-    'lineChartDataBuilder'
-    ], function(
-        _,
-        $,
-        d3,
-        chart,
-        dataBuilder
-    ) {
+import { loadTestContainer, clearTestContainer, createSpy } from '../support.js';
+import * as d3 from 'd3';
+import chart from '../../src/charts/line.js';
+import dataBuilder from '../fixtures/lineChartDataBuilder.js';
+
         'use strict';
 
         const aTestDataSet = () => new dataBuilder.LineDataBuilder();
@@ -20,7 +12,7 @@ define([
                 .build();
         };
         const hasClass = (element, className) => {
-            return _.contains(element.node().classList, className);
+            return element.node().classList.contains(className);
         };
 
         describe('Line Chart', () => {
@@ -35,9 +27,7 @@ define([
                         lineChart = chart();
 
                         // DOM Fixture Setup
-                        f = jasmine.getFixtures();
-                        f.fixturesPath = 'base/test/fixtures/';
-                        f.load('testContainer.html');
+                        loadTestContainer();
 
                         containerFixture = d3.select('.test-container');
                         containerFixture.datum(dataset).call(lineChart);
@@ -45,9 +35,7 @@ define([
 
                     afterEach(() => {
                         containerFixture.remove();
-                        f = jasmine.getFixtures();
-                        f.cleanUp();
-                        f.clearCache();
+                        clearTestContainer();
                     });
 
                     it('should have one line on the chart line', () => {
@@ -68,9 +56,7 @@ define([
                         lineChart = chart();
 
                         // DOM Fixture Setup
-                        f = jasmine.getFixtures();
-                        f.fixturesPath = 'base/test/fixtures/';
-                        f.load('testContainer.html');
+                        loadTestContainer();
 
                         containerFixture = d3.select('.test-container');
                         containerFixture.datum(dataset).call(lineChart);
@@ -78,9 +64,7 @@ define([
 
                     afterEach(() => {
                         containerFixture.remove();
-                        f = jasmine.getFixtures();
-                        f.cleanUp();
-                        f.clearCache();
+                        clearTestContainer();
                     });
 
                     it('should show a chart with minimal requirements', () => {
@@ -315,9 +299,7 @@ define([
                                 lineChart = chart();
 
                                 // DOM Fixture Setup
-                                f = jasmine.getFixtures();
-                                f.fixturesPath = 'base/test/fixtures/';
-                                f.load('testContainer.html');
+                                loadTestContainer();
 
                                 containerFixture = d3.select('.test-container');
                                 containerFixture.datum(dataset).call(lineChart);
@@ -325,9 +307,7 @@ define([
 
                             afterEach(() => {
                                 containerFixture.remove();
-                                f = jasmine.getFixtures();
-                                f.cleanUp();
-                                f.clearCache();
+                                clearTestContainer();
                             });
 
                             it('should not render the x-axis label', () => {
@@ -354,9 +334,7 @@ define([
                                     .yAxisLabel('valueSetY');
 
                                 // DOM Fixture Setup
-                                f = jasmine.getFixtures();
-                                f.fixturesPath = 'base/test/fixtures/';
-                                f.load('testContainer.html');
+                                loadTestContainer();
 
                                 containerFixture = d3.select('.test-container');
                                 containerFixture.datum(dataset).call(lineChart);
@@ -364,9 +342,7 @@ define([
 
                             afterEach(() => {
                                 containerFixture.remove();
-                                f = jasmine.getFixtures();
-                                f.cleanUp();
-                                f.clearCache();
+                                clearTestContainer();
                             });
 
                             it('should render the x-axis label', () => {
@@ -392,9 +368,7 @@ define([
                             lineChart = chart();
 
                             // DOM Fixture Setup
-                            f = jasmine.getFixtures();
-                            f.fixturesPath = 'base/test/fixtures/';
-                            f.load('testContainer.html');
+                            loadTestContainer();
 
                             containerFixture = d3.select('.test-container');
                             containerFixture.datum(dataset).call(lineChart);
@@ -402,9 +376,7 @@ define([
 
                         afterEach(() => {
                             containerFixture.remove();
-                            f = jasmine.getFixtures();
-                            f.cleanUp();
-                            f.clearCache();
+                            clearTestContainer();
                         });
 
                         it('should have an x axis with hour format', () => {
@@ -420,35 +392,13 @@ define([
 
                 });
 
-                describe('data points', () => {
-
-                    beforeEach(() => {
-                        dataset = buildDataSet('with5Topics');
-
-                        // DOM Fixture Setup
-                        f = jasmine.getFixtures();
-                        f.fixturesPath = 'base/test/fixtures/';
-                        f.load('testContainer.html');
-                    });
-
-                    afterEach(() => {
-                        containerFixture.remove();
-                        f = jasmine.getFixtures();
-                        f.cleanUp();
-                        f.clearCache();
-                    });
-
-                });
-
                 describe('when has negative values', () => {
                     beforeEach(() => {
                         dataset = buildDataSet('withNegativeValues');
                         lineChart = chart().grid('full');
 
                         // DOM Fixture Setup
-                        f = jasmine.getFixtures();
-                        f.fixturesPath = 'base/test/fixtures/';
-                        f.load('testContainer.html');
+                        loadTestContainer();
 
                         containerFixture = d3.select('.test-container');
                         containerFixture.datum(dataset).call(lineChart);
@@ -456,9 +406,7 @@ define([
 
                     afterEach(() => {
                         containerFixture.remove();
-                        f = jasmine.getFixtures();
-                        f.cleanUp();
-                        f.clearCache();
+                        clearTestContainer();
                     });
 
                     it('The lowest Y-axis value is negative', () => {
@@ -468,7 +416,7 @@ define([
 
                         let yAxis = d3.select('.y-axis-group');
                         let text = yAxis.select('g.tick');
-                        expect(text.text()).toEqual(minValueText);
+                        expect(text.text().replace('\u2212', '-')).toEqual(minValueText);
                     })
 
                 });
@@ -481,9 +429,7 @@ define([
                     lineChart = chart();
 
                     // DOM Fixture Setup
-                    f = jasmine.getFixtures();
-                    f.fixturesPath = 'base/test/fixtures/';
-                    f.load('testContainer.html');
+                    loadTestContainer();
 
                     containerFixture = d3.select('.test-container');
                     containerFixture.datum(dataset).call(lineChart);
@@ -491,13 +437,11 @@ define([
 
                 afterEach(() => {
                     containerFixture.remove();
-                    f = jasmine.getFixtures();
-                    f.cleanUp();
-                    f.clearCache();
+                    clearTestContainer();
                 });
 
                 it('should trigger an event on hover', () => {
-                    const callback = jasmine.createSpy('hoverCallback');
+                    const callback = createSpy();
                     const container = containerFixture.selectAll('svg');
                     const expectedCalls = 1;
                     const expectedArguments = 2;
@@ -510,7 +454,7 @@ define([
                 });
 
                 it('should trigger an event on mouse out', () => {
-                    const callback = jasmine.createSpy('mouseOutCallback');
+                    const callback = createSpy();
                     const container = containerFixture.selectAll('svg');
                     const expectedCalls = 1;
                     const expectedArguments = 2;
@@ -523,7 +467,7 @@ define([
                 });
 
                 it('should trigger an event on touchmove', () => {
-                    const callback = jasmine.createSpy('touchMoveCallback');
+                    const callback = createSpy();
                     const container = containerFixture.selectAll('svg');
                     const expectedCalls = 1;
                     const expectedArguments = 2;
@@ -578,9 +522,7 @@ define([
                     dataset = buildDataSet('withOneSource');
                     lineChart = chart();
                     // DOM Fixture Setup
-                    f = jasmine.getFixtures();
-                    f.fixturesPath = 'base/test/fixtures/';
-                    f.load('testContainer.html');
+                    loadTestContainer();
 
                     containerFixture = d3.select('.test-container');
                     containerFixture.datum(dataset).call(lineChart);
@@ -588,9 +530,7 @@ define([
 
                 afterEach(() => {
                     containerFixture.remove();
-                    f = jasmine.getFixtures();
-                    f.cleanUp();
-                    f.clearCache();
+                    clearTestContainer();
                 });
 
                 describe('Aspect Ratio', () => {
@@ -999,9 +939,7 @@ define([
                                     .isPrintMode(true);
 
                     // DOM Fixture Setup
-                    f = jasmine.getFixtures();
-                    f.fixturesPath = 'base/test/fixtures/';
-                    f.load('testContainer.html');
+                    loadTestContainer();
 
                     containerFixture = d3.select('.test-container');
                     containerFixture.datum(dataset).call(lineChart);
@@ -1009,9 +947,7 @@ define([
 
                 afterEach(() => {
                     containerFixture.remove();
-                    f = jasmine.getFixtures();
-                    f.cleanUp();
-                    f.clearCache();
+                    clearTestContainer();
                 });
 
                 it('should show a chart with minimal requirements', () => {
@@ -1022,4 +958,3 @@ define([
                 });
             });
         });
-    });

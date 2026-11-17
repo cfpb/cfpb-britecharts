@@ -1,5 +1,6 @@
-define(function (require) {
-    const { formatDefaultLocale } = require('d3-format');
+import { formatDefaultLocale } from 'd3-format';
+
+    
 
     const REQUIRED_LOCALE_DEFINITION_KEYS = ['decimal', 'thousands', 'grouping', 'currency'];
     const WRONG_LOCALE_OBJECT_MESSAGE = 'Please pass in a valid locale object definition';
@@ -26,11 +27,15 @@ define(function (require) {
     function isValidLocaleDefinition(locale) {
         return (
             typeof locale == 'object' &&
-            REQUIRED_LOCALE_DEFINITION_KEYS.every(localeKey => locale.hasOwnProperty(localeKey))
+            REQUIRED_LOCALE_DEFINITION_KEYS.every(localeKey => Object.hasOwn(locale, localeKey))
         );
     }
 
-    return {
-        setDefaultLocale
-    };
-});
+
+export {
+    setDefaultLocale,
+};
+
+export default {
+    setDefaultLocale,
+};

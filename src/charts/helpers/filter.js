@@ -1,6 +1,6 @@
-define(function (require) {
 
-    const d3Selection = require('d3-selection');
+
+    
     const filterId = 'highlight-filter';
 
 
@@ -84,7 +84,7 @@ define(function (require) {
             .attr('in', 'SourceGraphic');
 
         return filterId;
-    }
+    };
 
     const createWhiteGlow = (filterSelector) => {
         filterSelector
@@ -147,14 +147,23 @@ define(function (require) {
               .delay(delay)
               .duration(duration)
               .attr('r', radius);
-    }
-
-    return {
-        bounceCircleHighlight,
-        createFilterContainer,
-        createGausianBlur,
-        createWhiteGlow,
-        createGlow,
-        createGlowWithMatrix,
     };
-});
+
+
+export {
+    bounceCircleHighlight,
+    createFilterContainer,
+    createGausianBlur,
+    createWhiteGlow,
+    createGlow,
+    createGlowWithMatrix,
+};
+
+export default {
+    bounceCircleHighlight,
+    createFilterContainer,
+    createGausianBlur,
+    createWhiteGlow,
+    createGlow,
+    createGlowWithMatrix,
+};

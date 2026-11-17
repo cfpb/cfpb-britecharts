@@ -1,11 +1,14 @@
-define(function(require){
-    'use strict';
+import { max } from 'd3-array';
+import { easeQuadInOut } from 'd3-ease';
+import { format } from 'd3-format';
+import { select } from 'd3-selection';
+import 'd3-transition';
+import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
 
-    const d3Array = require('d3-array');
-    const d3Ease = require('d3-ease');
-    const d3Format = require('d3-format');
-    const d3Selection = require('d3-selection');
-    const d3Transition = require('d3-transition');
+    
+    
+    
+    
 
     const NUMBER_FORMAT = '.2f';
 
@@ -29,16 +32,17 @@ define(function(require){
      *     .on('customMouseMove', miniTooltip.update)
      *     .on('customMouseOut', miniTooltip.hide);
      *
-     * d3Selection.select('.css-selector')
+     * select('.css-selector')
      *     .datum(dataset)
      *     .call(barChart);
      *
-     * d3Selection.select('.metadata-group .mini-tooltip-container')
+     * select('.metadata-group .mini-tooltip-container')
      *     .datum([])
      *     .call(miniTooltip);
      *
      */
-    return function module() {
+
+export default function module() {
 
         let margin = {
                 top: 12,
@@ -58,7 +62,7 @@ define(function(require){
 
             // Animations
             mouseChaseDuration = 100,
-            ease = d3Ease.easeQuadInOut,
+            ease = easeQuadInOut,
 
             // tooltip
             tooltipBackground,
@@ -85,7 +89,7 @@ define(function(require){
 
             // formats
             numberFormat = NUMBER_FORMAT,
-            valueFormatter = (value) => d3Format.format(numberFormat)(value),
+            valueFormatter = (value) => format(numberFormat)(value),
 
             chartWidth,
             chartHeight,
@@ -98,6 +102,7 @@ define(function(require){
          *                                  the container(s) where the chart(s) will be rendered
          */
         function exports(_selection) {
+            exports.__selection = _selection;
             _selection.each(function(){
                 chartWidth = width - margin.left - margin.right;
                 chartHeight = height - margin.top - margin.bottom;
@@ -105,6 +110,8 @@ define(function(require){
                 buildSVG(this);
                 drawTooltip();
             });
+        
+            finalizeChart(exports);
         }
 
         /**
@@ -128,7 +135,7 @@ define(function(require){
          */
         function buildSVG(container) {
             if (!svg) {
-                svg = d3Selection.select(container)
+                svg = select(container)
                     .append('g')
                     .classed('britechart britechart-mini-tooltip', true);
 
@@ -138,6 +145,7 @@ define(function(require){
                 .transition()
                 .attr('width', width)
                 .attr('height', height);
+            noteChartRender(exports, svg, container);
 
             // Hidden by default
             exports.hide();
@@ -177,7 +185,7 @@ define(function(require){
             let textSizes = texts.filter(x => !!x)
                 .map(x => x.node().getBBox().width);
 
-            return d3Array.max(textSizes);
+            return max(textSizes);
         }
 
         /**
@@ -378,7 +386,7 @@ define(function(require){
             numberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the formatter function for the value displayed on the tooltip.
@@ -396,7 +404,7 @@ define(function(require){
             valueFormatter = _x;
 
             return this;
-        }
+        };
 
         /**
          * Shows the tooltip
@@ -450,8 +458,55 @@ define(function(require){
             valueLabel = _x;
 
             return this;
-        }
+        };
 
-        return exports;
+        
+        /**
+         * Redraw when the parent container changes size.
+         * @param {Boolean} [_x] true to follow the container with a ResizeObserver
+         * @return {Boolean|module} Current flag or the chart for chaining
+         * @public
+         */
+        exports.autoResize = function (_x) {
+            if (!arguments.length) {
+                return !!exports.__autoResize;
+            }
+            exports.__autoResize = !!_x;
+            bindAutoResize(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible name announced for the chart.
+         * @param {String} [_x] Label rendered in the SVG title
+         * @return {String|module} Current label or the chart for chaining
+         * @public
+         */
+        exports.ariaLabel = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaLabel || null;
+            }
+            exports.__ariaLabel = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible description announced for the chart.
+         * @param {String} [_x] Description rendered in the SVG desc
+         * @return {String|module} Current description or the chart for chaining
+         * @public
+         */
+        exports.ariaDescription = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaDescription || null;
+            }
+            exports.__ariaDescription = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+return exports;
     };
-});
