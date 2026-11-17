@@ -135,7 +135,10 @@ const prodChartsConfig = merge([
     {
         mode: 'production',
         devtool: 'source-map',
-        entry: constants.CHARTS,
+        entry: {
+            ...constants.CHARTS,
+            useBritechart: './src/react/use-britechart.js',
+        },
         output: {
             path: path.resolve(__dirname, './dist/umd'),
             filename: '[name].min.js',

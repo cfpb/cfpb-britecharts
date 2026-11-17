@@ -54,28 +54,60 @@ function precedingJsdoc(source, index) {
     return before.slice(start, end + 2);
 }
 
-function paramsFrom(jsdoc, signature, selfName) {
-    const documented = [...jsdoc.matchAll(/@param\s+\{([^}]+)\}\s+(\[)?([\w.]+)/g)]
+function documentedParams(jsdoc, signature, selfName) {
+    const fromDocs = [...jsdoc.matchAll(/@param\s+\{([^}]+)\}\s+(\[)?([\w.]+)/g)]
         .map((match) => ({
             type: toTs(match[1], selfName),
-            optional: Boolean(match[2]) || match[3].startsWith('_'),
-            name: match[3].replace(/^_/, '') || 'value',
+            optional: Boolean(match[2]),
+            name: (match[3].replace(/^_/, '') || 'value').split('.').pop(),
         }));
 
-    if (documented.length) {
-        return documented.map((param) => {
-            const name = param.name === 'x' || param.name === 'markup' ? 'value' : param.name;
-
-            return `${name}${param.optional || signature.length <= 1 ? '?' : ''}: ${param.type}`;
-        }).join(', ');
+    if (fromDocs.length) {
+        return fromDocs.map((param) => ({
+            ...param,
+            name: param.name === 'x' || param.name === 'markup' ? 'value' : param.name,
+        }));
     }
 
     return signature
         .split(',')
-        .map((name) => name.trim())
+        .map((name) => name.replace(/=.*$/, '').trim())
         .filter(Boolean)
-        .map((name) => `${name.replace(/^_/, 'value')}: any`)
+        .map((name) => ({
+            name: name.replace(/^_/, '') || 'value',
+            type: 'any',
+            optional: false,
+        }));
+}
+
+function formatParams(params) {
+    return params
+        .map((param) => `${param.name}${param.optional ? '?' : ''}: ${param.type}`)
         .join(', ');
+}
+
+function memberLines(name, jsdoc, signature, selfName) {
+    if (name === 'on') {
+        return [
+            '    on(eventName: string): any;',
+            `    on(eventName: string, handler: (...args: any[]) => void): ${selfName};`,
+        ];
+    }
+
+    const params = documentedParams(jsdoc, signature, selfName);
+    const returnMatch = jsdoc.match(/@return\s+\{([^}]+)\}/);
+    const returnType = toTs(returnMatch && returnMatch[1], selfName);
+    const returnParts = returnType.split(' | ').map((part) => part.trim()).filter(Boolean);
+    const getterType = returnParts.filter((part) => part !== selfName).join(' | ') || 'any';
+
+    if (params.length === 1) {
+        return [
+            `    ${name}(): ${getterType};`,
+            `    ${name}(value: ${params[0].type}): ${selfName};`,
+        ];
+    }
+
+    return [`    ${name}(${formatParams(params)}): ${returnType};`];
 }
 
 function buildInterface(source, selfName) {
@@ -90,7 +122,6 @@ function buildInterface(source, selfName) {
             continue;
         }
 
-        const jsdoc = precedingJsdoc(source, match.index);
         const isFunction = match[2] != null;
 
         if (!isFunction) {
@@ -98,19 +129,9 @@ function buildInterface(source, selfName) {
             continue;
         }
 
-        if (name === 'on') {
-            members.push(`    on(eventName: string, handler?: (...args: any[]) => void): ${selfName} | any;`);
-            continue;
-        }
+        const jsdoc = precedingJsdoc(source, match.index);
 
-        const returnMatch = jsdoc.match(/@return\s+\{([^}]+)\}/);
-        const returnType = toTs(returnMatch && returnMatch[1], selfName);
-        const params = paramsFrom(jsdoc, match[2], selfName);
-        const optionalParams = params.includes('?') || match[2].trim().split(',').filter(Boolean).length <= 1
-            ? params.replace(/(\w+):/g, '$1?:')
-            : params;
-
-        members.push(`    ${name}(${optionalParams}): ${returnType};`);
+        members.push(...memberLines(name, jsdoc, match[2], selfName));
     }
 
     return `export interface ${selfName} {\n    (selection: any): void;\n${members.join('\n')}\n}\n\nexport default function chart(): ${selfName};\n`;

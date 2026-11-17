@@ -2,9 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const tutorials = [
-    'bar', 'bullet', 'brush', 'donut', 'grouped-bar', 'grouped-row',
-    'heatmap', 'legend', 'line', 'row', 'scatter-plot', 'sparkline',
-    'stacked-area', 'stacked-bar', 'step', 'tooltip'
+    'line', 'row', 'stacked-area'
 ];
 
 const docsPath = path.join(__dirname, '../docs');

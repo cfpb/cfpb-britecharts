@@ -58,3 +58,5 @@ export function useBritechart({
 
     return containerRef;
 }
+
+export default useBritechart;

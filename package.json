@@ -105,6 +105,11 @@
             "require": "./dist/umd/stackedArea.min.js",
             "types": "./dist/types/charts/stacked-area.d.ts"
         },
+        "./stackedArea": {
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js",
+            "types": "./dist/types/charts/stacked-area.d.ts"
+        },
         "./row": {
             "import": "./dist/esm/charts/row.js",
             "require": "./dist/umd/row.min.js",
@@ -115,10 +120,15 @@
             "require": "./dist/umd/miniTooltip.min.js",
             "types": "./dist/types/charts/mini-tooltip.d.ts"
         },
+        "./miniTooltip": {
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js",
+            "types": "./dist/types/charts/mini-tooltip.d.ts"
+        },
         "./react": {
-            "import": "./dist/esm/react/useBritechart.js",
-            "default": "./dist/esm/react/useBritechart.js",
-            "types": "./dist/types/react/useBritechart.d.ts"
+            "import": "./dist/esm/react/use-britechart.js",
+            "require": "./dist/umd/useBritechart.min.js",
+            "types": "./dist/types/react/use-britechart.d.ts"
         },
         "./dist/umd/*": "./dist/umd/*"
     },

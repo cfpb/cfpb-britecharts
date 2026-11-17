@@ -5,7 +5,6 @@ $animation-to: 100%;
 
 .line-load-state .chart-filter,
 .stacked-area-load-state .chart-filter,
-.donut-load-state .chart-filter,
 .bar-load-state .chart-filter {
     will-change: transform;
     animation: swipe $animation-duration linear infinite forwards;

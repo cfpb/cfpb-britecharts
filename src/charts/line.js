@@ -1385,8 +1385,8 @@ export default function module() {
 
         /**
          * Gets or Sets the dateLabel of the chart
-         * @param  {Number} _x Desired dateLabel for the graph
-         * @return { dateLabel | module} Current dateLabel or Chart module to chain calls
+         * @param  {String} _x Desired dateLabel for the graph
+         * @return {String | module} Current dateLabel or Chart module to chain calls
          * @public
          */
         exports.dateLabel = function(_x) {
@@ -1634,8 +1634,8 @@ export default function module() {
 
         /**
          * Gets or Sets the topicLabel of the chart
-         * @param  {Number} _x Desired topicLabel for the graph
-         * @return {topicLabel | module} Current topicLabel or Chart module to chain calls
+         * @param  {String} _x Desired topicLabel for the graph
+         * @return {String | module} Current topicLabel or Chart module to chain calls
          * @public
          */
         exports.topicLabel = function(_x) {
@@ -1649,8 +1649,8 @@ export default function module() {
 
         /**
          * Gets or Sets the valueLabel of the chart
-         * @param  {Number} _x Desired valueLabel for the graph
-         * @return {valueLabel | module} Current valueLabel or Chart module to chain calls
+         * @param  {String} _x Desired valueLabel for the graph
+         * @return {String | module} Current valueLabel or Chart module to chain calls
          * @public
          */
         exports.valueLabel = function(_x) {

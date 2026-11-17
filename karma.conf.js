@@ -27,8 +27,6 @@ module.exports = function(config) {
                 served: true,
                 included: false
             },
-            './node_modules/phantomjs-polyfill-find/find-polyfill.js',
-            './node_modules/babel-polyfill/dist/polyfill.js',
         ],
 
 
@@ -138,7 +136,6 @@ module.exports = function(config) {
             require('karma-jasmine-jquery'),
             require('karma-coverage'),
             require('karma-chrome-launcher'),
-            require('karma-phantomjs-launcher'),
             require('karma-sourcemap-loader')
         ],
 
