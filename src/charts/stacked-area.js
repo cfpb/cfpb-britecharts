@@ -130,7 +130,6 @@ export default function module() {
             xAxisCustomFormat = null,
             locale,
 
-            baseLine,
             areaCurve = 'monotoneX',
 
             layers,
@@ -150,10 +149,6 @@ export default function module() {
             verticalMarkerLine,
             epsilon,
 
-            dataPoints            = {},
-            pointsSize            = 1.5,
-            pointsColor           = '#c0c6cc',
-            pointsBorderColor     = '#ffffff',
             initializeVerticalMarker = false,
             isAnimated = false,
             isPrintMode = false,
@@ -169,8 +164,6 @@ export default function module() {
             dataByDateFormatted,
             dataByDateZeroed,
 
-            verticalGridLines,
-            horizontalGridLines,
             grid = null,
 
             tooltipThreshold = 480,
@@ -198,22 +191,16 @@ export default function module() {
             circleYOffset = 8,
             entryLineLimit = 5,
             initialTooltipTextXPosition = -25,
-            tooltipTextLinePadding = 5,
             tooltipRightWidth,
             tooltipMaxTopicLength = 200,
             tooltipTextContainer,
-            tooltipDivider,
             tooltipBody,
             tooltipTitle,
             tooltipWidth = 300,
-            tooltipHeight = 48,
-            tooltipBorderRadius = 3,
             ttTextX = -15,
             ttTextY = 37,
             textHeight,
-            bodyFillColor = '#FFFFFF',
             borderStrokeColor = '#D2D6DF',
-            titleFillColor = '#6D717A',
             textFillColor = '#282C35',
             tooltipTextColor = '#000000',
 
@@ -646,44 +633,6 @@ export default function module() {
         }
 
         /**
-         * Creates SVG dot elements for each data entry and draws them
-         * TODO: Plug
-         */
-        function drawDataReferencePoints() {
-            // Creates Dots on Data points
-            var points = svg.select('.chart-group').selectAll('.dots')
-                .data(layers)
-                .enter()
-                  .append('g')
-                    .attr('class', 'dots')
-                    .attr('d', ({values}) => area(values))
-                    .attr('clip-path', 'url(#clip)');
-
-            // Processes the points
-            // TODO: Optimize this code
-            points.selectAll('.dot')
-                .data(({values}, index) => values.map((point) => ({index, point})))
-                .enter()
-                  .append('circle')
-                    .attr('class','dot')
-                    .attr('r', () => pointsSize)
-                    .attr('fill', () => pointsColor)
-                    .attr('stroke-width', '0')
-                    .attr('stroke', pointsBorderColor)
-                    .attr('transform', function(d) {
-                        let {point} = d;
-                        let key = xScale(point.date);
-
-                        dataPoints[key] = dataPoints[key] || [];
-                        dataPoints[key].push(d);
-
-                        let {date, y, y0} = point;
-
-                        return `translate( ${xScale(date)}, ${yScale(y + y0)} )`;
-                    });
-        }
-
-        /**
          * Figures out which date format to use when showing the date of the current data entry
          * @param {Date} date   Date object to format
          * @return {Function}   The proper date formatting function
@@ -745,7 +694,6 @@ export default function module() {
                 .text(tooltipRightText);
 
             textHeight = elementText.node().getBBox().height;
-            tooltipHeight += textHeight + tooltipTextLinePadding;
             // update the width if it exists because IE renders the elements
             // too slow and cant figure out the width?
             tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
@@ -771,7 +719,7 @@ export default function module() {
             tooltipLeftText = 'Total';
             tooltipRightText = total.toLocaleString();
 
-            tooltipDivider = tooltipBody
+            tooltipBody
                 .append('line')
                 .classed('tooltip-divider', true)
                 .attr('x1', ttTextX - 28)
@@ -805,7 +753,6 @@ export default function module() {
 
             textHeight = elementText.node().getBBox().height;
 
-            tooltipHeight += textHeight + tooltipTextLinePadding;
             // update the width if it exists because IE renders the elements
             // too slow and cant figure out the width?
             tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
@@ -886,7 +833,7 @@ export default function module() {
                 .remove();
 
             if (grid === 'horizontal' || grid === 'full') {
-                horizontalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.horizontal-grid-line')
                     .data(yScale.ticks(yTicks))
                     .enter()
@@ -899,7 +846,7 @@ export default function module() {
             }
 
             if (grid === 'vertical' || grid === 'full') {
-                verticalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.vertical-grid-line')
                     .data(xScale.ticks(xTicks))
                     .enter()
@@ -912,7 +859,7 @@ export default function module() {
             }
 
             //draw a horizontal line to extend x-axis till the edges
-            baseLine = svg.select('.grid-lines-group')
+            svg.select('.grid-lines-group')
                 .selectAll('line.extended-x-line')
                 .data([0])
                 .enter()
@@ -1134,7 +1081,7 @@ export default function module() {
                 .style('fill', textFillColor)
                 .style('font-size', '12px');
 
-            tooltipDivider = tooltipTextContainer
+            tooltipTextContainer
                 .append('line')
                 .classed('tooltip-divider', true)
                 .attr('x1', ttTextX - 28)
@@ -1408,11 +1355,11 @@ export default function module() {
                             return hiddenAreaMap[key] ? areaOpacity : 0;
                         })
                         .style('cursor', 'pointer')
-                        .on('click', function(event, clickedData) {
+                        .on('click', function(event) {
                             addGlowFilter(this);
                             handleHighlightClick(this, event, d);
                         })
-                        .on('mouseout', function(event) {
+                        .on('mouseout', function() {
                             removeFilter(this);
                         });
 

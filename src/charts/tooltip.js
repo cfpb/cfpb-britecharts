@@ -69,7 +69,6 @@ export default function module() {
 
             title = 'Tooltip title',
             shouldShowDateInTitle = true,
-            valueFormat = null,
 
             // tooltip
             tooltip,
@@ -122,8 +121,6 @@ export default function module() {
             monthDayHourFormat = timeFormat('%b %d, %I %p'),
             locale,
 
-            chartWidth, chartHeight,
-            data,
             svg;
 
 
@@ -136,10 +133,6 @@ export default function module() {
         function exports(_selection) {
             exports.__selection = _selection;
             _selection.each(function(_data){
-                chartWidth = width - margin.left - margin.right;
-                chartHeight = height - margin.top - margin.bottom;
-                data = _data;
-
                 buildSVG(this);
             });
         

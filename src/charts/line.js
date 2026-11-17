@@ -160,7 +160,6 @@ export default function module() {
             highlightCircleRadius = 5,
             highlightCircleStroke = 2,
             highlightCircleStrokeAll = 5,
-            highlightCircleActiveRadius = highlightCircleRadius + 2,
             highlightCircleActiveStrokeWidth = 5,
             highlightCircleActiveStrokeOpacity = 0.6,
 
@@ -201,18 +200,7 @@ export default function module() {
             verticalMarkerLine,
             numberFormat,
 
-            verticalGridLines,
-            horizontalGridLines,
             grid = null,
-            isUsingFakeData = false,
-
-            baseLine,
-            areaCurve = 'monotoneX',
-            area,
-            layers,
-            layersInitial,
-            areaOutline,
-            series,
 
             pathYCache = {},
 
@@ -220,22 +208,16 @@ export default function module() {
             circleYOffset = 8,
             entryLineLimit = 5,
             initialTooltipTextXPosition = -25,
-            tooltipTextLinePadding = 5,
             tooltipRightWidth,
             tooltipMaxTopicLength = 200,
             tooltipTextContainer,
-            tooltipDivider,
             tooltipBody,
             tooltipTitle,
             tooltipWidth = 300,
-            tooltipHeight = 48,
-            tooltipBorderRadius = 3,
             ttTextX = -15,
             ttTextY = 37,
             textHeight,
-            bodyFillColor = '#FFFFFF',
             borderStrokeColor = '#D2D6DF',
-            titleFillColor = '#6D717A',
             textFillColor = '#282C35',
             tooltipTextColor = '#000000',
 
@@ -763,7 +745,7 @@ export default function module() {
                 .style('fill', textFillColor)
                 .style('font-size', '12px');
 
-            tooltipDivider = tooltipTextContainer
+            tooltipTextContainer
                 .append('line')
                 .classed('tooltip-divider', true)
                 .attr('x1', ttTextX - 28 )
@@ -865,7 +847,6 @@ export default function module() {
                 .text(tooltipRightText);
 
             textHeight = elementText.node().getBBox().height;
-            tooltipHeight += textHeight + tooltipTextLinePadding;
             // update the width if it exists because IE renders the elements
             // too slow and cant figure out the width?
             tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
@@ -892,7 +873,7 @@ export default function module() {
                 .remove();
 
             if (grid === 'horizontal' || grid === 'full') {
-                horizontalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.horizontal-grid-line')
                     .data(yScale.ticks(yTicks))
                     .enter()
@@ -905,7 +886,7 @@ export default function module() {
             }
 
             if (grid === 'vertical' || grid === 'full') {
-                verticalGridLines = svg.select('.grid-lines-group')
+                svg.select('.grid-lines-group')
                     .selectAll('line.vertical-grid-line')
                     .data(xScale.ticks(xTicks))
                     .enter()
@@ -918,7 +899,7 @@ export default function module() {
             }
 
             //draw a horizontal line to extend x-axis till the edges
-            baseLine = svg.select('.grid-lines-group')
+            svg.select('.grid-lines-group')
                 .selectAll('line.extended-x-line')
                 .data([0])
                 .enter()
@@ -959,24 +940,6 @@ export default function module() {
             svg.select('.chart-group')
                 .selectAll('.data-points-container')
                 .remove();
-
-            const nodesById = paths.nodes().reduce((acc, node) => {
-                acc[node.id] = node;
-
-                return acc;
-            }, {});
-
-
-            const allTopics = dataByDate.reduce((accum, dataPoint) => {
-                const dataPointTopics = dataPoint.topics.map(topic => ({
-                    topic,
-                    node: nodesById[topic.name]
-                }));
-
-                accum = [...accum, ...dataPointTopics];
-
-                return accum;
-            }, []);
         }
 
         /**
@@ -1235,7 +1198,7 @@ export default function module() {
                                         addGlowFilter(this);
                                         handleHighlightClick(this, event, d);
                                     })
-                                    .on('mouseout', function (event) {
+                                    .on('mouseout', function () {
                                         removeFilter(this);
                                     });
 

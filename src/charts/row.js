@@ -146,7 +146,6 @@ export default function module() {
 
             // extractors
             getName = ({name}) => name,
-            getPctChange = ({pctChange}) => pctChange,
             getValue = ({value}) => value,
 
             _labelsFormatValue = ( d, bgWidth ) => {
@@ -290,10 +289,6 @@ export default function module() {
             return +d.width;
         }
 
-        function ww(d) {
-            return +d.value;
-        }
-
         //scale factor between value and bar width
         function alpha(values, value) {
             var n = values.length,
@@ -349,7 +344,7 @@ export default function module() {
                 return retVal + margin.top;
             };
         }
-        let a, mid, w;
+        let a, mid;
 
         function isExpandable(data, d){
             // lets us know it's a parent element
@@ -389,9 +384,8 @@ export default function module() {
          * @private
          */
         function buildScales() {
-            a = alpha(data, v),	  //scale factor between value and bar width
-                mid = Midi(data, v, a),	//mid-point displacement of bar i
-                w = Wi(data, v, a);		  //width of bar i
+            a = alpha(data, v);	  //scale factor between value and bar width
+            mid = Midi(data, v, a);	//mid-point displacement of bar i
 
             let percentageAxis = Math.min(percentageAxisToMaxRatio * max(data, getValue));
 
@@ -554,10 +548,10 @@ export default function module() {
 
                         return e ? `translate(${yAxisPaddingBetweenChart-5}, 2.5) rotate(180)` : `translate(${yAxisPaddingBetweenChart-15}, -2.5)`;
                     } )
-                    .attr( 'points', function( d ) {
+                    .attr( 'points', function() {
                         return '0,0 10,0 5,5';
                     } )
-                    .style( 'fill', ( d ) => {
+                    .style( 'fill', () => {
                         return '#0072ce';
                     } )
                     .style( 'fill-opacity', ( d ) => {
@@ -665,7 +659,7 @@ export default function module() {
                     handleClick(this, event, d, chartWidth, chartHeight);
                 })
                 .attr( 'x', 0 )
-                .attr( 'y', function (d, i) {
+                .attr( 'y', function (d) {
                     return yScale(d.name) - a * d.width/2;	//center the bar on the tick
                 })
                 .attr( 'height', function (d) {
@@ -679,7 +673,7 @@ export default function module() {
             bargroups.append( 'rect' )
                 .attr( 'class', 'bg-hover' )
                 .attr( 'x',  -margin.left)
-                .attr( 'y', function (d, i) {
+                .attr( 'y', function (d) {
                     return yScale(d.name) - a * d.width/2;	//center the bar on the tick
                 })
                 .attr( 'width', width )
@@ -698,7 +692,7 @@ export default function module() {
                 .append( 'rect' )
                 .attr( 'class', 'focus-bar' )
                 .attr( 'x', 0 )
-                .attr( 'y', function( d, i ) {
+                .attr( 'y', function( d ) {
                     return yScale( d.name ) - a * d.width / 2;
                     //center the bar on the tick
                 } )
@@ -730,7 +724,7 @@ export default function module() {
                     handleClick(this, event, d, chartWidth, chartHeight);
                 })
                 .attr( 'x', 0 )
-                .attr( 'y', function (d, i) {
+                .attr( 'y', function (d) {
                     return yScale(d.name) - a * d.width/2;
                     //center the bar on the tick
                 })
@@ -839,7 +833,7 @@ export default function module() {
                         }
                         return d.pctChange < 0 ? `translate(50, ${yPos+5}) rotate(180)` : `translate(40, ${yPos - 10})`;
                     } )
-                    .attr( 'points', function( d ) {
+                    .attr( 'points', function() {
                         return '2,8 2,13 8,13 8,8 10,8 5,0 0,8';
                     } )
                     .style( 'fill', ( d ) => {
@@ -865,7 +859,7 @@ export default function module() {
         function drawAnimatedHorizontalRows(rows) {
             rows
                 .attr( 'x', 0 )
-                .attr( 'y', function (d, i) {
+                .attr( 'y', function (d) {
                     return yScale(d.name) - a * d.width/2;
                     //center the bar on the tick
                 })
