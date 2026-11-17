@@ -356,7 +356,6 @@ export default function module() {
                     tick: xTicks,
                     format:  timeFormat(xAxisCustomFormat)
                 };
-                major = null;
             } else {
                 ({minor, major} = getTimeSeriesAxis(dataByDate, width, xAxisFormat, locale));
 
@@ -557,7 +556,7 @@ export default function module() {
          * @return {array}      Fake data built from emptyDataConfig settings
          */
         function createFakeData() {
-            const numDays = diffDays(emptyDataConfig.minDate, emptyDataConfig.maxDate)
+            const numDays = diffDays(emptyDataConfig.minDate, emptyDataConfig.maxDate);
             const emptyArray = Array.apply(null, Array(numDays));
 
             isUsingFakeData = true;
@@ -589,7 +588,7 @@ export default function module() {
 
             return originalData.reduce((acc, d) => {
                 d.date = new Date(d[dateLabel]),
-                d.value = +d[valueLabel]
+                d.value = +d[valueLabel];
 
                 return [...acc, d];
             }, []);
@@ -628,7 +627,7 @@ export default function module() {
                                 .attr('y', yAxisLabelOffset)
                                 .attr('text-anchor', 'middle')
                                 .attr('transform', 'rotate(270 0 0)')
-                                .text(yAxisLabel)
+                                .text(yAxisLabel);
                 }
 
             // Moving the YAxis tick labels to the right side
@@ -1259,7 +1258,7 @@ export default function module() {
             names.forEach(n=>{
                 const needle = data.find(o=>o.name === n);
 
-                if (needle.hasOwnProperty('show')){
+                if (Object.hasOwn(needle, 'show')){
                     visibleAreas[n] = needle.show;
                 } else {
                     // default for old data
@@ -1470,7 +1469,7 @@ export default function module() {
             areaCurve = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the opacity of the stacked areas in the chart (all of them will have the same opacity)
@@ -1578,7 +1577,7 @@ export default function module() {
             hasOutline = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the height of the chart

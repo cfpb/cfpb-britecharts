@@ -1,6 +1,13 @@
 
 
-    let idCounter = 0;
+    const localeTimeMap = {
+        minute: { minute: 'numeric' },
+        hour: { hour: 'numeric' },
+        day: { day: 'numeric' },
+        daymonth: { day: 'numeric', month: 'short' },
+        month: { month: 'short' },
+        year: { year: 'numeric' },
+    };
 
     /**
      * Calculates a new date by summing a given amount of days to a given date
@@ -14,7 +21,7 @@
         result.setDate(result.getDate() + days);
 
         return String(result);
-    }
+    };
 
     /**
      * Calculates difference between dates in days
@@ -26,7 +33,7 @@
         const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
 
         return Math.ceil(Math.abs((new Date(startDate).getTime() - new Date(endDate).getTime()) / (oneDayInMilliseconds)));
-    }
+    };
 
     /**
      * Takes a number representing milliseconds and convert to days
@@ -46,7 +53,7 @@
         let formatter = new Intl.DateTimeFormat(locale, options);
 
         return (date) => formatter.format(date);
-    }
+    };
 
 
 export {

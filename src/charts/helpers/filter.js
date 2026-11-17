@@ -84,7 +84,7 @@
             .attr('in', 'SourceGraphic');
 
         return filterId;
-    }
+    };
 
     const createWhiteGlow = (filterSelector) => {
         filterSelector
@@ -147,7 +147,7 @@
               .delay(delay)
               .duration(duration)
               .attr('r', radius);
-    }
+    };
 
 
 export {

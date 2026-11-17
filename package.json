@@ -90,49 +90,75 @@
         ".": {
             "types": "./dist/types/index.d.ts",
             "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js"
+            "require": "./dist/bundled/britecharts.min.js"
         },
         "./line": {
             "types": "./dist/types/charts/line.d.ts",
             "import": "./dist/esm/charts/line.js",
-            "require": "./dist/cjs/charts/line.js"
+            "require": "./dist/umd/line.min.js"
         },
         "./tooltip": {
             "types": "./dist/types/charts/tooltip.d.ts",
             "import": "./dist/esm/charts/tooltip.js",
-            "require": "./dist/cjs/charts/tooltip.js"
+            "require": "./dist/umd/tooltip.min.js"
         },
         "./stacked-area": {
             "types": "./dist/types/charts/stacked-area.d.ts",
             "import": "./dist/esm/charts/stacked-area.js",
-            "require": "./dist/cjs/charts/stacked-area.js"
+            "require": "./dist/umd/stackedArea.min.js"
         },
         "./stackedArea": {
             "types": "./dist/types/charts/stacked-area.d.ts",
             "import": "./dist/esm/charts/stacked-area.js",
-            "require": "./dist/cjs/charts/stacked-area.js"
+            "require": "./dist/umd/stackedArea.min.js"
         },
         "./row": {
             "types": "./dist/types/charts/row.d.ts",
             "import": "./dist/esm/charts/row.js",
-            "require": "./dist/cjs/charts/row.js"
+            "require": "./dist/umd/row.min.js"
         },
         "./mini-tooltip": {
             "types": "./dist/types/charts/mini-tooltip.d.ts",
             "import": "./dist/esm/charts/mini-tooltip.js",
-            "require": "./dist/cjs/charts/mini-tooltip.js"
+            "require": "./dist/umd/miniTooltip.min.js"
         },
         "./miniTooltip": {
             "types": "./dist/types/charts/mini-tooltip.d.ts",
             "import": "./dist/esm/charts/mini-tooltip.js",
-            "require": "./dist/cjs/charts/mini-tooltip.js"
+            "require": "./dist/umd/miniTooltip.min.js"
         },
         "./react": {
             "types": "./dist/types/react/use-britechart.d.ts",
             "import": "./dist/esm/react/use-britechart.js",
-            "require": "./dist/cjs/react/use-britechart.js"
+            "require": "./dist/umd/useBritechart.min.js"
         },
-        "./dist/umd/*": "./dist/umd/*"
+        "./dist/umd/line.min": {
+            "types": "./dist/types/charts/line.d.ts",
+            "import": "./dist/esm/charts/line.js",
+            "require": "./dist/umd/line.min.js"
+        },
+        "./dist/umd/stackedArea.min": {
+            "types": "./dist/types/charts/stacked-area.d.ts",
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js"
+        },
+        "./dist/umd/row.min": {
+            "types": "./dist/types/charts/row.d.ts",
+            "import": "./dist/esm/charts/row.js",
+            "require": "./dist/umd/row.min.js"
+        },
+        "./dist/umd/tooltip.min": {
+            "types": "./dist/types/charts/tooltip.d.ts",
+            "import": "./dist/esm/charts/tooltip.js",
+            "require": "./dist/umd/tooltip.min.js"
+        },
+        "./dist/umd/miniTooltip.min": {
+            "types": "./dist/types/charts/mini-tooltip.d.ts",
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js"
+        },
+        "./dist/umd/*": "./dist/umd/*",
+        "./dist/css/*": "./dist/css/*"
     },
     "peerDependencies": {
         "d3": "^7.0.0",
@@ -144,6 +170,7 @@
         }
     },
     "devDependencies": {
+        "@eslint/js": "^10.0.1",
         "@release-it/conventional-changelog": "^12.0.2",
         "@rstest/core": "^0.12.6",
         "@rstest/coverage-istanbul": "0.12.6",
@@ -160,6 +187,7 @@
         "eslint": "^10.15.0",
         "fs-extra": "^11.4.1",
         "glob": "^13.0.6",
+        "globals": "^17.14.0",
         "happy-dom": "20",
         "http-server": "^14.1.1",
         "jquery": "^4.0.0",

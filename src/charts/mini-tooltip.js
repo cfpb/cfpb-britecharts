@@ -386,7 +386,7 @@ export default function module() {
             numberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the formatter function for the value displayed on the tooltip.
@@ -404,7 +404,7 @@ export default function module() {
             valueFormatter = _x;
 
             return this;
-        }
+        };
 
         /**
          * Shows the tooltip
@@ -458,7 +458,7 @@ export default function module() {
             valueLabel = _x;
 
             return this;
-        }
+        };
 
         
         /**

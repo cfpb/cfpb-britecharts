@@ -123,7 +123,7 @@ export default function module() {
 
             highlightRowFunction = (rowSelection) =>
                 rowSelection.attr('fill', ({name}) => {
-                    return name ? d3Color(colorMap(name)).darker() : ''
+                    return name ? d3Color(colorMap(name)).darker() : '';
                 }),
             labelsFocusTitle = '',
             labelsTotalText = 'Total complaints',
@@ -319,8 +319,8 @@ export default function module() {
         //width of bar i
         function Wi(values, value, alpha) {
             return function (i) {
-                return value(values[i]) * alpha
-            }
+                return value(values[i]) * alpha;
+            };
         }
 
         //mid-point displacement of bar i
@@ -347,7 +347,7 @@ export default function module() {
                 });
 
                 return retVal + margin.top;
-            }
+            };
         }
         let a, mid, w;
 
@@ -376,7 +376,7 @@ export default function module() {
 
             parents.forEach(name=>{
                 const points = data.map((o, i)=>{
-                    return o.name === name || o.parent === name ? i : null
+                    return o.name === name || o.parent === name ? i : null;
                 }).filter(o=> {return o;});
 
                 groups.push(points);
@@ -393,7 +393,7 @@ export default function module() {
                 mid = Midi(data, v, a),	//mid-point displacement of bar i
                 w = Wi(data, v, a);		  //width of bar i
 
-            let percentageAxis = Math.min(percentageAxisToMaxRatio * max(data, getValue))
+            let percentageAxis = Math.min(percentageAxisToMaxRatio * max(data, getValue));
 
             xScale = scaleLinear()
                 .domain([0, percentageAxis])
@@ -474,7 +474,7 @@ export default function module() {
         function isParent(d){
             return data.find((o) => {
                 return (o.name === d.name || o.name === d) && o.isParent;
-            })
+            });
         }
 
         /**
@@ -510,7 +510,7 @@ export default function module() {
                 let textHgt = elem.node().getBBox().height/2;
                 let group = elem.append('svg')
                     .attr('class', (d) => {
-                    const item = getItem(d)
+                    const item = getItem(d);
 
                     return item.splitterText ? 'hidden' :
                             'visibility visibility-' + getIndex(d);
@@ -549,7 +549,7 @@ export default function module() {
                         // determine if it is open
                         // if there are no children we rotate it
                         const e = data.find((o)=>{
-                            return o.parent === d
+                            return o.parent === d;
                         });
 
                         return e ? `translate(${yAxisPaddingBetweenChart-5}, 2.5) rotate(180)` : `translate(${yAxisPaddingBetweenChart-15}, -2.5)`;
@@ -563,7 +563,7 @@ export default function module() {
                     .style( 'fill-opacity', ( d ) => {
                         // if there are no children, make this transparent
                         const e = data.find((o)=>{
-                            return o.name === d && o.hasChildren
+                            return o.name === d && o.hasChildren;
                         });
 
                         return e ? 1 : 0;
@@ -630,7 +630,7 @@ export default function module() {
                 return data.find((o) => {
                     return o.name === d;
                 }).splitterText;
-            })
+            });
 
 
             // adding the down arrow for parent elements
@@ -657,7 +657,7 @@ export default function module() {
                     return `row_${i} row-wrapper`;
                 } );
 
-            const splitterRows = bargroups.filter(o=> { return o.splitterText })
+            const splitterRows = bargroups.filter(o=> { return o.splitterText; });
 
             bargroups.append( 'rect' )
                 .attr( 'class', 'bg')
@@ -673,8 +673,8 @@ export default function module() {
                 } )
                 .attr( 'width', chartWidth )
                 .attr( 'fill', function(d) {
-                    return d.splitterText ? '#fff' : backgroundColor
-                })
+                    return d.splitterText ? '#fff' : backgroundColor;
+                });
 
             bargroups.append( 'rect' )
                 .attr( 'class', 'bg-hover' )
@@ -690,8 +690,8 @@ export default function module() {
                 .on('mouseout', rowHoverOut)
                 .attr( 'fill-opacity', 0)
                 .attr( 'fill', function(d) {
-                    return d.splitterText ? '#fff' : backgroundHoverColor
-                })
+                    return d.splitterText ? '#fff' : backgroundHoverColor;
+                });
 
             // now add the actual bars to what we got
             bargroups
@@ -781,7 +781,7 @@ export default function module() {
                 // append group so we can manipulate the size
                 const splitterRowGroup = splitterRows
                     .append('g')
-                    .attr('class', 'view-more-group')
+                    .attr('class', 'view-more-group');
 
                 // view more row group here
                 splitterRowGroup.append( 'rect' )
@@ -789,7 +789,7 @@ export default function module() {
                     .attr( 'x',  -margin.left)
                     .attr( 'y',  function (d) {
                         // center bar on tick
-                        return yScale(d.name) - a * d.width/2
+                        return yScale(d.name) - a * d.width/2;
                     } )
                     .attr( 'height', function (d) {
                         return a * d.width;	//`a` already accounts for both types of padding
@@ -797,16 +797,16 @@ export default function module() {
                     .on('mouseover', rowHoverOver)
                     .on('mouseout', rowHoverOut)
                     .attr( 'width', chartWidth + margin.left )
-                    .attr( 'fill', 'none' )
+                    .attr( 'fill', 'none' );
 
                 splitterRowGroup.append('text')
                     .attr('class', 'view-more-label')
                     .attr('x', chartWidth - 10 )
                     .attr( 'y', _labelsHorizontalY )
                     .text((d) => {
-                        return d.splitterText
+                        return d.splitterText;
                     })
-                    .attr('font-size', getFontSize)
+                    .attr('font-size', getFontSize);
             }
 
             if (enableYAxisRight && enableLabels && width > 600) {
@@ -1011,7 +1011,7 @@ export default function module() {
                 const titlexPos = width > 600 ? chartWidth - complaintTotalGroup.node().getBoundingClientRect().width - 10 :
                     chartWidth - complaintTotalGroup.node().getBoundingClientRect().width - 10;
 
-                complaintTotalGroup.attr( 'x', titlexPos )
+                complaintTotalGroup.attr( 'x', titlexPos );
             }
 
             if (labelsInterval && width > 600) {
@@ -1151,7 +1151,7 @@ export default function module() {
             backgroundColor = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the up arrow color of a row in the chart
@@ -1166,7 +1166,7 @@ export default function module() {
             upArrowColor = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the down arrow color of a row in the chart
@@ -1181,7 +1181,7 @@ export default function module() {
             downArrowColor = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the colorSchema of the chart
@@ -1285,7 +1285,7 @@ export default function module() {
             labelsMargin = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the labels number format
@@ -1301,7 +1301,7 @@ export default function module() {
             labelsNumberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the labelsSuffix format
@@ -1317,7 +1317,7 @@ export default function module() {
             labelsSuffix = _x;
 
             return this;
-        }
+        };
 
         /**
          * Get or Sets the labels text size
@@ -1427,7 +1427,7 @@ export default function module() {
             numberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Exposes an 'on' method that acts as a bridge with the event dispatcher
@@ -1457,7 +1457,7 @@ export default function module() {
             percentageAxisToMaxRatio = _x;
 
             return this;
-        }
+        };
 
 
         /**

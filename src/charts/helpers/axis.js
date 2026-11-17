@@ -20,14 +20,6 @@ import { convertMillisecondsToDays, getLocaleDateFormatter } from './date.js';
         month: timeFormat('%b'),
         year: timeFormat('%Y')
     };
-    const localeTimeMap = {
-        minute: {minute:'numeric'},
-        hour: {hour:'numeric'},
-        day: {day: 'numeric'},
-        daymonth: {day: 'numeric', month:'short'},
-        month: {month: 'short'},
-        year: {year: 'numeric'}
-    };
     const settingsToMajorTickMap = {
         [axisTimeCombinations.MINUTE_HOUR]: timeHour.every(1),
         [axisTimeCombinations.HOUR_DAY]: timeDay.every(1),
@@ -56,7 +48,7 @@ import { convertMillisecondsToDays, getLocaleDateFormatter } from './date.js';
         }
 
         return settings;
-    }
+    };
 
     /**
      * Calculates the maximum number of ticks for the x axis
@@ -68,7 +60,7 @@ import { convertMillisecondsToDays, getLocaleDateFormatter } from './date.js';
         let ticksForWidth = Math.ceil(width / (singleTickWidth + horizontalTickSpacing));
 
         return dataPointNumber < minEntryNumForDayFormat ? timeDay : Math.min(dataPointNumber, ticksForWidth);
-    }
+    };
 
     /**
      * Returns tick object to be used when building the x axis

@@ -282,7 +282,7 @@ export default function module() {
                 tooltipX = tooltipWidth - 185;
             } else {
                 // Tooltip on the left
-                tooltipX = -205
+                tooltipX = -205;
             }
 
             if (mouseY) {
@@ -388,7 +388,7 @@ export default function module() {
          * @private
          */
         function updatePositionAndSize(dataPoint, xPosition, yPosition){
-            let [tooltipX, tooltipY] = getTooltipPosition([xPosition, yPosition])
+            let [tooltipX, tooltipY] = getTooltipPosition([xPosition, yPosition]);
 
             tooltip
                 .attr('width', tooltipWidth)
@@ -480,14 +480,6 @@ export default function module() {
 
                     return -1;
                 });
-
-            let otherIndex = topics.map(({ name }) => name).indexOf('Other');
-
-            if (otherIndex >= 0) {
-                let other = topics.splice(otherIndex, 1);
-
-                topics = topics.concat(other);
-            }
         }
 
         /**
@@ -698,7 +690,7 @@ export default function module() {
             numberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the formatter function for the value displayed on the tooltip.
@@ -715,7 +707,7 @@ export default function module() {
             valueFormatter = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets shouldShowDateInTitle

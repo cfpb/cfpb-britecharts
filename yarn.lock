@@ -465,6 +465,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "@eslint/js@npm:10.0.1"
+  peerDependencies:
+    eslint: ^10.0.0
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: 10c0/9f3fcaf71ba7fdf65d82e8faad6ecfe97e11801cc3c362b306a88ea1ed1344ae0d35330dddb0e8ad18f010f6687a70b75491b9e01c8af57acd7987cee6b3ec6c
+  languageName: node
+  linkType: hard
+
 "@eslint/object-schema@npm:^3.0.5":
   version: 3.0.5
   resolution: "@eslint/object-schema@npm:3.0.5"
@@ -2871,16 +2883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"baseline-browser-mapping@npm:^2.10.12":
-  version: 2.10.19
-  resolution: "baseline-browser-mapping@npm:2.10.19"
-  bin:
-    baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/d7ab47484477d16e29b711b74c56791d751701e796a133fcd6b72cf7f73f95cb72c0bc02070c3a93e78210cd02a4dc6d573191ce6920b863b3a9d8e9aa893bcf
-  languageName: node
-  linkType: hard
-
-"baseline-browser-mapping@npm:^2.11.37":
+"baseline-browser-mapping@npm:^2.10.12, baseline-browser-mapping@npm:^2.11.37":
   version: 2.11.37
   resolution: "baseline-browser-mapping@npm:2.11.37"
   bin:
@@ -3185,9 +3188,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001782":
-  version: 1.0.30001788
-  resolution: "caniuse-lite@npm:1.0.30001788"
-  checksum: 10c0/d3c4695d0e7a1e95194cc5072e26db59cbcd25adfff64253859213c1a04ce9bc17f7b8ec8b11908ac1ecc6c1a0caf95fae0aec064a64b8df03286dffa629ce8a
+  version: 1.0.30001826
+  resolution: "caniuse-lite@npm:1.0.30001826"
+  checksum: 10c0/11e9dba4dd105d270f69da022ce6a47be67cd1cc376f74029f99524ba8141a840153aa285f22c9a643a2fe608ffc0879592bcc9b7c20ad6875ad7ede663a1a6d
   languageName: node
   linkType: hard
 
@@ -3204,6 +3207,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cfpb-britecharts@workspace:."
   dependencies:
+    "@eslint/js": "npm:^10.0.1"
     "@release-it/conventional-changelog": "npm:^12.0.2"
     "@rstest/core": "npm:^0.12.6"
     "@rstest/coverage-istanbul": "npm:0.12.6"
@@ -3220,6 +3224,7 @@ __metadata:
     eslint: "npm:^10.15.0"
     fs-extra: "npm:^11.4.1"
     glob: "npm:^13.0.6"
+    globals: "npm:^17.14.0"
     happy-dom: "npm:20"
     http-server: "npm:^14.1.1"
     jquery: "npm:^4.0.0"
@@ -5524,6 +5529,13 @@ __metadata:
     kind-of: "npm:^6.0.2"
     which: "npm:^1.3.1"
   checksum: 10c0/510f489fb68d1cc7060f276541709a0ee6d41356ef852de48f7906c648ac223082a1cc8fce86725ca6c0e032bcdc1189ae77b4744a624b29c34a9d0ece498269
+  languageName: node
+  linkType: hard
+
+"globals@npm:^17.14.0":
+  version: 17.14.0
+  resolution: "globals@npm:17.14.0"
+  checksum: 10c0/422d17c24e87170d4aa566b97a53339ae451c2f4d78512594a7ca951cdb939bc4a85c10071e6dcf77ca63de48713a77f2e71eb9214e44880233dff2090e92731
   languageName: node
   linkType: hard
 

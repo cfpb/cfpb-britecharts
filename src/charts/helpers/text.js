@@ -50,7 +50,9 @@ import { select } from 'd3-selection';
             .attr('dy', ++lineNumber * smallLineHeight + dy + 'em')
             .style('font-size', smallFontSize + 'px');
 
-        while (word = words.pop()) {
+        word = words.pop();
+
+        while (word) {
             line.push(word);
             tspan.text(line.join(' '));
             if (tspan.node() && tspan.node().getComputedTextLength() > availableWidth - 50) {
@@ -65,6 +67,8 @@ import { select } from 'd3-selection';
                     .text(word)
                     .style('font-size', smallFontSize + 'px');
             }
+
+            word = words.pop();
         }
     };
 
@@ -147,7 +151,7 @@ import { select } from 'd3-selection';
         b.font = fontSize + 'px ' + fontFace;
 
         return b.measureText(text).width;
-    }
+    };
 
 
 export {

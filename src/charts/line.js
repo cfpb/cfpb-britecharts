@@ -383,7 +383,7 @@ export default function module() {
             }
 
             if (numberFormat) {
-                format = d3Format(numberFormat)
+                format = d3Format(numberFormat);
             }
 
             return format(value);
@@ -401,7 +401,6 @@ export default function module() {
                     tick: xTicks,
                     format: timeFormat(xAxisCustomFormat)
                 };
-                major = null;
             } else {
                 ({minor, major} = getTimeSeriesAxis(dataByDate, width, xAxisFormat, locale));
 
@@ -547,7 +546,7 @@ export default function module() {
                 return {
                     date: new Date(key),
                     topics: values
-                }
+                };
             });
 
             // Normalize dates in keys
@@ -701,7 +700,7 @@ export default function module() {
                 .style('opacity', (d)=>{
                     // code to make sure this is compatible with britecharts, vs
                     // cfpb customizations
-                    if (d.hasOwnProperty('show')) {
+                    if (Object.hasOwn(d, 'show')) {
                         return d.show ? 1 : 0;
                     }
                     // show by default
@@ -709,7 +708,7 @@ export default function module() {
                 })
                 .style('stroke-dasharray', (d)=>{
                     // cfpb custom
-                    if (d.hasOwnProperty('show')) {
+                    if (Object.hasOwn(d, 'show')) {
                         return d.dashed ? [0.5, 4] : false;
                     }
                     // line not dashed by default
@@ -782,7 +781,7 @@ export default function module() {
             let visibleTopics;
 
             // CFPB backwards compatibility with default britecharts data
-            if (dataByTopic[0].hasOwnProperty('show')) {
+            if (Object.hasOwn(dataByTopic[0], 'show')) {
                 visibleTopics = dataByTopic.filter(o => o.show);
             } else {
                 visibleTopics = dataByTopic;
@@ -962,7 +961,7 @@ export default function module() {
                 .remove();
 
             const nodesById = paths.nodes().reduce((acc, node) => {
-                acc[node.id] = node
+                acc[node.id] = node;
 
                 return acc;
             }, {});
@@ -1188,9 +1187,9 @@ export default function module() {
         function highlightDataPoints(dataPoint) {
             cleanDataPointHighlights();
 
-            const nodes = paths.nodes()
+            const nodes = paths.nodes();
             const nodesById = nodes.reduce((acc, node) => {
-                acc[node.id] = node
+                acc[node.id] = node;
 
                 return acc;
             }, {});
@@ -1209,7 +1208,7 @@ export default function module() {
                     node: nodesById[topic.name]
                 }))
                 .filter(({topic}) => !!topic)
-                .sort((a, b) => topicColorMap[a.topic.name] < topicColorMap[b.topic.name])
+                .sort((a, b) => topicColorMap[a.topic.name] < topicColorMap[b.topic.name]);
 
             dataPoint.topics = topicsWithNode.map(({topic}) => topic);
             dataPoint.topics.forEach((d, index) => {
@@ -1289,9 +1288,9 @@ export default function module() {
                 }
             }
 
-            pathYCache[key] = point.y
+            pathYCache[key] = point.y;
 
-            return pathYCache[key]
+            return pathYCache[key];
         }
 
         /**
@@ -1582,7 +1581,7 @@ export default function module() {
             numberFormat = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the curve of the line chart
@@ -1614,7 +1613,7 @@ export default function module() {
             shouldShowAllDataPoints = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the minimum width of the graph in order to show the tooltip
@@ -1676,7 +1675,7 @@ export default function module() {
             yAxisLabelPadding = _x;
 
             return this;
-        }
+        };
 
         /**
          * Gets or Sets the number of ticks of the y axis on the chart

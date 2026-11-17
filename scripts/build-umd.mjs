@@ -13,8 +13,29 @@ function assignExport(globalName, property) {
         js: [
             'var britecharts = globalThis.britecharts || (globalThis.britecharts = {});',
         ].join('\n'),
-        footer: `britecharts.${property} = (${globalName} && ${globalName}.default) || ${globalName};`,
+        footer: [
+            `var __export = (${globalName} && ${globalName}.default) || ${globalName};`,
+            `britecharts.${property} = __export;`,
+            'if (typeof module === "object" && module.exports) {',
+            '    module.exports = __export;',
+            '    module.exports.default = __export;',
+            '} else if (typeof define === "function" && define.amd) {',
+            '    define([], function() { return __export; });',
+            '}',
+        ].join('\n'),
     };
+}
+
+function commonJsFooter(exportExpression) {
+    return [
+        `var __export = ${exportExpression};`,
+        'if (typeof module === "object" && module.exports) {',
+        '    module.exports = __export;',
+        '    module.exports.default = __export;',
+        '} else if (typeof define === "function" && define.amd) {',
+        '    define([], function() { return __export; });',
+        '}',
+    ].join('\n');
 }
 
 for (const [name, entry] of Object.entries(charts)) {
@@ -42,6 +63,7 @@ await esbuild.build({
     format: 'iife',
     globalName: 'britecharts',
     sourcemap: true,
+    footer: { js: commonJsFooter('britecharts') },
 });
 
 const hookName = 'britecharts_useBritechart';
@@ -59,6 +81,15 @@ await esbuild.build({
         js: 'var britecharts = globalThis.britecharts || (globalThis.britecharts = {});',
     },
     footer: {
-        js: `britecharts.useBritechart = (${hookName} && ${hookName}.useBritechart) || ${hookName};`,
+        js: [
+            `var __export = (${hookName} && ${hookName}.useBritechart) || ${hookName};`,
+            'britecharts.useBritechart = __export;',
+            'if (typeof module === "object" && module.exports) {',
+            '    module.exports = __export;',
+            '    module.exports.default = __export;',
+            '} else if (typeof define === "function" && define.amd) {',
+            '    define([], function() { return __export; });',
+            '}',
+        ].join('\n'),
     },
 });

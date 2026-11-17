@@ -69,13 +69,13 @@ const sandboxConfig = merge([
         },
         resolve: {
             fallback: {
-                "path": false,
-                "fs": false,
-                "os": false,
-                "crypto": false,
-                "stream": false,
-                "buffer": false,
-                "util": false
+                'path': false,
+                'fs': false,
+                'os': false,
+                'crypto': false,
+                'stream': false,
+                'buffer': false,
+                'util': false
             }
         },
         devServer: {
@@ -135,7 +135,7 @@ const prodChartsConfig = merge([
 ]);
 
 module.exports = (env) => {
-    // eslint-disable-next-line no-console
+     
     console.log('%%%%%%%% env', env);
 
     if (env.demos || env === 'demos') {

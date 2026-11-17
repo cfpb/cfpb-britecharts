@@ -92,10 +92,8 @@ export function initializeSerializer() {
                 // fix for IE 11 not supporting svg.outerHTML
                 result = new XMLSerializer().serializeToString(elem);
 
-                elements = [].map.call(elements, (el, i) => {
+                [].forEach.call(elements, (el, i) => {
                     el.style.cssText = cssTexts[i];
-
-                    return el;
                 });
 
                 return result;

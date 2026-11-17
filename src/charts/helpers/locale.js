@@ -27,7 +27,7 @@ import { formatDefaultLocale } from 'd3-format';
     function isValidLocaleDefinition(locale) {
         return (
             typeof locale == 'object' &&
-            REQUIRED_LOCALE_DEFINITION_KEYS.every(localeKey => locale.hasOwnProperty(localeKey))
+            REQUIRED_LOCALE_DEFINITION_KEYS.every(localeKey => Object.hasOwn(locale, localeKey))
         );
     }
 
