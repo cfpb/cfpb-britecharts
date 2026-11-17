@@ -2,44 +2,6 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const constants = require('./webpack.constants');
 
-exports.babelLoader = () => {
-    const plugins = [
-        '@babel/plugin-transform-modules-commonjs',
-        'add-module-exports',
-    ];
-
-    if (process.env.BABEL_ENV === 'test') {
-        plugins.push('babel-plugin-istanbul');
-    }
-
-    return {
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            babelrc: false,
-                            configFile: false,
-                            presets: [
-                                ['@babel/preset-env', {
-                                    modules: false,
-                                    targets: {
-                                        browsers: ['last 2 versions'],
-                                    },
-                                }],
-                            ],
-                            plugins,
-                        },
-                    },
-                },
-            ],
-        },
-    };
-};
-
 exports.bundleTreeChart = (analyzerPort = 8888) => ({
     plugins: [
         new BundleAnalyzerPlugin({

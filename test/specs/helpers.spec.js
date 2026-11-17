@@ -1,28 +1,15 @@
-define([
-    'underscore',
-    'jquery',
-    'd3',
-    'lineChartDataBuilder',
-    'helpers/style',
-    'helpers/text',
-    'helpers/number',
-    'helpers/date',
-    'helpers/export',
-    'helpers/axis',
-    'helpers/locale'
-], function (
-    _,
-    $,
-    d3,
-    lineDataBuilder,
-    style,
-    textHelper,
-    number,
-    date,
-    exportChart,
-    axis,
-    locale
-) {
+import { loadTestContainer, clearTestContainer } from '../support.js';
+import $ from 'jquery';
+import * as d3 from 'd3';
+import lineDataBuilder from '../fixtures/lineChartDataBuilder.js';
+import style from '../../src/charts/helpers/style.js';
+import textHelper from '../../src/charts/helpers/text.js';
+import number from '../../src/charts/helpers/number.js';
+import date from '../../src/charts/helpers/date.js';
+import exportChart from '../../src/charts/helpers/export.js';
+import axis from '../../src/charts/helpers/axis.js';
+import locale from '../../src/charts/helpers/locale.js';
+
     'use strict';
 
     const randomColor = 'rgb(222,163,12)';
@@ -38,39 +25,36 @@ define([
     describe('Helpers', () => {
 
         beforeEach(() => {
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
             containerFixture = $('.test-container');
         });
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('style', () => {
             let styledHTML;
+            let serializer;
 
             beforeEach(() => {
                 containerFixture.append($('<span></span>', { class: 'child' }));
 
-                this.serializer = style.initializeSerializer();
+                serializer = style.initializeSerializer();
                 styles = document.createElement('style');
                 styles.innerHTML = `.child{background:${randomColor};}`;
                 document.body.appendChild(styles);
             });
 
             afterEach(() => {
-                this.serializer = null;
+                serializer = null;
                 document.body.removeChild(styles);
             });
 
             it('should expect serializer to be defined', () => {
                 const expected = 'function';
-                const actual = typeof this.serializer;
+                const actual = typeof serializer;
 
                 expect(actual).toEqual(expected);
             });
@@ -79,7 +63,7 @@ define([
                 let actual;
                 node = containerFixture[0];
 
-                styledHTML = this.serializer(node).replace(' ', '');
+                styledHTML = serializer(node).replace(' ', '');
                 actual = styledHTML.indexOf(randomColor).length;
 
                 expect(styledHTML).not.toBe(node.outerHTML.replace(' ', ''));
@@ -167,9 +151,7 @@ define([
             let containerFixture, f;
 
             beforeEach(() => {
-                f = jasmine.getFixtures();
-                f.fixturesPath = 'base/test/fixtures/';
-                f.load('testContainer.html');
+                loadTestContainer();
 
                 containerFixture = d3.select('.test-container');
                 containerFixture.append('svg')
@@ -506,4 +488,3 @@ define([
             });
         });
     });
-});

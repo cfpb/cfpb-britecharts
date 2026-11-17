@@ -15,7 +15,7 @@ import { line as lineChartLoadingMarkup } from './helpers/load.js';
 import { getTimeSeriesAxis } from './helpers/axis.js';
 import { axisTimeCombinations, curveMap } from './helpers/constants.js';
 import { createFilterContainer, createGlowWithMatrix, bounceCircleHighlight } from './helpers/filter.js';
-import { formatIntegerValue, formatDecimalValue, isInteger, uniqueId } from './helpers/number.js';
+import { formatIntegerValue, formatDecimalValue, isInteger } from './helpers/number.js';
 import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
 
     

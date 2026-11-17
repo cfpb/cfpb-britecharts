@@ -342,7 +342,9 @@ function _handleChartSelectorChange() {
  */
 function _safeLoadDependency(name) {
     try {
-        window[name.split('/').pop()] = require(`../src/charts/${name}`);
+        const loaded = require(`../src/charts/${name}`);
+
+        window[name.split('/').pop()] = loaded.default || loaded;
     } catch(e) {
         errors.push({
             error: e,

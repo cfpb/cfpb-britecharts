@@ -1,16 +1,8 @@
-define([
-    'underscore',
-    'jquery',
-    'd3',
-    'stacked-area',
-    'stackedAreaDataBuilder'
-    ], function(
-        _,
-        $,
-        d3,
-        stackedArea,
-        dataBuilder
-    ) {
+import { loadTestContainer, clearTestContainer, createSpy } from '../support.js';
+import * as d3 from 'd3';
+import stackedArea from '../../src/charts/stacked-area.js';
+import dataBuilder from '../fixtures/stackedAreaDataBuilder.js';
+
     'use strict';
 
     const aTestDataSet = () => new dataBuilder.StackedAreaDataBuilder();
@@ -20,7 +12,7 @@ define([
             .build();
     };
     const hasClass = (element, className) => {
-        return _.contains(element.node().classList, className);
+        return element.node().classList.contains(className);
     };
 
     describe('Stacked Area Chart', () => {
@@ -33,9 +25,7 @@ define([
                                 .dateLabel('dateUTC');
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container').append('svg');
             containerFixture.datum(dataset.data).call(stackedAreaChart);
@@ -43,9 +33,7 @@ define([
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -199,22 +187,14 @@ define([
             });
 
             it('should render an area for each category', () => {
-                const expected = _.chain(dataset.data)
-                    .pluck('name')
-                    .unique()
-                    .value()
-                    .length;
+                const expected = new Set(dataset.data.map((item) => item.name)).size;
                 const actual = containerFixture.selectAll('.layer').size();
 
                 expect(actual).toEqual(expected);
             });
 
             it('should render an area-outline for each category', () => {
-                const expected = _.chain(dataset.data)
-                    .pluck('name')
-                    .unique()
-                    .value()
-                    .length;
+                const expected = new Set(dataset.data.map((item) => item.name)).size;
                 const actual = containerFixture.selectAll('.area-outline').size();
 
                 expect(actual).toEqual(expected);
@@ -352,7 +332,7 @@ define([
             });
 
             it('should trigger an event on hover', () => {
-                const callback = jasmine.createSpy('hoverCallback');
+                const callback = createSpy();
                 const container = containerFixture.selectAll('svg');
                 const expectedCallCount = 1;
                 const expectedArgumentCount = 2;
@@ -365,7 +345,7 @@ define([
             });
 
             it('should trigger an event on mouse out', () => {
-                const callback = jasmine.createSpy('mouseOutCallback');
+                const callback = createSpy();
                 const container = containerFixture.selectAll('svg');
                 const expectedCallCount = 1;
                 const expectedArgumentCount = 2;
@@ -378,7 +358,7 @@ define([
             });
 
             it('should trigger an event on touchmove', () => {
-                const callback = jasmine.createSpy('touchMoveCallback');
+                const callback = createSpy();
                 const container = containerFixture.selectAll('svg');
                 const expectedCallCount = 1;
                 const expectedArgumentCount = 2;
@@ -795,9 +775,7 @@ define([
                                 .isPrintMode(true);
 
             // DOM Fixture Setup
-            f = jasmine.getFixtures();
-            f.fixturesPath = 'base/test/fixtures/';
-            f.load('testContainer.html');
+            loadTestContainer();
 
             containerFixture = d3.select('.test-container').append('svg');
             containerFixture.datum(dataset.data).call(stackedAreaChart);
@@ -805,9 +783,7 @@ define([
 
         afterEach(() => {
             containerFixture.remove();
-            f = jasmine.getFixtures();
-            f.cleanUp();
-            f.clearCache();
+            clearTestContainer();
         });
 
         describe('Render', () => {
@@ -822,4 +798,3 @@ define([
                 });
         });
     });
-});

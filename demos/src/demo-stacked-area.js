@@ -3,9 +3,9 @@
 const d3Selection = require('d3-selection');
 const PubSub = require('pubsub-js');
 
-const stackedAreaChart = require('./../../src/charts/stacked-area');
+const stackedAreaChart = require('./../../src/charts/stacked-area').default;
 const colors = require('./../../src/charts/helpers/color');
-const tooltip = require('./../../src/charts/tooltip');
+const tooltip = require('./../../src/charts/tooltip').default;
 
 const stackedDataBuilder = require('./../../test/fixtures/stackedAreaDataBuilder');
 const colorSelectorHelper = require('./helpers/colorSelector');

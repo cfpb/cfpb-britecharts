@@ -52,24 +52,8 @@ const demosConfig = merge([
             minimize: false,
         },
     },
-    parts.babelLoader(),
 ]);
 
-
-const testConfig = merge([
-    {
-        mode: 'development',
-        resolve: {
-            modules: [
-                path.resolve(__dirname, './src/charts'),
-                path.resolve(__dirname, './test/fixtures'),
-                'node_modules',
-            ],
-        }
-    },
-    parts.babelLoader(),
-    parts.aliasD3ToVendorPath(),
-]);
 
 const sandboxConfig = merge([
     {
@@ -104,7 +88,6 @@ const sandboxConfig = merge([
             allowedHosts: 'all',
         },
     },
-    parts.babelLoader(),
     parts.sassLoader(),
 ]);
 
@@ -124,9 +107,7 @@ const prodBundleConfig = merge([
             }
         },
     },
-    parts.babelLoader(),
     parts.aliasD3ToVendorPath(),
-    // parts.bundleTreeChart(9999),
     parts.noParseD3Vendor(),
     parts.externals(),
 ]);
@@ -148,9 +129,7 @@ const prodChartsConfig = merge([
             }
         },
     },
-    parts.babelLoader(),
     parts.aliasD3ToVendorPath(),
-    // parts.bundleTreeChart(),
     parts.noParseD3Vendor(),
     parts.externals(),
 ]);
@@ -161,10 +140,6 @@ module.exports = (env) => {
 
     if (env.demos || env === 'demos') {
         return demosConfig;
-    }
-
-    if (env.test || env === 'test') {
-        return testConfig;
     }
 
     if (env.sandbox || env === 'sandbox') {

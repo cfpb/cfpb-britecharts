@@ -1,59 +1,55 @@
-define(function(require) {
-    'use strict';
-
-    var _ = require('underscore'),
-        jsonHiddenSource = require('../json/areaDataHiddenArea.json'),
-        jsonThreeSources = require('../json/areaDataThreeSources.json'),
-        jsonSixSources = require('../json/areaDataSixSources.json'),
-        jsonSalesChannel = require('../json/areaDataSalesChannel.json'),
-        jsonReportService = require('../json/areaDataReportService.json'),
-        jsonLargeService = require('../json/areaDataLarge.json'),
-        jsonMassiveWeekSource = require('../json/areaMassiveWeekSources.json');
+import jsonHiddenSource from '../json/areaDataHiddenArea.json';
+import jsonThreeSources from '../json/areaDataThreeSources.json';
+import jsonSixSources from '../json/areaDataSixSources.json';
+import jsonSalesChannel from '../json/areaDataSalesChannel.json';
+import jsonReportService from '../json/areaDataReportService.json';
+import jsonLargeService from '../json/areaDataLarge.json';
+import jsonMassiveWeekSource from '../json/areaMassiveWeekSources.json';
 
     function StackedAreaDataBuilder(config){
         this.Klass = StackedAreaDataBuilder;
 
-        this.config = _.defaults({}, config);
+        this.config = Object.assign({}, config);
 
         this.with3Sources = function(){
-            var attributes = _.extend({}, this.config, jsonThreeSources);
+            var attributes = Object.assign({}, this.config, jsonThreeSources);
 
             return new this.Klass(attributes);
         };
 
         this.withHiddenSources = function(){
-            var attributes = _.extend({}, this.config, jsonHiddenSource);
+            var attributes = Object.assign({}, this.config, jsonHiddenSource);
 
             return new this.Klass(attributes);
         };
 
         this.with6Sources = function(){
-            var attributes = _.extend({}, this.config, jsonSixSources);
+            var attributes = Object.assign({}, this.config, jsonSixSources);
 
             return new this.Klass(attributes);
         };
 
         this.withMassiveSources = function(){
-            var attributes = _.extend({}, this.config, jsonMassiveWeekSource);
+            var attributes = Object.assign({}, this.config, jsonMassiveWeekSource);
 
             return new this.Klass(attributes);
         };
 
 
         this.withReportData = function(){
-            var attributes = _.extend({}, this.config, jsonReportService);
+            var attributes = Object.assign({}, this.config, jsonReportService);
 
             return new this.Klass(attributes);
         };
 
         this.withSalesChannelData = function(){
-            var attributes = _.extend({}, this.config, jsonSalesChannel);
+            var attributes = Object.assign({}, this.config, jsonSalesChannel);
 
             return new this.Klass(attributes);
         };
 
         this.withLargeData = function() {
-            var attributes = _.extend({}, this.config, jsonLargeService);
+            var attributes = Object.assign({}, this.config, jsonLargeService);
 
             return new this.Klass(attributes);
         }
@@ -63,8 +59,5 @@ define(function(require) {
         };
     }
 
-    return {
-        StackedAreaDataBuilder: StackedAreaDataBuilder
-    };
-
-});
+export { StackedAreaDataBuilder };
+export default { StackedAreaDataBuilder };

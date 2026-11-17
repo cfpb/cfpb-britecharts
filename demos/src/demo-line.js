@@ -4,8 +4,8 @@ const d3Selection = require('d3-selection');
 
 const PubSub = require('pubsub-js');
 
-const line = require('./../../src/charts/line');
-const tooltip = require('./../../src/charts/tooltip');
+const line = require('./../../src/charts/line').default;
+const tooltip = require('./../../src/charts/tooltip').default;
 const dataBuilder = require('./../../test/fixtures/lineChartDataBuilder');
 const colorSelectorHelper = require('./helpers/colorSelector');
 const constants = require('./../../src/charts/helpers/constants');

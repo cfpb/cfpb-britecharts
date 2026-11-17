@@ -1,17 +1,7 @@
 import { colorSchemas } from './color.js';
 import { initializeSerializer } from './style.js';
-import base64 from 'base-64';
 
-    
-    
-
-    const isBrowser = (typeof window !== 'undefined');
-
-    let encoder = isBrowser && window.btoa;
-
-    if (!encoder) {
-        encoder = base64.encode;
-    }
+    const encoder = globalThis.btoa;
 
     // Base64 doesn't work really well with Unicode strings, so we need to use this function
     // Ref: https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding

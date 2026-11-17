@@ -9,13 +9,11 @@
 var template = require('jsdoc/template'),
   doop = require('jsdoc/util/doop'),
   fs = require('jsdoc/fs'),
-  _ = require('underscore'),
   path = require('jsdoc/path'),
 
   taffy = require('taffydb').taffy,
   handle = require('jsdoc/util/error').handle,
   helper = require('jsdoc/util/templateHelper'),
-  moment = require("moment"),
   htmlsafe = helper.htmlsafe,
   sanitizeHtml = require('sanitize-html'),
   linkto = helper.linkto,
@@ -493,7 +491,7 @@ function buildNav(members) {
   }
 
   var topLevelNav = [],apis =[];
-  _.each(nav, function(entry, name) {
+  Object.entries(nav).forEach(function([name, entry]) {
     if (entry.members.length > 0 && name !== "index" && name!="tutorial") {
       entry.members.forEach(function(c){
         apis.push( c )
@@ -673,7 +671,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     var docletPath;
     if (doclet.meta) {
       docletPath = getPathFromDoclet(doclet);
-      if (!_.isEmpty(sourceFiles[docletPath])) {
+      if (sourceFiles[docletPath] && Object.keys(sourceFiles[docletPath]).length) {
         docletPath = sourceFiles[docletPath].shortened;
         if (docletPath) {
           doclet.meta.shortpath = docletPath;
@@ -723,7 +721,17 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.resolveAuthorLinks = resolveAuthorLinks;
   view.tutoriallink = tutoriallink;
   view.htmlsafe = htmlsafe;
-  view.moment = moment;
+  view.moment = function() {
+    return {
+      format: function() {
+        return new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+      }
+    };
+  };
 
   // once for all
   buildNav(members);
@@ -1042,10 +1050,9 @@ generate(
           navOptions: navOptions
       };
 
-      var tmplString = fs.readFileSync(templatePath + "/quicksearch.tmpl").toString(),
-            tmpl = _.template(tmplString);
+      var tmplString = fs.readFileSync(templatePath + "/quicksearch.tmpl").toString();
 
-      var html = tmpl(data),
+      var html = tmplString.replace('<%= searchableDocuments %>', data.searchableDocuments),
             outpath = path.join(outdir, "quicksearch.html");
 
       fs.writeFileSync(outpath, html, "utf8");

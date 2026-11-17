@@ -4,10 +4,9 @@ import { dispatch } from 'd3-dispatch';
 import { easeQuadInOut } from 'd3-ease';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { area as d3Area, line as d3Line, stack, stackOffsetNone, stackOrderNone } from 'd3-shape';
-import { pointer, select as d3Select, selectAll as d3SelectAll } from 'd3-selection';
+import { pointer, select as d3Select } from 'd3-selection';
 import 'd3-transition';
 import { timeFormat } from 'd3-time-format';
-import assign from 'lodash.assign';
 import { getTextWidth } from './helpers/text.js';
 import { exportChart } from './helpers/export.js';
 import { colorGradients, colorSchemas } from './helpers/color.js';
@@ -426,7 +425,7 @@ export default function module() {
          */
         function buildLayers() {
             dataByDateFormatted = dataByDate
-                .map(d => assign({}, d, d.values))
+                .map(d => Object.assign({}, d, d.values))
                 .map(d => {
                     Object.keys(d).forEach(k => {
                         const entry = d[k];
@@ -436,13 +435,13 @@ export default function module() {
                         }
                     });
 
-                    return assign({}, d, {
+                    return Object.assign({}, d, {
                         date: new Date(d['key'])
                     });
                 });
 
             dataByDateZeroed = dataByDate
-                .map(d => assign({}, d, d.values))
+                .map(d => Object.assign({}, d, d.values))
                 .map(d => {
                     Object.keys(d).forEach(k => {
                         const entry = d[k];
@@ -452,19 +451,19 @@ export default function module() {
                         }
                     });
 
-                    return assign({}, d, {
+                    return Object.assign({}, d, {
                         date: new Date(d['key'])
                     });
                 });
 
             let initialTotalsObject = uniq(data.map(getName))
                                         .reduce((memo, key) => (
-                                            assign({}, memo, {[key]: 0})
+                                            Object.assign({}, memo, {[key]: 0})
                                         ), {});
 
             let totals = data
                 .reduce((memo, item) => (
-                    assign({}, memo, {[item.name]: memo[item.name] += item.value})
+                    Object.assign({}, memo, {[item.name]: memo[item.name] += item.value})
                 ), initialTotalsObject);
 
             order = topicsOrder || formatOrder(totals);
@@ -522,7 +521,7 @@ export default function module() {
                 .nice();
 
             categoryColorMap =  order.reduce((memo, topic, index) => (
-                assign({}, memo, {[topic]: colorSchema[index]})
+                Object.assign({}, memo, {[topic]: colorSchema[index]})
             ), {});
 
             hiddenAreaMap = getAreaVisibility();
@@ -1229,7 +1228,7 @@ export default function module() {
             );
 
             return Array.from(groupedByDate, ([key, values]) => {
-                return assign({}, {
+                return Object.assign({}, {
                     key,
                     values,
                     date: new Date(key)
