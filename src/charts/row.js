@@ -1,21 +1,32 @@
-define(function(require) {
-    'use strict';
+import { max, sum } from 'd3-array';
+import { easeQuadInOut } from 'd3-ease';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { color as d3Color } from 'd3-color';
+import { dispatch } from 'd3-dispatch';
+import { format } from 'd3-format';
+import { scaleLinear, scaleOrdinal, scalePow } from 'd3-scale';
+import { pointer, select as d3Select } from 'd3-selection';
+import 'd3-transition';
+import { getTextWidth, wrapTextWithEllipses as d3WrapTextWithEllipses } from './helpers/text.js';
+import { exportChart } from './helpers/export.js';
+import { singleColors } from './helpers/color.js';
+import { bar as barChartLoadingMarkup } from './helpers/load.js';
+import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
 
-    const d3 = require('d3');
-    const d3Array = require('d3-array');
-    const d3Ease = require('d3-ease');
-    const d3Axis = require('d3-axis');
-    const d3Color = require('d3-color');
-    const d3Dispatch = require('d3-dispatch');
-    const d3Format = require('d3-format');
-    const d3Scale = require('d3-scale');
-    const d3Selection = require('d3-selection');
-    const d3Transition = require('d3-transition');
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-    const textHelper = require('./helpers/text');
-    const {exportChart} = require('./helpers/export');
-    const colorHelper = require('./helpers/color');
-    const { bar: barChartLoadingMarkup } = require('./helpers/load');
+    
+    
+    
+    
 
     const NUMBER_FORMAT = ',f';
 
@@ -56,12 +67,13 @@ define(function(require) {
      *     .height(500)
      *     .width(800);
      *
-     * d3Selection.select('.css-selector')
+     * d3Select('.css-selector')
      *     .datum(dataset)
      *     .call(rowChart);
      *
      */
-    return function module() {
+
+export default function module() {
 
         let margin = {
                 top: 20,
@@ -77,7 +89,7 @@ define(function(require) {
             dataZeroed,
             chartWidth, chartHeight,
             xScale, yScale,
-            colorSchema = colorHelper.singleColors.aloeGreen,
+            colorSchema = singleColors.aloeGreen,
             colorList,
             colorMap,
             yTicks = 5,
@@ -102,7 +114,7 @@ define(function(require) {
             svg,
 
             isAnimated = false,
-            ease = d3Ease.easeQuadInOut,
+            ease = easeQuadInOut,
             animationDuration = 800,
             backgroundColor = '#bebebe',
             backgroundHoverColor = '#d6e8fa',
@@ -111,7 +123,7 @@ define(function(require) {
 
             highlightRowFunction = (rowSelection) =>
                 rowSelection.attr('fill', ({name}) => {
-                    return name ? d3Color.color(colorMap(name)).darker() : ''
+                    return name ? d3Color(colorMap(name)).darker() : ''
                 }),
             labelsFocusTitle = '',
             labelsTotalText = 'Total complaints',
@@ -125,7 +137,7 @@ define(function(require) {
             isPrintMode = false,
             // Dispatcher object to broadcast the mouse events
             // Ref: https://github.com/mbostock/d3/wiki/Internals#d3_dispatch
-            dispatcher = d3Dispatch.dispatch(
+            dispatcher = dispatch(
                 'customMouseOver',
                 'customMouseOut',
                 'customMouseMove',
@@ -165,14 +177,14 @@ define(function(require) {
                     labelsSuffix = labelsSuffix.replace( /s$/, '' );
                 }
 
-                const t = d3Format.format( labelsNumberFormat )( value ) + ' ' + labelsSuffix + pctLabel;
+                const t = format( labelsNumberFormat )( value ) + ' ' + labelsSuffix + pctLabel;
                 const textSize = isParent ? labelsSize : labelsSizeChild;
-                const w = textHelper.getTextWidth(t, textSize, 'sans-serif') + 10;
+                const w = getTextWidth(t, textSize, 'sans-serif') + 10;
                 const barWidth = xScale( value );
 
                 if (w > barWidth && w > bgWidth - barWidth) {
                     // only return the number if it won't fit.
-                    return d3Format.format( labelsNumberFormat )( value );
+                    return format( labelsNumberFormat )( value );
                 }
 
                 return t;
@@ -191,7 +203,7 @@ define(function(require) {
 
                 const prepend = pctChange > 0 ? '+': '';
 
-                return prepend + d3Format.format(labelsNumberFormat)(pctChange) + '%';
+                return prepend + format(labelsNumberFormat)(pctChange) + '%';
             },
 
             // labels per row, aka XX Complaints
@@ -208,6 +220,7 @@ define(function(require) {
          * @param {RowChartData} _data The data to attach and generate the chart
          */
         function exports(_selection) {
+            exports.__selection = _selection;
             _selection.each(function(_data) {
                 const sideMargins = margin.left + margin.right;
 
@@ -224,6 +237,8 @@ define(function(require) {
                 drawAxis();
                 updateChartHeight();
             });
+        
+            finalizeChart(exports);
         }
 
         /**
@@ -231,11 +246,11 @@ define(function(require) {
          * @private
          */
         function buildAxis() {
-            xAxis = d3Axis.axisBottom(xScale)
+            xAxis = axisBottom(xScale)
                 .ticks(xTicks, numberFormat)
                 .tickSizeInner([-chartHeight]);
 
-            yAxis = d3Axis.axisLeft(yScale);
+            yAxis = axisLeft(yScale);
         }
 
         /**
@@ -282,7 +297,7 @@ define(function(require) {
         //scale factor between value and bar width
         function alpha(values, value) {
             var n = values.length,
-                total = d3.sum(values, value);
+                total = sum(values, value);
 
             const exGroups = getExpandedGroups(values);
             const retAlpha = (chartHeight - (n - 1) * padding * chartHeight / n - 2 * outerPadding * chartHeight / n) / total;
@@ -290,7 +305,7 @@ define(function(require) {
             if (exGroups.length === 0)
                 return retAlpha;
 
-            const squishScale = d3Scale.scalePow()
+            const squishScale = scalePow()
                 .exponent( 1/exGroups.length )
                 .domain( [ 0, 100 ] )
                 .range( [ 0, exGroups.length * 10 ] );
@@ -318,7 +333,7 @@ define(function(require) {
             return function (_, i) {
                 var op = outerPadding * chartHeight / n,
                     p = padding * chartHeight / n;
-                let retVal = op + d3.sum(values.slice(0, i), value) * alpha + i * p + w(i) / 2;
+                let retVal = op + sum(values.slice(0, i), value) * alpha + i * p + w(i) / 2;
 
                 groupIndices.forEach(g=>{
                     // space above group
@@ -378,16 +393,16 @@ define(function(require) {
                 mid = Midi(data, v, a),	//mid-point displacement of bar i
                 w = Wi(data, v, a);		  //width of bar i
 
-            let percentageAxis = Math.min(percentageAxisToMaxRatio * d3Array.max(data, getValue))
+            let percentageAxis = Math.min(percentageAxisToMaxRatio * max(data, getValue))
 
-            xScale = d3Scale.scaleLinear()
+            xScale = scaleLinear()
                 .domain([0, percentageAxis])
                 .rangeRound([0, chartWidth]);
 
             // we already found the midpoints
             let vals = data.map( mid );
 
-            yScale = d3Scale.scaleOrdinal()
+            yScale = scaleOrdinal()
                 .domain(data.map(getName))
                 .range(vals); //force irregular intervals based on value
 
@@ -408,7 +423,7 @@ define(function(require) {
         function buildSVG(container) {
             containerRoot = container;
             if (!svg) {
-                svg = d3Selection.select(container)
+                svg = d3Select(container)
                     .append('svg')
                       .classed('britechart row-chart', true);
 
@@ -424,6 +439,7 @@ define(function(require) {
             svg
                 .attr('width', width)
                 .attr('height', height);
+            noteChartRender(exports, svg, container);
         }
 
         /**
@@ -482,7 +498,7 @@ define(function(require) {
             if (wrapLabels) {
                 const lineHeight = yAxisLineWrapLimit > 1 ? 0.8 : 1.2;
 
-                textHelper.wrapTextWithEllipses(text, containerWidth, 0,
+                d3WrapTextWithEllipses(text, containerWidth, 0,
                     yAxisLineWrapLimit, lineHeight);
             }
         }
@@ -490,7 +506,7 @@ define(function(require) {
         // eyeball
         function addVisibilityToggle(elem){
             elem.each( function() {
-                elem = d3Selection.select( this );
+                elem = d3Select( this );
                 let textHgt = elem.node().getBBox().height/2;
                 let group = elem.append('svg')
                     .attr('class', (d) => {
@@ -526,8 +542,8 @@ define(function(require) {
 
         function addExpandToggle(elem){
             elem.each( function() {
-                d3Selection.select( this ).selectAll('polygon').remove();
-                elem = d3Selection.select( this );
+                d3Select( this ).selectAll('polygon').remove();
+                elem = d3Select( this );
                 elem.append( 'polygon' )
                     .attr( 'transform', ( d ) => {
                         // determine if it is open
@@ -936,7 +952,7 @@ define(function(require) {
 
             if (labelsFocusTitle && focusCount) {
                 let focusTitle = `${labelsFocusTitle} ${focusCount.toLocaleString()}`;
-                let w = textHelper.getTextWidth( focusTitle, labelsSizeChild, 'sans-serif' );
+                let w = getTextWidth( focusTitle, labelsSizeChild, 'sans-serif' );
                 const moPadding = isPrintMode ? 100 : 40;
                 const availfocusTitleAreaWidth = margin.left + focusWidth - moPadding;
                 let wasTrimmed = false;
@@ -945,7 +961,7 @@ define(function(require) {
                     labelsFocusTitle = labelsFocusTitle.slice(0, -1);
                     wasTrimmed = true;
                     focusTitle = `${labelsFocusTitle}... ${focusCount.toLocaleString()}`;
-                    w = textHelper.getTextWidth( focusTitle, labelsSizeChild, 'sans-serif' );
+                    w = getTextWidth( focusTitle, labelsSizeChild, 'sans-serif' );
                 }
 
                 const focusTitleGroup = svg.select( '.title-group' ).append( 'text' )
@@ -974,7 +990,7 @@ define(function(require) {
             if (labelsTotalCount) {
                 const ltc = labelsTotalCount.toLocaleString();
                 const compCountTxt = labelsTotalText + ' ' + ltc;
-                let cw = textHelper.getTextWidth( compCountTxt, labelsSizeChild, 'Karla, sans-serif');
+                let cw = getTextWidth( compCountTxt, labelsSizeChild, 'Karla, sans-serif');
 
                 const complaintTotalGroup = svg.select( '.title-group' ).append( 'text' )
                     .text( null )
@@ -1018,11 +1034,11 @@ define(function(require) {
             if (d.splitterText)
                 return;
 
-            dispatcher.call('customMouseOver', element, d, d3Selection.pointer(event, element), [chartWidth, chartHeight]);
+            dispatcher.call('customMouseOver', element, d, pointer(event, element), [chartWidth, chartHeight]);
 
             // eyeball fill-opacity
             rowHoverOver(d);
-            highlightRowFunction(d3Selection.select(element));
+            highlightRowFunction(d3Select(element));
 
         }
 
@@ -1043,8 +1059,8 @@ define(function(require) {
                 return;
             }
 
-            d3Selection.select(containerRoot).select('.tick svg.visibility-' + ind).attr('opacity', 1);
-            d3Selection.select(containerRoot).select('g.row_' + ind + ' .bg-hover').attr('fill-opacity', 1);
+            d3Select(containerRoot).select('.tick svg.visibility-' + ind).attr('opacity', 1);
+            d3Select(containerRoot).select('g.row_' + ind + ' .bg-hover').attr('fill-opacity', 1);
         }
 
         function rowHoverOut(event, d) {
@@ -1064,8 +1080,8 @@ define(function(require) {
                 return;
             }
 
-            d3Selection.select(containerRoot).select('.tick svg.visibility-' + ind).attr('opacity', 0);
-            d3Selection.select(containerRoot).select('g.row_' + ind + ' .bg-hover').attr('fill-opacity', 0);
+            d3Select(containerRoot).select('.tick svg.visibility-' + ind).attr('opacity', 0);
+            d3Select(containerRoot).select('g.row_' + ind + ' .bg-hover').attr('fill-opacity', 0);
         }
 
         function getIndex(name){
@@ -1088,7 +1104,7 @@ define(function(require) {
             // early exit if it's a separator row
             if (d.splitterText)
                 return;
-            dispatcher.call('customMouseMove', element, d, d3Selection.pointer(event, element), [chartWidth, chartHeight]);
+            dispatcher.call('customMouseMove', element, d, pointer(event, element), [chartWidth, chartHeight]);
         }
 
         /**
@@ -1100,7 +1116,7 @@ define(function(require) {
             // early exit if it's a separator row
             if (d.splitterText)
                 return;
-            dispatcher.call('customMouseOut', element, d, d3Selection.pointer(event, element), [chartWidth, chartHeight]);
+            dispatcher.call('customMouseOut', element, d, pointer(event, element), [chartWidth, chartHeight]);
 
             // eyeball fill-opacity 0
             rowHoverOut(d);
@@ -1117,7 +1133,7 @@ define(function(require) {
          * @private
          */
         function handleClick(element, event, d, chartWidth, chartHeight) {
-            dispatcher.call('customClick', element, d, d3Selection.pointer(event, element), [chartWidth, chartHeight]);
+            dispatcher.call('customClick', element, d, pointer(event, element), [chartWidth, chartHeight]);
         }
 
         // API
@@ -1700,7 +1716,53 @@ define(function(require) {
             return this;
         };
 
-        return exports;
-    };
+        
+        /**
+         * Redraw when the parent container changes size.
+         * @param {Boolean} [_x] true to follow the container with a ResizeObserver
+         * @return {Boolean|module} Current flag or the chart for chaining
+         * @public
+         */
+        exports.autoResize = function (_x) {
+            if (!arguments.length) {
+                return !!exports.__autoResize;
+            }
+            exports.__autoResize = !!_x;
+            bindAutoResize(exports);
 
-});
+            return this;
+        };
+
+        /**
+         * Sets the accessible name announced for the chart.
+         * @param {String} [_x] Label rendered in the SVG title
+         * @return {String|module} Current label or the chart for chaining
+         * @public
+         */
+        exports.ariaLabel = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaLabel || null;
+            }
+            exports.__ariaLabel = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible description announced for the chart.
+         * @param {String} [_x] Description rendered in the SVG desc
+         * @return {String|module} Current description or the chart for chaining
+         * @public
+         */
+        exports.ariaDescription = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaDescription || null;
+            }
+            exports.__ariaDescription = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+return exports;
+    };

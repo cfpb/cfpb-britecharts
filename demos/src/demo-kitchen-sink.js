@@ -13,14 +13,6 @@ function loadScript(name,fn){
 window.onload = function(){
 
     loadScript('/britecharts/scripts/demo-stacked-area');
-    loadScript('/britecharts/scripts/demo-bar');
-    loadScript('/britecharts/scripts/demo-stacked-bar');
-    loadScript('/britecharts/scripts/demo-grouped-bar');
-    loadScript('/britecharts/scripts/demo-donut');
     loadScript('/britecharts/scripts/demo-line');
-    loadScript('/britecharts/scripts/demo-sparkline');
-    loadScript('/britecharts/scripts/demo-step');
-    loadScript('/britecharts/scripts/demo-brush');
-    loadScript('/britecharts/scripts/demo-scatter-plot');
-    loadScript('/britecharts/scripts/demo-bullet');
+    loadScript('/britecharts/scripts/demo-row');
 }

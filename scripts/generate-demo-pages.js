@@ -9,9 +9,7 @@ const demosHtmlPath = path.join(docsPath, 'demos'); // NEW: Put demos in /docs/d
 fs.ensureDirSync(demosHtmlPath);
 
 const demoFiles = [
-    'bar', 'bullet', 'brush', 'donut', 'color', 'grouped-bar', 'grouped-row',
-    'heatmap', 'kitchen-sink', 'legend', 'line', 'row', 'scatter-plot',
-    'sparkline', 'stacked-area', 'stacked-bar', 'step'
+    'color', 'kitchen-sink', 'line', 'row', 'stacked-area'
 ];
 
 const htmlTemplate = (demoName, demoContent) => `<!DOCTYPE html>

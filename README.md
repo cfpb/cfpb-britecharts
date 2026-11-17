@@ -26,37 +26,28 @@ Britecharts [components][32] have been written in ES2016 with a Test Driven meth
 
 The typical use of Britecharts involves creating a chart using its simple API, then rendering it on a container which has previously had data applied to it. The code will look like this:
 
-    barChart
+    lineChart
         .width(500)
         .height(300);
 
-    barContainer.datum(dataset).call(barChart);
+    lineContainer.datum(dataset).call(lineChart);
 
 ## API
 
 All the components expose some **common API methods** like width, height, and margin. Additionally, each chart or component can expose specific methods you can find in the documentation:
 
 -   [API][25], [Demo][linechartdemo] Line Chart
--   [API][22], [Demo][barchartdemo] Bar Chart
--   [API][21], [Demo][donutchartdemo] Donut Chart
--   [API][38], [Demo][stackedbarchartdemo] Stacked Bar Chart
--   [API][40], [Demo][groupedbarchartdemo] Grouped Bar Chart
--   [API][43], [Demo][bulletchartdemo] Bullet Chart
--   [API][23], [Demo][brushchartdemo] Brush Chart
--   [API][41], [Demo][scatterplotdemo] Scatter Plot
--   [API][29], [Demo][sparklinechartdemo] Sparkline Chart
 -   [API][30], [Demo][stackedareachartdemo] Stacked Area Chart
--   [API][28], [Demo][stepchartdemo] Step Chart
 -   [API][26], [Demo][barchartdemo] Mini Tooltip
 -   [API][27], [Demo][linechartdemo] Tooltip
--   [API][24], [Demo][donutchartdemo] Legend
+-   Row Chart
 
 ## Installation
 
 Britecharts components are distributed in **UMD modules**, each one exposing a D3.js component written with the [Reusable API pattern][3]. To use any of the Britecharts modules, you will need to require the chart in your JS file using AMD/CommonJS modules or adding a script tag with the `src` pointing to the file. You would also need to load the [d3-selection][37] submodule to select the chart container.
 
 ```
-   npm install britecharts d3-selection
+   npm install cfpb-britecharts d3
 ```
 
 You can also load Britecharts from our [CDN][cdnhome] as we do in this [demo][cdndemo] page or play around in our [JSBin][jsbinsandbox] and [CodePen][codependemos] demo projects.

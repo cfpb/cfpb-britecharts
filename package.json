@@ -1,8 +1,11 @@
 {
     "name": "cfpb-britecharts",
     "version": "2.6.0",
-    "description": "D3.js based Modular Charting Library by Eventbrite",
+    "description": "Standards-based charting library for D3 v7",
     "main": "dist/bundled/britecharts.min.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "sideEffects": false,
     "contributors": [
         {
             "name": "Marcos Iglesias",
@@ -45,7 +48,9 @@
         "docs:watch": "node scripts/watch-docs.js",
         "docs:serve": "http-server ./docs -p 8001 -c-1 -o",
         "prebuild": "yarn run styles",
-        "build": "webpack --progress --env production",
+        "build:esm": "babel src --out-dir dist/esm --extensions .js --ignore \"src/doc/**,src/require_config.js\" --config-file ./babel.esm.json --no-babelrc",
+        "build:types": "tsc -p tsconfig.build.json && node scripts/enrich-chart-types.mjs",
+        "build": "webpack --progress --env production && yarn build:esm && yarn build:types",
         "lint": "eslint src/charts/ webpack.*.js --cache",
         "lint:fix": "eslint src/charts/ webpack.*.js --cache --fix",
         "test": "karma start --env test",
@@ -79,15 +84,65 @@
         "url": "https://github.com/cfpb/cfpb-britecharts/issues"
     },
     "homepage": "http://localhost:8001/",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/bundled/britecharts.min.js",
+            "types": "./dist/types/index.d.ts"
+        },
+        "./line": {
+            "import": "./dist/esm/charts/line.js",
+            "require": "./dist/umd/line.min.js",
+            "types": "./dist/types/charts/line.d.ts"
+        },
+        "./tooltip": {
+            "import": "./dist/esm/charts/tooltip.js",
+            "require": "./dist/umd/tooltip.min.js",
+            "types": "./dist/types/charts/tooltip.d.ts"
+        },
+        "./stacked-area": {
+            "import": "./dist/esm/charts/stacked-area.js",
+            "require": "./dist/umd/stackedArea.min.js",
+            "types": "./dist/types/charts/stacked-area.d.ts"
+        },
+        "./row": {
+            "import": "./dist/esm/charts/row.js",
+            "require": "./dist/umd/row.min.js",
+            "types": "./dist/types/charts/row.d.ts"
+        },
+        "./mini-tooltip": {
+            "import": "./dist/esm/charts/mini-tooltip.js",
+            "require": "./dist/umd/miniTooltip.min.js",
+            "types": "./dist/types/charts/mini-tooltip.d.ts"
+        },
+        "./react": {
+            "import": "./dist/esm/react/useBritechart.js",
+            "default": "./dist/esm/react/useBritechart.js",
+            "types": "./dist/types/react/useBritechart.d.ts"
+        },
+        "./dist/umd/*": "./dist/umd/*"
+    },
     "dependencies": {
         "base-64": "^1.0.0",
-        "d3": "^7.9.0",
         "lodash.assign": "^4.2.0"
     },
+    "peerDependencies": {
+        "d3": "^7.0.0",
+        "react": ">=17"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    },
     "devDependencies": {
+        "@babel/cli": "^7.29.0",
         "@babel/core": "^7.29.0",
+        "@babel/plugin-transform-modules-commonjs": "^7.29.0",
         "@babel/preset-env": "^7.29.2",
+        "@types/react": "^19.2.7",
         "babel-loader": "^10.1.1",
+        "babel-plugin-add-module-exports": "^1.0.4",
         "babel-plugin-istanbul": "^8.0.2",
         "baseline-browser-mapping": "^2.10.19",
         "brace": "^0.11.1",
@@ -95,6 +150,7 @@
         "concurrently": "^9.2.1",
         "css-loader": "^7.1.4",
         "cssnano": "^7.1.5",
+        "d3": "^7.9.0",
         "docdash": "^2.0.2",
         "eslint": "^10.2.0",
         "fs-extra": "^11.3.4",
@@ -115,6 +171,7 @@
         "postcss-cli": "^11.0.1",
         "prismjs": "^1.30.0",
         "pubsub-js": "^1.9.5",
+        "react": "^19.2.0",
         "rimraf": "^6.1.3",
         "sanitize-html": "^2.17.2",
         "sass": "^1.99.0",
@@ -124,6 +181,7 @@
         "style-loader": "^4.0.0",
         "stylelint": "^17.7.0",
         "stylelint-config-standard-scss": "^17.0.0",
+        "typescript": "~5.9.3",
         "underscore": "^1.13.8",
         "webpack": "^5.106.1",
         "webpack-bundle-analyzer": "^5.3.0",

@@ -1,11 +1,9 @@
 'use strict';
 
 const d3Selection = require('d3-selection');
-const d3TimeFormat = require('d3-time-format');
 
 const PubSub = require('pubsub-js');
 
-const brush = require('./../../src/charts/brush');
 const line = require('./../../src/charts/line');
 const tooltip = require('./../../src/charts/tooltip');
 const dataBuilder = require('./../../test/fixtures/lineChartDataBuilder');
@@ -17,44 +15,6 @@ let redrawCharts;
 require('./helpers/resizeHelper');
 
 const aTestDataSet = () => new dataBuilder.LineDataBuilder();
-
-function createBrushChart(optionalColorSchema) {
-    let brushChart = brush(),
-        brushMargin = {top:0, bottom: 40, left: 50, right: 30},
-        brushContainer = d3Selection.select('.js-line-brush-chart-container'),
-        containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false,
-        colorSchema = optionalColorSchema ? optionalColorSchema : null,
-        dataset;
-
-    if (containerWidth) {
-        dataset = aTestDataSet().withTruncatedTopics().build();
-        // swap these around to test different displays
-        // dataset = aTestDataSet().with5Topics().build();
-
-        brushChart
-            .width(containerWidth)
-            .height(100)
-            .margin(brushMargin)
-            .on('customBrushEnd', function(brushExtent) {
-                let format = d3TimeFormat.timeFormat('%m/%d/%Y');
-
-                d3Selection.select('.js-start-date').text(format(brushExtent[0]));
-                d3Selection.select('.js-end-date').text(format(brushExtent[1]));
-                d3Selection.select('.js-date-range').classed('is-hidden', false);
-
-                // Filter
-                d3Selection.selectAll('.js-line-chart-container .line-chart').remove();
-
-                if (brushExtent[0] && brushExtent[1]) {
-                    createLineChart(colorSchema, filterData(brushExtent[0], brushExtent[1]));
-                } else {
-                    createLineChart(colorSchema, dataset);
-                }
-            });
-
-        brushContainer.datum(brushDataAdapter(dataset)).call(brushChart);
-    }
-}
 
 function createExportLineChart(optionalColorSchema, optionalData) {
     let lineChart1 = line(),
@@ -245,63 +205,18 @@ function createLoadingState() {
     }
 }
 
-/*
- * The Brush chart wants an input like this one
- * @example
- * [
- *     {
- *         value: 1,
- *         date: '2011-01-06T00:00:00Z'
- *     },
- *     {
- *         value: 2,
- *         date: '2011-01-07T00:00:00Z'
- *     }
- * ]
- */
-function brushDataAdapter(dataLine) {
-    return dataLine.dataByDate.map(function(d){
-        d.value = d.topics.reduce(function(acc, topic) {
-            return acc + topic.value;
-        },0);
-
-        return d;
-    })
-}
-
-function filterData(d0, d1) {
-    let data = JSON.parse(JSON.stringify(aTestDataSet().with5Topics().build()));
-
-    data.dataByDate = data.dataByDate.filter(isInRange.bind(null, d0, d1));
-
-    data.dataByTopic = data.dataByTopic.map((topic) => {
-        topic.dates = topic.dates.filter(isInRange.bind(null, d0, d1));
-
-        return topic;
-    });
-
-    return data;
-}
-
-function isInRange(d0, d1, d) {
-    return new Date(d.date) >= d0 && new Date(d.date) <= d1;
-}
-
 // Show charts if container available
 if (d3Selection.select('.js-line-chart-container').node()) {
     createExportLineChart();
     createLineChart();
-    createBrushChart();
     createLineChartWithSingleLine();
     createLineChartWithFixedHeight();
     createLoadingState();
 
     redrawCharts = function(){
         d3Selection.selectAll('.line-chart').remove();
-        d3Selection.selectAll('.brush-chart').remove();
         createExportLineChart();
         createLineChart();
-        createBrushChart();
         createLineChartWithSingleLine();
         createLineChartWithFixedHeight();
         createLoadingState();
@@ -313,7 +228,5 @@ if (d3Selection.select('.js-line-chart-container').node()) {
     // Color schema selector
     colorSelectorHelper.createColorSelector('.js-color-selector-container', '.line-chart', function(newSchema) {
         createLineChart(newSchema);
-        d3Selection.selectAll('.brush-chart').remove();
-        createBrushChart(newSchema);
     });
 }

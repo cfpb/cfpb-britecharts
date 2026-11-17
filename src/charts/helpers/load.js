@@ -1,4 +1,4 @@
-define(function() {
+
 
     const linearGradient = `
             <defs>
@@ -128,11 +128,19 @@ define(function() {
             </svg>
         `;
 
-    return {
-        bar,
-        donut,
-        line,
-        row,
-        stackedArea
-    };
-});
+
+export {
+    bar,
+    donut,
+    line,
+    row,
+    stackedArea,
+};
+
+export default {
+    bar,
+    donut,
+    line,
+    row,
+    stackedArea,
+};

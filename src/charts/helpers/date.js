@@ -1,7 +1,5 @@
-define(function (require) {
-    'use strict';
 
-    const d3Format = require('d3-format');
+
     let idCounter = 0;
 
     /**
@@ -50,11 +48,17 @@ define(function (require) {
         return (date) => formatter.format(date);
     }
 
-    return {
-        addDays,
-        convertMillisecondsToDays,
-        diffDays,
-        getLocaleDateFormatter
-    };
 
-});
+export {
+    addDays,
+    convertMillisecondsToDays,
+    diffDays,
+    getLocaleDateFormatter,
+};
+
+export default {
+    addDays,
+    convertMillisecondsToDays,
+    diffDays,
+    getLocaleDateFormatter,
+};

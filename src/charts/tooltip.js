@@ -1,20 +1,22 @@
-define(function(require){
-    'use strict';
+import { easeQuadInOut } from 'd3-ease';
+import { format as d3Format } from 'd3-format';
+import { select } from 'd3-selection';
+import 'd3-transition';
+import { timeFormat } from 'd3-time-format';
+import { axisTimeCombinations } from './helpers/constants.js';
+import { formatIntegerValue, formatDecimalValue, isInteger } from './helpers/number.js';
+import { getTextWidth } from './helpers/text.js';
+import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
 
-    const d3Ease = require('d3-ease');
-    const d3Format = require('d3-format');
-    const d3Selection = require('d3-selection');
-    const d3Transition = require('d3-transition');
-    const d3TimeFormat = require('d3-time-format');
+    
+    
+    
+    
 
-    const {axisTimeCombinations} = require('./helpers/constants');
-    const {
-        formatIntegerValue,
-        formatDecimalValue,
-        isInteger
-    } = require('./helpers/number');
+    
+    
 
-    const {getTextWidth} = require('./helpers/text');
+    
 
     /**
      * Tooltip Component reusable API class that renders a
@@ -44,16 +46,17 @@ define(function(require){
      *          tooltip.hide();
      *     });
      *
-     * d3Selection.select('.css-selector')
+     * select('.css-selector')
      *     .datum(dataset)
      *     .call(lineChart);
      *
-     * d3Selection.select('.metadata-group .hover-marker')
+     * select('.metadata-group .hover-marker')
      *     .datum([])
      *     .call(tooltip);
      *
      */
-    return function module() {
+
+export default function module() {
 
         let margin = {
                 top: 2,
@@ -91,7 +94,7 @@ define(function(require){
             tooltipRightWidth,
             // Animations
             mouseChaseDuration = 100,
-            ease = d3Ease.easeQuadInOut,
+            ease = easeQuadInOut,
 
             circleYOffset = 8,
 
@@ -115,8 +118,8 @@ define(function(require){
             // formats
             numberFormat = null,
             valueFormatter = null,
-            monthDayYearFormat = d3TimeFormat.timeFormat('%b %d, %Y'),
-            monthDayHourFormat = d3TimeFormat.timeFormat('%b %d, %I %p'),
+            monthDayYearFormat = timeFormat('%b %d, %Y'),
+            monthDayHourFormat = timeFormat('%b %d, %I %p'),
             locale,
 
             chartWidth, chartHeight,
@@ -131,6 +134,7 @@ define(function(require){
          * @param {Object} _data The data to attach and generate the chart
          */
         function exports(_selection) {
+            exports.__selection = _selection;
             _selection.each(function(_data){
                 chartWidth = width - margin.left - margin.right;
                 chartHeight = height - margin.top - margin.bottom;
@@ -138,6 +142,8 @@ define(function(require){
 
                 buildSVG(this);
             });
+        
+            finalizeChart(exports);
         }
 
         /**
@@ -160,7 +166,7 @@ define(function(require){
          */
         function buildSVG(container) {
             if (!svg) {
-                svg = d3Selection.select(container)
+                svg = select(container)
                   .append('g')
                     .classed('britechart britechart-tooltip', true)
                     .style('visibility', 'hidden');
@@ -172,6 +178,7 @@ define(function(require){
                 .transition()
                 .attr('width', width)
                 .attr('height', height);
+            noteChartRender(exports, svg, container);
 
             // Hidden by default
             exports.hide();
@@ -251,7 +258,7 @@ define(function(require){
                 return 0;
             }
             if (numberFormat !== null) {
-                chosenValueFormatter = d3Format.format(numberFormat);
+                chosenValueFormatter = d3Format(numberFormat);
             } else if (isInteger(value)) {
                 chosenValueFormatter = formatIntegerValue;
             }
@@ -435,7 +442,7 @@ define(function(require){
                 format = monthDayHourFormat;
                 localeOptions.hour = 'numeric';
             } else if (settings === axisTimeCombinations.CUSTOM && typeof dateCustomFormat === 'string') {
-                format = d3TimeFormat.timeFormat(dateCustomFormat);
+                format = timeFormat(dateCustomFormat);
             }
 
             if (locale && ((typeof Intl !== 'undefined') && (typeof Intl === 'object' && Intl.DateTimeFormat))) {
@@ -504,7 +511,7 @@ define(function(require){
                     dy,
                     tspan;
 
-                text = d3Selection.select(this);
+                text = select(this);
 
                 words = text.text().split(/\s+/).reverse();
                 line = [];
@@ -826,6 +833,53 @@ define(function(require){
             return this;
         };
 
-        return exports;
+        
+        /**
+         * Redraw when the parent container changes size.
+         * @param {Boolean} [_x] true to follow the container with a ResizeObserver
+         * @return {Boolean|module} Current flag or the chart for chaining
+         * @public
+         */
+        exports.autoResize = function (_x) {
+            if (!arguments.length) {
+                return !!exports.__autoResize;
+            }
+            exports.__autoResize = !!_x;
+            bindAutoResize(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible name announced for the chart.
+         * @param {String} [_x] Label rendered in the SVG title
+         * @return {String|module} Current label or the chart for chaining
+         * @public
+         */
+        exports.ariaLabel = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaLabel || null;
+            }
+            exports.__ariaLabel = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible description announced for the chart.
+         * @param {String} [_x] Description rendered in the SVG desc
+         * @return {String|module} Current description or the chart for chaining
+         * @public
+         */
+        exports.ariaDescription = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaDescription || null;
+            }
+            exports.__ariaDescription = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+return exports;
     };
-});

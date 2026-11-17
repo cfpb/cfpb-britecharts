@@ -1,6 +1,6 @@
-define(function (require) {
 
-    const d3Selection = require('d3-selection');
+
+    
     const filterId = 'highlight-filter';
 
 
@@ -149,12 +149,21 @@ define(function (require) {
               .attr('r', radius);
     }
 
-    return {
-        bounceCircleHighlight,
-        createFilterContainer,
-        createGausianBlur,
-        createWhiteGlow,
-        createGlow,
-        createGlowWithMatrix,
-    };
-});
+
+export {
+    bounceCircleHighlight,
+    createFilterContainer,
+    createGausianBlur,
+    createWhiteGlow,
+    createGlow,
+    createGlowWithMatrix,
+};
+
+export default {
+    bounceCircleHighlight,
+    createFilterContainer,
+    createGausianBlur,
+    createWhiteGlow,
+    createGlow,
+    createGlowWithMatrix,
+};

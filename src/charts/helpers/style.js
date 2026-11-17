@@ -1,7 +1,3 @@
-module.exports = (function() {
-
-    'use strict';
-
     // Styles inherited from style sheets will not be rendered for elements with these tag names
     const noStyleTags = {
         'BASE': true,
@@ -38,13 +34,11 @@ module.exports = (function() {
         return defaultStyle;
     };
 
-    return {
-
-        /**
-         * returns serializer function, only run it when you know you want to serialize your chart
-         * @return {func} serializer to add styles in line to dom string
-         */
-        initializeSerializer() {
+/**
+ * returns serializer function, only run it when you know you want to serialize your chart
+ * @return {Function} serializer to add styles in line to dom string
+ */
+export function initializeSerializer() {
 
             // Mapping between tag names and css default values lookup tables. This allows to exclude default values in the result.
             var defaultStylesByTagName = {};
@@ -108,6 +102,8 @@ module.exports = (function() {
             }
 
             return serializeWithStyles;
-        }
-    }
-})();
+}
+
+export default {
+    initializeSerializer,
+};

@@ -1,37 +1,34 @@
-define(function(require) {
-    'use strict';
-
-    const d3Format = require('d3-format');
+import { format as d3Format } from 'd3-format';
 
     let idCounter = 0;
 
     const integerValueFormats = {
         small: {
             limit: 10,
-            format: d3Format.format('')
+            format: d3Format('')
         },
         medium: {
             limit: 1000,
-            format: d3Format.format('')
+            format: d3Format('')
         },
         large: {
             limit: null,
-            format: d3Format.format(',d')
+            format: d3Format(',d')
         }
     };
 
     const decimalValueFormats = {
         small: {
             limit: 10,
-            format: d3Format.format('.3f')
+            format: d3Format('.3f')
         },
         medium: {
             limit: 100,
-            format: d3Format.format('.1f')
+            format: d3Format('.1f')
         },
         large: {
             limit: null,
-            format: d3Format.format('.2s')
+            format: d3Format('.2s')
         }
     };
 
@@ -63,7 +60,7 @@ define(function(require) {
     const calculatePercent = (value, total, decimals) => {
         const percent = total ? (value / total * 100) : 0;
 
-        return d3Format.format(decimals)(percent);
+        return d3Format(decimals)(percent);
     };
 
     /**
@@ -110,11 +107,19 @@ define(function(require) {
         return `${prefix.toString()}-${id}`;
     };
 
-    return {
-        calculatePercent,
-        isInteger,
-        formatDecimalValue,
-        formatIntegerValue,
-        uniqueId
-    };
-});
+
+export {
+    calculatePercent,
+    isInteger,
+    formatDecimalValue,
+    formatIntegerValue,
+    uniqueId,
+};
+
+export default {
+    calculatePercent,
+    isInteger,
+    formatDecimalValue,
+    formatIntegerValue,
+    uniqueId,
+};

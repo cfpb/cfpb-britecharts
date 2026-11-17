@@ -1,6 +1,6 @@
-define(function(require) {
+import { select } from 'd3-selection';
 
-    const d3Selection = require('d3-selection');
+    
 
     const wrapConfig = {
         lineHeight: 1.2,
@@ -26,7 +26,7 @@ define(function(require) {
      * @return {void}
      */
     const wrapText = function(xOffset, fontSize, availableWidth, node) {
-        let text = d3Selection.select(node),
+        let text = select(node),
             words = text.text().split(/\s+/).reverse(),
             word,
             line = [],
@@ -91,7 +91,7 @@ define(function(require) {
                 dy,
                 tspan;
 
-            text = d3Selection.select(this);
+            text = select(this);
 
             words = text.text().split(/\s+/).reverse();
             line = [];
@@ -149,9 +149,15 @@ define(function(require) {
         return b.measureText(text).width;
     }
 
-    return {
-        getTextWidth,
-        wrapText,
-        wrapTextWithEllipses
-    };
-});
+
+export {
+    getTextWidth,
+    wrapText,
+    wrapTextWithEllipses,
+};
+
+export default {
+    getTextWidth,
+    wrapText,
+    wrapTextWithEllipses,
+};
