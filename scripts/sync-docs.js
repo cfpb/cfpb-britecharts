@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
+const { globSync } = require('node:fs');
 const path = require('path');
-const glob = require('glob');
 
 console.log('📋 Syncing documentation assets...');
 
@@ -40,7 +40,7 @@ try {
 // Copy demo HTML files to docs
 console.log('📦 Copying demo HTML files...');
 try {
-    const demoHtmlFiles = glob.sync(path.join(demosPath, '*.html'));
+    const demoHtmlFiles = globSync(path.join(demosPath, '*.html'));
     demoHtmlFiles.forEach(file => {
         const fileName = path.basename(file);
         const destPath = path.join(docsPath, `tutorial-${fileName}`);
@@ -69,7 +69,7 @@ try {
 
 // Inject jQuery into all HTML files
 console.log('💉 Injecting jQuery...');
-const htmlFiles = glob.sync(path.join(docsPath, '**/*.html'));
+const htmlFiles = globSync(path.join(docsPath, '**/*.html'));
 const jqueryScript = '<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>';
 
 let injectedCount = 0;

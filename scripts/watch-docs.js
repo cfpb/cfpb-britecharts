@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const chokidar = require('chokidar');
 const { exec } = require('child_process');
 const path = require('path');
 const syncFiles = require('./sync-docs');
@@ -80,18 +79,27 @@ const watchers = {
     }
 };
 
-// Set up watchers
-Object.entries(watchers).forEach(([name, config]) => {
-    const watcher = chokidar.watch(config.pattern, {
-        ignored: /(^|[\/\\])\../, // ignore dotfiles
-        persistent: true,
-        ignoreInitial: true
+async function watchDocs() {
+    const chokidar = await import('chokidar');
+    const watch = chokidar.watch || chokidar.default.watch;
+
+    Object.entries(watchers).forEach(([name, config]) => {
+        const watcher = watch(config.pattern, {
+            ignored: /(^|[\/\\])\../, // ignore dotfiles
+            persistent: true,
+            ignoreInitial: true
+        });
+
+        watcher.on('change', config.handler);
+        watcher.on('add', config.handler);
+
+        console.log(`✓ Watching ${name}: ${config.pattern}`);
     });
 
-    watcher.on('change', config.handler);
-    watcher.on('add', config.handler);
+    console.log('\n✅ All watchers active. Press Ctrl+C to stop.\n');
+}
 
-    console.log(`✓ Watching ${name}: ${config.pattern}`);
+watchDocs().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
 });
-
-console.log('\n✅ All watchers active. Press Ctrl+C to stop.\n');
