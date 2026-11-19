@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>tooltip.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="wrap">
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Line.html">Line</a><ul class='members'><li data-type='member' style='display: none;'><a href="module-Line.html#.axisTimeCombinations">axisTimeCombinations</a></li></ul><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Line.html">module:Line</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.ariaDescription">ariaDescription</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.ariaLabel">ariaLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.aspectRatio">aspectRatio</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.autoResize">autoResize</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.colorSchema">colorSchema</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.dateLabel">dateLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.exportChart">exportChart</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.grid">grid</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.height">height</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.initializeVerticalMarker">initializeVerticalMarker</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.isAnimated">isAnimated</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.isPrintMode">isPrintMode</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.lineCurve">lineCurve</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.loadingState">loadingState</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.locale">locale</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.margin">margin</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.numberFormat">numberFormat</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.on">on</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.shouldShowAllDataPoints">shouldShowAllDataPoints</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.tooltipThreshold">tooltipThreshold</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.topicLabel">topicLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.valueLabel">valueLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.width">width</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.xAxisCustomFormat">xAxisCustomFormat</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.xAxisFormat">xAxisFormat</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.xAxisLabel">xAxisLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.xTicks">xTicks</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.yAxisLabel">yAxisLabel</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.yAxisLabelPadding">yAxisLabelPadding</a></li><li data-type='method' style='display: none;'><a href="module-Line.html#.yTicks">yTicks</a></li></ul></li><li><a href="module-Mini-tooltip.html">Mini-tooltip</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html">module:Mini-tooltip</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.ariaDescription">ariaDescription</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.ariaLabel">ariaLabel</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.autoResize">autoResize</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.hide">hide</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.nameLabel">nameLabel</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.numberFormat">numberFormat</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.show">show</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.title">title</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.update">update</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.valueFormatter">valueFormatter</a></li><li data-type='method' style='display: none;'><a href="module-Mini-tooltip.html#.valueLabel">valueLabel</a></li></ul></li><li><a href="module-Row.html">Row</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Row.html">module:Row</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.ariaDescription">ariaDescription</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.ariaLabel">ariaLabel</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.autoResize">autoResize</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.backgroundColor">backgroundColor</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.colorSchema">colorSchema</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.downArrowColor">downArrowColor</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.enableLabels">enableLabels</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.enableYAxisRight">enableYAxisRight</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.exportChart">exportChart</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.height">height</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.isAnimated">isAnimated</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.isPrintMode">isPrintMode</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsFocusTitle">labelsFocusTitle</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsInterval">labelsInterval</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsMargin">labelsMargin</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsNumberFormat">labelsNumberFormat</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsSize">labelsSize</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsSizeChild">labelsSizeChild</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsSuffix">labelsSuffix</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsTotalCount">labelsTotalCount</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.labelsTotalText">labelsTotalText</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.loadingState">loadingState</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.margin">margin</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.nameLabel">nameLabel</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.numberFormat">numberFormat</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.on">on</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.outerPadding">outerPadding</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.padding">padding</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.paddingBetweenGroups">paddingBetweenGroups</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.pctChangeLabel">pctChangeLabel</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.pctChangeLabelSize">pctChangeLabelSize</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.percentageAxisToMaxRatio">percentageAxisToMaxRatio</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.upArrowColor">upArrowColor</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.valueLabel">valueLabel</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.width">width</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.wrapLabels">wrapLabels</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.xTicks">xTicks</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.yAxisLineWrapLimit">yAxisLineWrapLimit</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.yAxisPaddingBetweenChart">yAxisPaddingBetweenChart</a></li><li data-type='method' style='display: none;'><a href="module-Row.html#.yTicks">yTicks</a></li></ul></li><li><a href="module-Stacked-area.html">Stacked-area</a><ul class='members'><li data-type='member' style='display: none;'><a href="module-Stacked-area.html#.axisTimeCombinations">axisTimeCombinations</a></li></ul><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Stacked-area.html">module:Stacked-area</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.areaCurve">areaCurve</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.areaOpacity">areaOpacity</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.ariaDescription">ariaDescription</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.ariaLabel">ariaLabel</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.aspectRatio">aspectRatio</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.autoResize">autoResize</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.colorSchema">colorSchema</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.dateLabel">dateLabel</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.emptyDataConfig">emptyDataConfig</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.exportChart">exportChart</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.grid">grid</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.height">height</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.initializeVerticalMarker">initializeVerticalMarker</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.isAnimated">isAnimated</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.isPrintMode">isPrintMode</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.keyLabel">keyLabel</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.loadingState">loadingState</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.locale">locale</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.margin">margin</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.on">on</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.tooltipThreshold">tooltipThreshold</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.topicsOrder">topicsOrder</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.valueLabel">valueLabel</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.width">width</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.xAxisCustomFormat">xAxisCustomFormat</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.xAxisFormat">xAxisFormat</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.xTicks">xTicks</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.yAxisLabel">yAxisLabel</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.yAxisLabelOffset">yAxisLabelOffset</a></li><li data-type='method' style='display: none;'><a href="module-Stacked-area.html#.yTicks">yTicks</a></li></ul></li><li><a href="module-Tooltip.html">Tooltip</a><ul class='members'><li data-type='member' style='display: none;'><a href="module-Tooltip.html#.axisTimeCombinations">axisTimeCombinations</a></li></ul><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Tooltip.html">module:Tooltip</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.ariaDescription">ariaDescription</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.ariaLabel">ariaLabel</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.autoResize">autoResize</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.dateCustomFormat">dateCustomFormat</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.dateFormat">dateFormat</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.dateLabel">dateLabel</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.hide">hide</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.locale">locale</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.nameLabel">nameLabel</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.numberFormat">numberFormat</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.shouldShowDateInTitle">shouldShowDateInTitle</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.show">show</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.title">title</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.tooltipOffset">tooltipOffset</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.topicLabel">topicLabel</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.topicsOrder">topicsOrder</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.update">update</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.valueFormatter">valueFormatter</a></li><li data-type='method' style='display: none;'><a href="module-Tooltip.html#.valueLabel">valueLabel</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-composing-dataviz.html">composing-dataviz</a></li><li><a href="tutorial-getting-started.html">getting-started</a></li><li><a href="tutorial-installing-britecharts.html">installing-britecharts</a></li><li><a href="tutorial-styling-charts.html">styling-charts</a></li><li><a href="tutorial-tutorials-index.html">tutorials-index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#D3Selection">D3Selection</a></li><li><a href="global.html#LineChartData">LineChartData</a></li><li><a href="global.html#RowChartData">RowChartData</a></li><li><a href="global.html#addBackground">addBackground</a></li><li><a href="global.html#addDays">addDays</a></li><li><a href="global.html#areaChartData">areaChartData</a></li><li><a href="global.html#bindAutoResize">bindAutoResize</a></li><li><a href="global.html#calculatePercent">calculatePercent</a></li><li><a href="global.html#computeDefaultStyleByTagName">computeDefaultStyleByTagName</a></li><li><a href="global.html#convertMillisecondsToDays">convertMillisecondsToDays</a></li><li><a href="global.html#convertSvgToHtml">convertSvgToHtml</a></li><li><a href="global.html#createCanvas">createCanvas</a></li><li><a href="global.html#createImage">createImage</a></li><li><a href="global.html#diffDays">diffDays</a></li><li><a href="global.html#downloadCanvas">downloadCanvas</a></li><li><a href="global.html#drawImageOnCanvas">drawImageOnCanvas</a></li><li><a href="global.html#exportChart">exportChart</a></li><li><a href="global.html#finalizeChart">finalizeChart</a></li><li><a href="global.html#formatDecimalValue">formatDecimalValue</a></li><li><a href="global.html#formatHtmlByBrowser">formatHtmlByBrowser</a></li><li><a href="global.html#formatIntegerValue">formatIntegerValue</a></li><li><a href="global.html#getAxisSettingsFromTimeSpan">getAxisSettingsFromTimeSpan</a></li><li><a href="global.html#getLocaleDateFormatter">getLocaleDateFormatter</a></li><li><a href="global.html#getMaxNumOfHorizontalTicks">getMaxNumOfHorizontalTicks</a></li><li><a href="global.html#getTextWidth">getTextWidth</a></li><li><a href="global.html#getTimeSeriesAxis">getTimeSeriesAxis</a></li><li><a href="global.html#getValueSize">getValueSize</a></li><li><a href="global.html#handleImageLoad">handleImageLoad</a></li><li><a href="global.html#initializeSerializer">initializeSerializer</a></li><li><a href="global.html#isInteger">isInteger</a></li><li><a href="global.html#isValidLocaleDefinition">isValidLocaleDefinition</a></li><li><a href="global.html#lineChartDataByTopic">lineChartDataByTopic</a></li><li><a href="global.html#noteChartRender">noteChartRender</a></li><li><a href="global.html#prependTitle">prependTitle</a></li><li><a href="global.html#setDefaultLocale">setDefaultLocale</a></li><li><a href="global.html#syncAccessibility">syncAccessibility</a></li><li><a href="global.html#uniqueId">uniqueId</a></li><li><a href="global.html#wrapText">wrapText</a></li><li><a href="global.html#wrapTextWithEllipses">wrapTextWithEllipses</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">tooltip.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { easeQuadInOut } from 'd3-ease';
+import { format as d3Format } from 'd3-format';
+import { select } from 'd3-selection';
+import 'd3-transition';
+import { timeFormat } from 'd3-time-format';
+import { axisTimeCombinations } from './helpers/constants.js';
+import { formatIntegerValue, formatDecimalValue, isInteger } from './helpers/number.js';
+import { getTextWidth } from './helpers/text.js';
+import { bindAutoResize, finalizeChart, noteChartRender, syncAccessibility } from './helpers/modern.js';
+
+    
+    
+    
+    
+
+    
+    
+
+    
+
+    /**
+     * Tooltip Component reusable API class that renders a
+     * simple and configurable tooltip element for Britechart's
+     * line chart or stacked area chart.
+     *
+     * @module Tooltip
+     * @tutorial tooltip
+     * @requires d3-array, d3-axis, d3-dispatch, d3-format, d3-scale, d3-selection, d3-transition
+     *
+     * @example
+     * var lineChart = line(),
+     *     tooltip = tooltip();
+     *
+     * tooltip
+     *     .title('Tooltip title');
+     *
+     * lineChart
+     *     .width(500)
+     *     .on('customMouseOver', function() {
+     *          tooltip.show();
+     *     })
+     *     .on('customMouseMove', function(dataPoint, topicColorMap, dataPointXPosition) {
+     *          tooltip.update(dataPoint, topicColorMap, dataPointXPosition);
+     *     })
+     *     .on('customMouseOut', function() {
+     *          tooltip.hide();
+     *     });
+     *
+     * select('.css-selector')
+     *     .datum(dataset)
+     *     .call(lineChart);
+     *
+     * select('.metadata-group .hover-marker')
+     *     .datum([])
+     *     .call(tooltip);
+     *
+     */
+
+export default function module() {
+
+        let margin = {
+                top: 2,
+                right: 2,
+                bottom: 2,
+                left: 2
+            },
+            width = 250,
+            height = 45,
+
+            title = 'Tooltip title',
+            shouldShowDateInTitle = true,
+
+            // tooltip
+            tooltip,
+            tooltipOffset = {
+                y: -55,
+                x: 0
+            },
+            tooltipMaxTopicLength = 170,
+            tooltipTextContainer,
+            tooltipDivider,
+            tooltipBody,
+            tooltipTitle,
+            tooltipWidth = 250,
+            tooltipHeight = 48,
+            tooltipBorderRadius = 3,
+            ttTextX = 0,
+            ttTextY = 37,
+            textHeight,
+            entryLineLimit = 3,
+            initialTooltipTextXPosition = -25,
+            tooltipTextLinePadding = 5,
+            tooltipRightWidth,
+            // Animations
+            mouseChaseDuration = 100,
+            ease = easeQuadInOut,
+
+            circleYOffset = 8,
+
+            colorMap,
+            bodyFillColor = '#FFFFFF',
+            borderStrokeColor = '#D2D6DF',
+            titleFillColor = '#6D717A',
+            textFillColor = '#282C35',
+            tooltipTextColor = '#000000',
+
+            dateLabel = 'date',
+            valueLabel = 'value',
+            nameLabel = 'name',
+            topicLabel = 'topics',
+
+            defaultAxisSettings = axisTimeCombinations.DAY_MONTH,
+            dateFormat = null,
+            dateCustomFormat = null,
+            topicsOrder = [],
+
+            // formats
+            numberFormat = null,
+            valueFormatter = null,
+            monthDayYearFormat = timeFormat('%b %d, %Y'),
+            monthDayHourFormat = timeFormat('%b %d, %I %p'),
+            locale,
+
+            svg;
+
+
+        /**
+         * This function creates the graph using the selection as container
+         * @param {D3Selection} _selection A d3 selection that represents
+         *                                  the container(s) where the chart(s) will be rendered
+         * @param {Object} _data The data to attach and generate the chart
+         */
+        function exports(_selection) {
+            exports.__selection = _selection;
+            _selection.each(function(_data){
+                buildSVG(this);
+            });
+        
+            finalizeChart(exports);
+        }
+
+        /**
+         * Builds containers for the tooltip
+         * Also applies the Margin convention
+         * @private
+         */
+        function buildContainerGroups() {
+            var container = svg.append('g')
+                .classed('tooltip-container-group select-disable', true)
+                .attr('transform', `translate( ${margin.left}, ${margin.top})`);
+
+            container.append('g').classed('tooltip-group', true);
+        }
+
+        /**
+         * Builds the SVG element that will contain the chart
+         * @param  {HTMLElement} container DOM element that will work as the container of the graph
+         * @private
+         */
+        function buildSVG(container) {
+            if (!svg) {
+                svg = select(container)
+                  .append('g')
+                    .classed('britechart britechart-tooltip', true)
+                    .style('visibility', 'hidden');
+
+                buildContainerGroups();
+                drawTooltip();
+            }
+            svg
+                .transition()
+                .attr('width', width)
+                .attr('height', height);
+            noteChartRender(exports, svg, container);
+
+            // Hidden by default
+            exports.hide();
+        }
+
+        /**
+         * Resets the tooltipBody content
+         * @return void
+         * @private
+         */
+        function cleanContent(){
+            tooltipBody.selectAll('text').remove();
+            tooltipBody.selectAll('circle').remove();
+        }
+
+        /**
+         * Draws the different elements of the Tooltip box
+         * @return void
+         * @private
+         */
+        function drawTooltip(){
+            tooltipTextContainer = svg.selectAll('.tooltip-group')
+              .append('g')
+                .classed('tooltip-text', true);
+
+            tooltip = tooltipTextContainer
+              .append('rect')
+                .classed('tooltip-text-container', true)
+                .attr('x', -tooltipWidth / 4 + 8)
+                .attr('y', 0)
+                .attr('width', tooltipWidth)
+                .attr('height', tooltipHeight)
+                .attr('rx', tooltipBorderRadius)
+                .attr('ry', tooltipBorderRadius)
+                .style('fill', bodyFillColor)
+                .style('stroke', borderStrokeColor)
+                .style('stroke-width', 1);
+
+            tooltipTitle = tooltipTextContainer
+              .append('text')
+                .classed('tooltip-title', true)
+                .attr('x', -tooltipWidth / 4 + 16)
+                .attr('dy', '.35em')
+                .attr('y', 16)
+                .style('fill', titleFillColor);
+
+            tooltipDivider = tooltipTextContainer
+              .append('line')
+                .classed('tooltip-divider', true)
+                .attr('x1', -tooltipWidth / 4 + 16)
+                .attr('x2', 265)
+                .attr('y1', 31)
+                .attr('y2', 31)
+                .style('stroke', borderStrokeColor);
+
+            tooltipBody = tooltipTextContainer
+              .append('g')
+                .classed('tooltip-body', true)
+                .style('transform', 'translateY(8px)')
+                .style('fill', textFillColor);
+        }
+
+        /**
+         * Formats the value depending on its characteristics
+         * @param  {Number} value Value to format
+         * @return {Number}       Formatted value
+         * @private
+         */
+        function getFormattedValue(value) {
+            if (valueFormatter !== null) {
+                return valueFormatter(value);
+            }
+
+            let chosenValueFormatter = formatDecimalValue;
+
+            if (!value) {
+                return 0;
+            }
+            if (numberFormat !== null) {
+                chosenValueFormatter = d3Format(numberFormat);
+            } else if (isInteger(value)) {
+                chosenValueFormatter = formatIntegerValue;
+            }
+
+            return chosenValueFormatter(value);
+        }
+
+        /**
+         * Calculates the desired position for the tooltip
+         * @param  {Number} mouseX             Current horizontal mouse position
+         * @param  {Number} mouseY             Current vertical mouse position
+         * @return {Number[]}                  X and Y position
+         * @private
+         */
+        function getTooltipPosition([mouseX, mouseY]) {
+            let tooltipX, tooltipY;
+
+            // show tooltip to the right
+            if ((mouseX - tooltipWidth) &lt; 0) {
+                // Tooltip on the right
+                tooltipX = tooltipWidth - 185;
+            } else {
+                // Tooltip on the left
+                tooltipX = -205;
+            }
+
+            if (mouseY) {
+                tooltipY = tooltipOffset.y;
+                // tooltipY = mouseY + tooltipOffset.y;
+            } else {
+                tooltipY = tooltipOffset.y;
+            }
+
+            return [tooltipX, tooltipY];
+        }
+
+        /**
+         * Extracts the value from the data object
+         * @param  {Object} data Data value containing the info
+         * @return {String}      Value to show
+         */
+        function getValueText(data) {
+            let value = data[valueLabel];
+            let valueText;
+
+            if (data.missingValue) {
+                valueText = '-';
+            } else {
+                valueText = getFormattedValue(value).toString();
+            }
+
+            return valueText;
+        }
+
+        /**
+         * Resets the height of the tooltip and the pointer for the text
+         * position
+         */
+        function resetSizeAndPositionPointers() {
+            tooltipHeight = 48;
+            ttTextY = 37;
+            ttTextX = 0;
+        }
+
+        /**
+         * Draws the data entries inside the tooltip for a given topic
+         * @param  {Object} topic Topic to extract data from
+         * @return void
+         * @private
+         */
+        function updateTopicContent(topic){
+            let name = topic[nameLabel],
+                tooltipRight,
+                tooltipLeftText,
+                tooltipRightText,
+                elementText;
+
+            tooltipLeftText = topic.topicName || name;
+            tooltipRightText = getValueText(topic);
+
+            elementText = tooltipBody
+              .append('text')
+                .classed('tooltip-left-text', true)
+                .attr('dy', '1em')
+                .attr('x', ttTextX)
+                .attr('y', ttTextY)
+                .style('fill', tooltipTextColor)
+                .text(tooltipLeftText)
+                .call(textWrap, tooltipMaxTopicLength, initialTooltipTextXPosition);
+
+            tooltipRight = tooltipBody
+              .append('text')
+                .classed('tooltip-right-text', true)
+                .attr('dy', '1em')
+                .attr('x', ttTextX)
+                .attr('y', ttTextY)
+                .style('fill', tooltipTextColor)
+                .text(tooltipRightText);
+
+            textHeight = elementText.node().getBBox().height;
+            tooltipHeight += textHeight + tooltipTextLinePadding;
+            // update the width if it exists because IE renders the elements
+            // too slow and cant figure out the width?
+            tooltipRightWidth = tooltipRight.node().getBBox().width ? tooltipRight.node().getBBox().width : tooltipRightWidth;
+            tooltipRight.attr( 'x', tooltipWidth - tooltipRightWidth - 10 - tooltipWidth / 4 );
+
+            tooltipBody
+                .append('circle')
+                .classed('tooltip-circle', true)
+                .attr('cx', 23 - tooltipWidth / 4)
+                .attr('cy', (ttTextY + circleYOffset))
+                .attr('r', 5)
+                .style('fill', colorMap[name])
+                .style('stroke-width', 1);
+
+            ttTextY += textHeight + 7;
+        }
+
+        /**
+         * Updates size and position of tooltip depending on the side of the chart we are in
+         * TODO: This needs a refactor, following the mini-tooltip code.
+         *
+         * @param  {Object} dataPoint DataPoint of the tooltip
+         * @param  {Number} xPosition DataPoint's x position in the chart
+         * @param  {Number} xPosition DataPoint's y position in the chart
+         * @return void
+         * @private
+         */
+        function updatePositionAndSize(dataPoint, xPosition, yPosition){
+            let [tooltipX, tooltipY] = getTooltipPosition([xPosition, yPosition]);
+
+            tooltip
+                .attr('width', tooltipWidth)
+                .attr('height', tooltipHeight + 10);
+
+            tooltipTextContainer.transition()
+                .duration(mouseChaseDuration)
+                .ease(ease)
+                .attr('transform', `translate(${tooltipX}, ${tooltipY})`);
+
+            tooltipDivider
+                .attr('x2', tooltipWidth - 60);
+        }
+
+        /**
+         * Updates value of tooltipTitle with the data meaning and the date
+         * @param  {Object} dataPoint Point of data to use as source
+         * @return void
+         * @private
+         */
+        function updateTitle(dataPoint) {
+            let tTitle = title;
+            let formattedDate = formatDate(new Date(dataPoint[dateLabel]));
+
+            if (tTitle.length) {
+                if (shouldShowDateInTitle) {
+                    tTitle = `${tTitle} - ${formattedDate}`;
+                }
+            } else {
+                tTitle = formattedDate;
+            }
+
+            tooltipTitle.text(tTitle);
+        }
+
+        /**
+         * Figures out which date format to use when showing the date of the current data entry
+         * @param {Date} date   Date object to format
+         * @return {Function}   The proper date formatting function
+         * @private
+         */
+        function formatDate(date) {
+            let settings = dateFormat || defaultAxisSettings;
+            let format = null;
+            let localeOptions = {month:'short', day:'numeric'};
+
+            if (settings === axisTimeCombinations.DAY_MONTH || settings === axisTimeCombinations.MONTH_YEAR) {
+                format = monthDayYearFormat;
+                localeOptions.year = 'numeric';
+            } else if (settings === axisTimeCombinations.HOUR_DAY || settings === axisTimeCombinations.MINUTE_HOUR) {
+                format = monthDayHourFormat;
+                localeOptions.hour = 'numeric';
+            } else if (settings === axisTimeCombinations.CUSTOM &amp;&amp; typeof dateCustomFormat === 'string') {
+                format = timeFormat(dateCustomFormat);
+            }
+
+            if (locale &amp;&amp; ((typeof Intl !== 'undefined') &amp;&amp; (typeof Intl === 'object' &amp;&amp; Intl.DateTimeFormat))) {
+                let f = Intl.DateTimeFormat(locale, localeOptions);
+
+                return f.format(date);
+            }
+
+            return format(date);
+        }
+
+        /**
+         * Helper method to sort the passed topics array by the names passed int he order arary
+         * @param  {Object[]} topics    Topics data, retrieved from datapoint passed by line chart
+         * @param  {Object[]} order     Array of names in the order to sort topics by
+         * @return {Object[]}           sorted topics object
+         * @private
+         */
+        function _sortByTopicsOrder(topics, order=topicsOrder) {
+            return order.map((orderName) => topics.filter(({name}) => name === orderName)[0]);
+        }
+
+        /**
+         * Sorts topic by alphabetical order for arrays of objects with a name proeprty
+         * @param  {Array} topics   List of topic objects
+         * @return {Array}          List of topic name strings
+         * @private
+         */
+        function _sortByAlpha(topics) {
+            return topics
+                .map(d => d)
+                .sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (a.name === b.name) return 0;
+
+                    return -1;
+                });
+        }
+
+        /**
+         * Wraps a text given the text, width, x position and textFormatter function
+         * @param  {D3Selection} text  Selection with the text to wrap inside
+         * @param  {Number} width Desired max width for that line
+         * @param  {Number} xpos  Initial x position of the text
+         * REF: http://bl.ocks.org/mbostock/7555321
+         * More discussions on https://github.com/mbostock/d3/issues/1642
+         * @private
+         *
+         */
+        function textWrap(text, width, xpos = 0) {
+            text.each(function() {
+                var words,
+                    word,
+                    line,
+                    lineNumber,
+                    lineHeight,
+                    y,
+                    dy,
+                    tspan;
+
+                text = select(this);
+
+                words = text.text().split(/\s+/).reverse();
+                line = [];
+                lineNumber = 0;
+                lineHeight = 1.2;
+                y = text.attr('y');
+                dy = parseFloat(text.attr('dy'));
+                tspan = text
+                    .text(null)
+                    .append('tspan')
+                    .attr('x', xpos)
+                    .attr('y', y)
+                    .attr('dy', dy + 'em');
+
+                while ((word = words.pop())) {
+                    line.push(word);
+                    tspan.text(line.join(' '));
+
+                    // fixes for IE wrap text issue
+                    const textWidth = getTextWidth(line.join(' '), 16, 'Karla, sans-serif');
+
+                    if (textWidth > width) {
+                        line.pop();
+                        tspan.text(line.join(' '));
+
+                        if (lineNumber &lt; entryLineLimit - 1) {
+                            line = [word];
+                            tspan = text.append('tspan')
+                                .attr('x', xpos)
+                                .attr('y', y)
+                                .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+                                .text(word);
+                        }
+                    }
+                }
+            });
+
+        }
+
+        /**
+         * Draws the data entries inside the tooltip
+         * @param  {Object} dataPoint   Data entry from to take the info
+         * @return void
+         * @private
+         */
+        function updateContent(dataPoint){
+            var topics = dataPoint[topicLabel];
+
+            // sort order by topicsOrder array if passed
+            if (topicsOrder.length) {
+                topics = _sortByTopicsOrder(topics);
+            } else if (topics.length &amp;&amp; topics[0].name) {
+                topics = _sortByAlpha(topics);
+            }
+
+            cleanContent();
+            updateTitle(dataPoint);
+            resetSizeAndPositionPointers();
+            topics.forEach(updateTopicContent);
+        }
+
+        /**
+         * Updates tooltip title, content, size and position
+         * sorts by alphatical name order if not forced order given
+         *
+         * @param  {lineChartPointByDate} dataPoint  Current datapoint to show info about
+         * @param  {Number} xPosition           Position of the mouse on the X axis
+         * @return void
+         * @private
+         */
+        function updateTooltip(dataPoint, xPosition, yPosition) {
+            updateContent(dataPoint);
+            updatePositionAndSize(dataPoint, xPosition, yPosition);
+        }
+
+
+        // API
+
+        /**
+         * constants to be used to force the x axis to respect a certain granularity
+         * current options: HOUR_DAY, DAY_MONTH, MONTH_YEAR
+         * @example tooltip.dateFormat(tooltip.axisTimeCombinations.HOUR_DAY)
+         */
+        exports.axisTimeCombinations = axisTimeCombinations;
+
+        /**
+         * Exposes the ability to force the tooltip to use a certain date format
+         * @param  {String} _x          Desired format
+         * @return {String | module}  Current format or module to chain calls
+         * @public
+         */
+        exports.dateFormat = function(_x) {
+            if (!arguments.length) {
+              return dateFormat || defaultAxisSettings;
+            }
+            dateFormat = _x;
+
+            return this;
+        };
+
+        /**
+         * Exposes the ability to use a custom date format
+         * @param  {String} _x          Desired custom format
+         * @return {String | module}  Current format or module to chain calls
+         * @public
+         * @example tooltip.dateFormat(tooltip.axisTimeCombinations.CUSTOM);
+         * tooltip.dateCustomFormat('%H:%M %p')
+         */
+        exports.dateCustomFormat = function(_x) {
+            if (!arguments.length) {
+                return dateCustomFormat;
+            }
+            dateCustomFormat = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the dateLabel of the data
+         * @param  {String} _x          Desired dateLabel
+         * @return {String | module}   Current dateLabel or Chart module to chain calls
+         * @public
+         */
+        exports.dateLabel = function(_x) {
+            if (!arguments.length) {
+                return dateLabel;
+            }
+            dateLabel = _x;
+
+            return this;
+        };
+
+        /**
+         * Hides the tooltip
+         * @return {module} Tooltip module to chain calls
+         * @public
+         */
+        exports.hide = function() {
+            svg.style('visibility', 'hidden');
+
+            return this;
+        };
+
+        /**
+         * Pass locale for the tooltip to render the date in
+         * @param  {String} _x          Must be a locale tag like 'en-US' or 'fr-FR'
+         * @return {String | module}    Current locale or module to chain calls
+         * @public
+         */
+        exports.locale = function(_x) {
+            if (!arguments.length) {
+              return locale;
+            }
+            locale = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the nameLabel of the data
+         * @param  {String} _x           Desired nameLabel
+         * @return {String | module}    Current nameLabel or Chart module to chain calls
+         * @public
+         */
+        exports.nameLabel = function(_x) {
+            if (!arguments.length) {
+                return nameLabel;
+            }
+            nameLabel = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the number format for the value displayed on the tooltip
+         * @param  {string} Desired number format
+         * @return {string | module} Current numberFormat or Chart module to chain calls
+         * @public
+         */
+        exports.numberFormat = function(_x) {
+            if (!arguments.length) {
+                return numberFormat;
+            }
+            numberFormat = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the formatter function for the value displayed on the tooltip.
+         * Setting this property makes the tooltip ignore numberFormat.
+         * @param  {Function} _x Desired formatter function
+         * @return {Function | module} Current valueFormatter or Chart module to chain calls
+         * @public
+         * @example tooltipChart.valueFormatter(value => value.toString().length.toString())
+         */
+        exports.valueFormatter = function(_x) {
+            if (!arguments.length) {
+                return valueFormatter;
+            }
+            valueFormatter = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets shouldShowDateInTitle
+         * @param  {Boolean} _x          Desired value
+         * @return {Boolean | module}    Current shouldShowDateInTitle or Chart module to chain calls
+         * @public
+         */
+        exports.shouldShowDateInTitle = function(_x) {
+            if (!arguments.length) {
+                return shouldShowDateInTitle;
+            }
+            shouldShowDateInTitle = _x;
+
+            return this;
+        };
+
+        /**
+         * Shows the tooltip
+         * @return {module} Tooltip module to chain calls
+         * @public
+         */
+        exports.show = function() {
+            svg.style('visibility', 'visible');
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the title of the tooltip (to only show the date, set a blank title)
+         * @param  {String} _x          Desired title
+         * @return {String | module}   Current title or module to chain calls
+         * @public
+         */
+        exports.title = function(_x) {
+            if (!arguments.length) {
+                return title;
+            }
+            title = _x;
+
+            return this;
+        };
+
+        /**
+         * Pass an override for the offset of your tooltip
+         * @param  {Object} tooltipOffset  Object representing the X and Y offsets
+         * @return {Object | module}       Current tooltipOffset
+         * @public
+         */
+        exports.tooltipOffset = function(_x) {
+            if (!arguments.length) {
+                return tooltipOffset;
+            }
+            tooltipOffset = _x;
+
+            return this;
+        };
+
+        /**
+         * Pass an override for the ordering of your tooltip
+         * @param  {String[]} _x           Array of the names of your tooltip items
+         * @return {String[] | module}    Current overrideOrder or Chart module to chain calls
+         * @public
+         */
+        exports.topicsOrder = function(_x) {
+            if (!arguments.length) {
+                return topicsOrder;
+            }
+            topicsOrder = _x;
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the topicLabel of the data
+         * @param  {String} _x          Desired topicLabel
+         * @return {String | module}   Current topicLabel or Chart module to chain calls
+         * @public
+         */
+        exports.topicLabel = function(_x) {
+            if (!arguments.length) {
+                return topicLabel;
+            }
+            topicLabel = _x;
+
+            return this;
+        };
+
+        /**
+         * Updates the position and content of the tooltip
+         * @param  {Object} dataPoint       Datapoint to represent
+         * @param  {Object} colorMapping    Color scheme of the topics
+         * @param  {Number} position        X-scale position in pixels
+         * @return {Module}                 Tooltip module to chain calls
+         * @public
+         */
+        exports.update = function(dataPoint, colorMapping, xPosition, yPosition = null) {
+            colorMap = colorMapping;
+            updateTooltip(dataPoint, xPosition, yPosition);
+
+            return this;
+        };
+
+        /**
+         * Gets or Sets the valueLabel of the data
+         * @param  {String} _x          Desired valueLabel
+         * @return {String | module}   Current valueLabel or Chart module to chain calls
+         * @public
+         */
+        exports.valueLabel = function(_x) {
+            if (!arguments.length) {
+                return valueLabel;
+            }
+            valueLabel = _x;
+
+            return this;
+        };
+
+        
+        /**
+         * Redraw when the parent container changes size.
+         * @param {Boolean} [_x] true to follow the container with a ResizeObserver
+         * @return {Boolean|module} Current flag or the chart for chaining
+         * @public
+         */
+        exports.autoResize = function (_x) {
+            if (!arguments.length) {
+                return !!exports.__autoResize;
+            }
+            exports.__autoResize = !!_x;
+            bindAutoResize(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible name announced for the chart.
+         * @param {String} [_x] Label rendered in the SVG title
+         * @return {String|module} Current label or the chart for chaining
+         * @public
+         */
+        exports.ariaLabel = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaLabel || null;
+            }
+            exports.__ariaLabel = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+
+        /**
+         * Sets the accessible description announced for the chart.
+         * @param {String} [_x] Description rendered in the SVG desc
+         * @return {String|module} Current description or the chart for chaining
+         * @public
+         */
+        exports.ariaDescription = function (_x) {
+            if (!arguments.length) {
+                return exports.__ariaDescription || null;
+            }
+            exports.__ariaDescription = _x;
+            syncAccessibility(exports);
+
+            return this;
+        };
+return exports;
+    };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu Nov 19 2026 16:27:22 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

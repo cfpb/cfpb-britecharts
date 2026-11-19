@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kitchen-sink Demo - Britecharts</title>
+
+    <!-- Britecharts CSS -->
+    <link type="text/css" rel="stylesheet" href="/demos/css/britecharts.css" />
+    <link type="text/css" rel="stylesheet" href="/css/britecharts.css" />
+
+    <!-- D3 v5 -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- Britecharts Bundle -->
+    <script src="/dist/bundled/britecharts.min.js"></script>
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+        }
+        .row {
+            margin-bottom: 40px;
+        }
+        .card--chart {
+            min-height: 200px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+    <div class="row" id="bar">
+        <div class="col-md-6">
+            <article>
+                <h2 class="tutorial__heading">Bar Chart</h2>
+                <div class="js-bar-chart-tooltip-container card--chart"></div>
+            </article>
+        </div>
+        <div class="col-md-6">
+            <article>
+                <h2 class="tutorial__heading">Horizontal Bar Chart</h2>
+                <div class="js-horizontal-bar-chart-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="line">
+            <article>
+                <h2 class="tutorial__heading">Line Chart</h2>
+                <div class="britechart js-line-chart-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" id="donut">
+            <article>
+                <h2 class="tutorial__heading">Donut Chart</h2>
+                <div class="card--chart">
+                    <div class="js-donut-chart-container donut-chart-container"></div>
+                    <div class="js-legend-chart-container legend-chart-container"></div>
+                </div>
+            </article>
+        </div>
+        <div class="col-md-6">
+            <article id="brush">
+                <h2 class="tutorial__heading">Brush Chart</h2>
+                <div class="js-brush-chart-container card--chart"></div>
+                <p class="js-date-range date-range is-hidden">Selected from <span class="js-start-date"></span> to <span class="js-end-date"></span></p>
+            </article>
+            <article id="step">
+                <h2 class="tutorial__heading">Step Chart</h2>
+                <div class="js-step-chart-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="stacked-area">
+            <article>
+                <h2 class="tutorial__heading">Stacked Area Chart</h2>
+                <div class="britechart js-stacked-area-chart-tooltip-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <article>
+                <h2 class="tutorial__heading">Grouped Bar Chart with Tooltip</h2>
+                <div class="britechart js-grouped-bar-chart-tooltip-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <article>
+                <h2 class="tutorial__heading">Horizontal Stacked Bar Chart</h2>
+                <div class="britechart js-stacked-bar-chart-tooltip-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <article>
+                <h2 class="tutorial__heading">Scatter Plot</h2>
+                <div class="britechart js-scatter-plot-chart-tooltip-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <article>
+                <h2 class="tutorial__heading">Bullet Chart</h2>
+                <div class="britechart js-bullet-chart-container card--chart"></div>
+            </article>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Demo Script -->
+    <script src="/assets/demo-kitchen-sink.js"></script>
+</body>
+</html>
