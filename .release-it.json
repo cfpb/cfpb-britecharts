@@ -2,14 +2,14 @@
     "git": {
         "commit": true,
         "tag": true,
-        "push": false,
+        "push": true,
         "commitMessage": "chore(release): ${version}"
     },
     "npm": {
         "publish": false
     },
     "github": {
-        "release": false
+        "release": true
     },
     "plugins": {
         "@release-it/conventional-changelog": {
