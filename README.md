@@ -45,7 +45,7 @@ All the components expose some **common API methods** like width, height, and ma
 Britecharts components are distributed in **UMD modules**, each one exposing a D3.js component written with the [Reusable API pattern][3]. To use any of the Britecharts modules, you will need to require the chart in your JS file using AMD/CommonJS modules or adding a script tag with the `src` pointing to the file. You would also need to load the [d3-selection][37] submodule to select the chart container.
 
 ```
-   npm install cfpb-britecharts d3
+   npm install @cfpb/cfpb-britecharts d3
 ```
 
 You can also load Britecharts from our [CDN][cdnhome] as we do in this [demo][cdndemo] page or play around in our [JSBin][jsbinsandbox] and [CodePen][codependemos] demo projects.

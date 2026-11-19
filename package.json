@@ -1,5 +1,5 @@
 {
-    "name": "cfpb-britecharts",
+    "name": "@cfpb/cfpb-britecharts",
     "version": "2.7.0",
     "packageManager": "yarn@4.18.0",
     "description": "Standards-based charting library for D3 v7",
@@ -88,6 +88,9 @@
         "url": "https://github.com/cfpb/cfpb-britecharts/issues"
     },
     "homepage": "http://localhost:8001/",
+    "publishConfig": {
+        "access": "public"
+    },
     "exports": {
         ".": {
             "types": "./dist/types/index.d.ts",
