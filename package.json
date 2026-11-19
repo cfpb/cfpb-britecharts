@@ -53,6 +53,7 @@
         "build:umd": "node scripts/build-umd.mjs",
         "build:types": "tsc -p tsconfig.build.json && node scripts/enrich-chart-types.mjs",
         "build": "yarn build:js && yarn build:umd && yarn build:types",
+        "prepare": "yarn build",
         "lint": "eslint src/charts/ webpack.*.js --cache",
         "lint:fix": "eslint src/charts/ webpack.*.js --cache --fix",
         "test": "rstest run",
