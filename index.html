@@ -16,7 +16,6 @@
     <script src="scripts/nav.js" defer></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -71,18 +70,17 @@
 <a href="https://badge.fury.io/js/britecharts"><img src="https://badge.fury.io/js/britecharts.svg" alt="npm version"></a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 <a href="https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
-<a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square" alt="All Contributors"></a>
 <a href="https://twitter.com/Britecharts/followers"><img src="https://img.shields.io/twitter/follow/britecharts.svg?style=social&amp;label=Follow" alt="Twitter Follow"></a></p>
 <table>
 <thead>
 <tr>
-<th><a href="/cfpb-britecharts/demos/line.html" title="Check the Demo"><img src="src/doc/images/thumbnails/line-chart.png" alt="Line Chart"></a></th>
-<th><a href="/cfpb-britecharts/demos/stacked-area.html" title="Check the Demo"><img src="src/doc/images/thumbnails/stacked-area-chart-large.png" alt="Stacked Area Chart"></a></th>
-<th><a href="/cfpb-britecharts/demos/row.html" title="Check the Demo">Row Chart</a></th>
+<th><a href="https://cfpb.github.io/cfpb-britecharts/demos/line.html" title="Check the Demo"><img src="src/doc/images/thumbnails/line-chart.png" alt="Line Chart"></a></th>
+<th><a href="https://cfpb.github.io/cfpb-britecharts/demos/stacked-area.html" title="Check the Demo"><img src="src/doc/images/thumbnails/stacked-area-chart-large.png" alt="Stacked Area Chart"></a></th>
+<th><a href="https://cfpb.github.io/cfpb-britecharts/demos/row.html" title="Check the Demo"><img src="src/doc/images/thumbnails/row-chart.png" alt="Row Chart"></a></th>
 </tr>
 </thead>
 </table>
-<p>Britecharts <a href="/cfpb-britecharts/demos/kitchen-sink.html">components</a> have been written in ES2016 with a Test Driven methodology, so they are <strong>fully tested</strong>, and we are committed to keeping them that way.</p>
+<p>Britecharts <a href="https://cfpb.github.io/cfpb-britecharts/demos/kitchen-sink.html">components</a> have been written in ES2016 with a Test Driven methodology, so they are <strong>fully tested</strong>, and we are committed to keeping them that way.</p>
 <h2>Key Features</h2>
 <ul>
 <li>Reusability</li>
@@ -100,25 +98,25 @@ lineContainer.datum(dataset).call(lineChart);
 <h2>API</h2>
 <p>All the components expose some <strong>common API methods</strong> like width, height, and margin. Additionally, each chart or component can expose specific methods you can find in the documentation:</p>
 <ul>
-<li><a href="/cfpb-britecharts/module-Line.html">API</a>, <a href="/cfpb-britecharts/demos/line.html" title="Check the Demo">Demo</a> Line Chart</li>
-<li><a href="/cfpb-britecharts/module-Stacked-area.html">API</a>, <a href="/cfpb-britecharts/demos/stacked-area.html" title="Check the Demo">Demo</a> Stacked Area Chart</li>
-<li><a href="/cfpb-britecharts/demos/row.html" title="Check the Demo">Demo</a> Row Chart</li>
-<li><a href="/cfpb-britecharts/module-Tooltip.html">API</a>, <a href="/cfpb-britecharts/demos/line.html" title="Check the Demo">Demo</a> Tooltip</li>
-<li><a href="/cfpb-britecharts/module-Mini-tooltip.html">API</a>, <a href="/cfpb-britecharts/demos/row.html" title="Check the Demo">Demo</a> Mini Tooltip</li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/module-Line.html">API</a>, <a href="https://cfpb.github.io/cfpb-britecharts/demos/line.html" title="Check the Demo">Demo</a> Line Chart</li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/module-Stacked-area.html">API</a>, <a href="https://cfpb.github.io/cfpb-britecharts/demos/stacked-area.html" title="Check the Demo">Demo</a> Stacked Area Chart</li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/demos/row.html" title="Check the Demo">Demo</a> Row Chart</li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/module-Tooltip.html">API</a>, <a href="https://cfpb.github.io/cfpb-britecharts/demos/line.html" title="Check the Demo">Demo</a> Tooltip</li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/module-Mini-tooltip.html">API</a>, <a href="https://cfpb.github.io/cfpb-britecharts/demos/row.html" title="Check the Demo">Demo</a> Mini Tooltip</li>
 </ul>
 <h2>Installation</h2>
 <p>Britecharts components are distributed in <strong>UMD modules</strong>, each one exposing a D3.js component written with the <a href="https://bost.ocks.org/mike/chart/">Reusable API pattern</a>. To use any of the Britecharts modules, you will need to require the chart in your JS file using AMD/CommonJS modules or adding a script tag with the <code>src</code> pointing to the file. You would also need to load the <a href="https://github.com/d3/d3-selection">d3-selection</a> submodule to select the chart container.</p>
 <pre class="prettyprint source"><code>   npm install @cfpb/cfpb-britecharts d3
 </code></pre>
-<p>You can also load Britecharts from our <a href="https://cdn.jsdelivr.net/npm/britecharts/dist/">CDN</a> as we do in this <a href="/cfpb-britecharts/cdn.html">demo</a> page or play around in our <a href="https://jsbin.com/wativun/3/edit?html,js,output">JSBin</a> and <a href="https://codepen.io/Britecharts/pens/forked/">CodePen</a> demo projects.</p>
-<p>They also provide some minimal CSS styling, that can be loaded independently or as a bundle. Check our <a href="/cfpb-britecharts/styling-charts.html">Styling Britecharts tutorial</a> to see more options.</p>
+<p>You can also load Britecharts from our <a href="https://cdn.jsdelivr.net/npm/britecharts/dist/">CDN</a> as we do in this <a href="https://cfpb.github.io/cfpb-britecharts/demos/kitchen-sink.html">demo</a> page or play around in our <a href="https://jsbin.com/wativun/3/edit?html,js,output">JSBin</a> and <a href="https://codepen.io/Britecharts/pens/forked/">CodePen</a> demo projects.</p>
+<p>They also provide some minimal CSS styling, that can be loaded independently or as a bundle. Check our <a href="https://cfpb.github.io/cfpb-britecharts/styling-charts.html">Styling Britecharts tutorial</a> to see more options.</p>
 <h2>See Also</h2>
 <ul>
-<li><a href="/cfpb-britecharts/">Documentation Homepage</a></li>
-<li><a href="/cfpb-britecharts/getting-started.html">Getting Started Guide</a></li>
-<li><a href="/cfpb-britecharts/tutorials-index.html">Tutorials</a></li>
-<li><a href="/cfpb-britecharts/how-to-index.html">How To Guides</a></li>
-<li><a href="/cfpb-britecharts/topics-index.html">About Britecharts</a></li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/">Documentation Homepage</a></li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/getting-started.html">Getting Started Guide</a></li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/tutorials-index.html">Tutorials</a></li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/how-to-index.html">How To Guides</a></li>
+<li><a href="https://cfpb.github.io/cfpb-britecharts/topics-index.html">About Britecharts</a></li>
 <li><a href="https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md">Contributing Guide</a></li>
 <li><a href="https://github.com/eventbrite/britecharts">Github Repo</a></li>
 <li><a href="https://scrimba.com/casts/cZWm2tb">Bar Chart Tutorial</a>[Video]</li>
@@ -129,17 +127,7 @@ lineContainer.datum(dataset).call(lineChart);
 <p>To give your feedback, you can open a new issue. You can also find us in the <a href="https://d3js.slack.com/">D3.js slack group</a>, in the <strong>#britecharts</strong> channel. If you want to help, you can check the <a href="https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md">contributing</a> guide.</p>
 <p>If you work with Angular, check out <a href="https://github.com/colapdev/ngx-britecharts">ngx-britecharts</a> and their <a href="https://colapdev.github.io/ngx-britecharts/">demos</a>. We are also preparing a wrapper for React, and we will be talking about it on our <a href="https://twitter.com/britecharts">twitter</a>.</p>
 <h2>Acknowledgments</h2>
-<p><a href="https://dribbble.com/sundai">Sun Dai</a> designs Britecharts, and two books inspired the code, <a href="https://bleedingedgepress.com/our-books/developing-a-d3-js-edge/">Developing a D3.js Edge</a> and <a href="https://www.packtpub.com/web-development/mastering-d3js">Mastering D3.js</a>. It also leveraged a significant number of examples and articles from the <a href="https://d3js.org/">D3.js</a> community overall.</p>
-<h2>Contributors ✨</h2>
-<p>Thanks goes to these wonderful people (<a href="https://allcontributors.org/docs/en/emoji-key">emoji key</a>):</p>
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/DalerAsrorov"><img src="https://avatars2.githubusercontent.com/u/9118852?v=4" width="100px;" alt="Daler Asrorov"/><br /><sub><b>Daler Asrorov</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Code">💻</a> <a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Documentation">📖</a> <a href="#ideas-DalerAsrorov" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-DalerAsrorov" title="Maintenance">🚧</a> <a href="#review-DalerAsrorov" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Tests">⚠️</a></td><td align="center"><a href="https://github.com/ryanwholey"><img src="https://avatars0.githubusercontent.com/u/8100360?v=4" width="100px;" alt="Ryan Wholey"/><br /><sub><b>Ryan Wholey</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Code">💻</a> <a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Documentation">📖</a> <a href="#ideas-ryanwholey" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-ryanwholey" title="Maintenance">🚧</a> <a href="#review-ryanwholey" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Tests">⚠️</a></td><td align="center"><a href="https://github.com/jchen85"><img src="https://avatars2.githubusercontent.com/u/14088460?v=4" width="100px;" alt="jchen85"/><br /><sub><b>jchen85</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=jchen85" title="Code">💻</a> <a href="#ideas-jchen85" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-jchen85" title="Maintenance">🚧</a> <a href="#review-jchen85" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=jchen85" title="Tests">⚠️</a></td></tr></table>
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<p>This project follows the <a href="https://allcontributors.org">all-contributors</a> specification.
-Contributions of any kind are welcome!</p>
+<p>This library is a fork of <a href="https://github.com/eventbrite/britecharts">Eventbrite Britecharts</a>. <a href="https://dribbble.com/sundai">Sun Dai</a> designed the charts, and that styling is still the basis of this library. Two books inspired the original code, <a href="https://bleedingedgepress.com/our-books/developing-a-d3-js-edge/">Developing a D3.js Edge</a> and <a href="https://www.packtpub.com/web-development/mastering-d3js">Mastering D3.js</a>.</p>
 <h2>License</h2>
 <p>Copyright 2019 Eventbrite</p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -151,7 +139,7 @@ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</p>
-<p>Read more in the <a href="https://github.com/eventbrite/britecharts/blob/master/LICENSE.md">license document</a></p></article>
+<p>Read more in the <a href="https://github.com/cfpb/cfpb-britecharts/blob/main/LICENSE.md">license document</a></p></article>
     </section>
 
 
@@ -166,7 +154,7 @@ limitations under the License.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Fri Nov 20 2026 05:22:01 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Fri Nov 20 2026 14:36:16 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
