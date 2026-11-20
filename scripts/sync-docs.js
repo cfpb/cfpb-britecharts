@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const { globSync } = require('node:fs');
 const path = require('path');
+const { docsBasePath, applyDocsBasePath } = require('./docs-base-path');
 
 console.log('📋 Syncing documentation assets...');
 
@@ -54,14 +55,55 @@ try {
 // Copy demo CSS and JSON files
 console.log('📦 Copying demo assets...');
 try {
-    // Copy CSS
+    // Copy CSS to both paths the demo pages request.
     if (fs.existsSync(path.join(demosPath, 'css'))) {
         fs.copySync(
             path.join(demosPath, 'css'),
             path.join(docsPath, 'css'),
             { overwrite: true }
         );
+        fs.copySync(
+            path.join(demosPath, 'css'),
+            path.join(docsPath, 'demos/css'),
+            { overwrite: true }
+        );
         console.log('  ✓ Copied demo CSS');
+    }
+
+    if (fs.existsSync(demosBuildPath)) {
+        fs.ensureDirSync(path.join(docsPath, 'assets'));
+        fs.readdirSync(demosBuildPath).forEach(file => {
+            if (file.endsWith('.js')) {
+                fs.copySync(
+                    path.join(demosBuildPath, file),
+                    path.join(docsPath, 'assets', file),
+                    { overwrite: true }
+                );
+            }
+        });
+        console.log('  ✓ Copied demo JavaScript into docs/assets');
+    }
+
+    const bundledDir = path.join(__dirname, '../dist/bundled');
+    const distCssDir = path.join(__dirname, '../dist/css');
+
+    if (fs.existsSync(bundledDir)) {
+        fs.copySync(bundledDir, path.join(docsPath, 'dist/bundled'), { overwrite: true });
+        console.log('  ✓ Copied dist/bundled');
+    } else {
+        console.log('  ⚠️  dist/bundled is missing. Run "yarn build" before "yarn docs".');
+    }
+
+    if (fs.existsSync(distCssDir)) {
+        fs.copySync(distCssDir, path.join(docsPath, 'dist/css'), { overwrite: true });
+        console.log('  ✓ Copied dist/css');
+    }
+
+    const docImagesDir = path.join(__dirname, '../src/doc/images');
+
+    if (fs.existsSync(docImagesDir)) {
+        fs.copySync(docImagesDir, path.join(docsPath, 'src/doc/images'), { overwrite: true });
+        console.log('  ✓ Copied doc images');
     }
 } catch (err) {
     console.error('❌ Error copying demo assets:', err);
@@ -86,6 +128,26 @@ htmlFiles.forEach(file => {
 });
 
 console.log(`  ✓ jQuery injected into ${injectedCount} HTML files`);
+
+const basePath = docsBasePath();
+
+if (basePath) {
+    console.log(`🔗 Rewriting doc links for ${basePath}`);
+    let rewrittenCount = 0;
+
+    htmlFiles.forEach(file => {
+        const content = fs.readFileSync(file, 'utf8');
+        const rewritten = applyDocsBasePath(content);
+
+        if (rewritten !== content) {
+            fs.writeFileSync(file, rewritten);
+            rewrittenCount++;
+        }
+    });
+
+    console.log(`  ✓ Updated links in ${rewrittenCount} HTML files`);
+}
+
 console.log('✅ Documentation sync complete!');
 
 module.exports = async function() {

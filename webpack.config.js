@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 
 const parts = require('./webpack.parts');
 const constants = require('./webpack.constants');
+const { withBase } = require('./scripts/docs-base-path');
 
 const demosConfig = merge([
     {
@@ -11,7 +12,7 @@ const demosConfig = merge([
         entry: constants.DEMOS,
         output: {
             path: path.resolve(__dirname, './demos/build/'),
-            publicPath: '/assets/',
+            publicPath: withBase('assets/'),
             filename: '[name].js'
         },
         externals: {

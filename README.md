@@ -149,8 +149,8 @@ Read more in the [license document][15]
 [linechartdemo]: http://localhost:8001/demos/line.html "Check the Demo"
 [rowchartdemo]: http://localhost:8001/demos/row.html "Check the Demo"
 [stackedareachartdemo]: http://localhost:8001/demos/stacked-area.html "Check the Demo"
-[linechartimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/line-chart.png
-[stackedareachartlargeimg]: https://raw.githubusercontent.com/eventbrite/britecharts/master/src/doc/images/thumbnails/stacked-area-chart-large.png
+[linechartimg]: src/doc/images/thumbnails/line-chart.png
+[stackedareachartlargeimg]: src/doc/images/thumbnails/stacked-area-chart-large.png
 [tutorialsindex]: http://localhost:8001/tutorials-index.html
 [howtoindex]: http://localhost:8001/how-to-index.html
 [topicsindex]: http://localhost:8001/topics-index.html

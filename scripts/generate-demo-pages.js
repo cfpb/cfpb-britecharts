@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { docsBasePath, withBase } = require('./docs-base-path');
 
 const demosPath = path.join(__dirname, '../demos');
 const docsPath = path.join(__dirname, '../docs');
@@ -20,14 +21,14 @@ const htmlTemplate = (demoName, demoContent) => `<!DOCTYPE html>
     <title>${demoName} Demo - Britecharts</title>
 
     <!-- Britecharts CSS -->
-    <link type="text/css" rel="stylesheet" href="/demos/css/britecharts.css" />
-    <link type="text/css" rel="stylesheet" href="/css/britecharts.css" />
+    <link type="text/css" rel="stylesheet" href="${withBase('demos/css/britecharts.css')}" />
+    <link type="text/css" rel="stylesheet" href="${withBase('css/britecharts.css')}" />
 
     <!-- D3 v5 -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <!-- Britecharts Bundle -->
-    <script src="/dist/bundled/britecharts.min.js"></script>
+    <script src="${withBase('dist/bundled/britecharts.min.js')}"></script>
 
     <style>
         body {
@@ -57,7 +58,7 @@ const htmlTemplate = (demoName, demoContent) => `<!DOCTYPE html>
     ${demoContent}
 
     <!-- Demo Script -->
-    <script src="/assets/demo-${demoName}.js"></script>
+    <script src="${withBase(`assets/demo-${demoName}.js`)}"></script>
 </body>
 </html>`;
 
@@ -82,4 +83,7 @@ demoFiles.forEach(demoName => {
 });
 
 console.log(`✅ Generated ${generatedCount} demo pages in docs/demos/!`);
-console.log(`📍 Access them at: http://localhost:8001/demos/{chart-name}.html`);
+const basePath = docsBasePath();
+const demoRoot = basePath || 'http://localhost:8001/';
+
+console.log(`📍 Access them at: ${demoRoot}demos/{chart-name}.html`);
