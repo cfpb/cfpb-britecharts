@@ -1,3 +1,7 @@
+# Changelog
+
+## [2.7.1](https://github.com/cfpb/cfpb-britecharts/compare/v2.7.0...v2.7.1) (2026-11-20)
+
 2.14.2
 2.14.1
 2.14.0
