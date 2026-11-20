@@ -23,18 +23,13 @@ export function useBritechart({
     dependencies = [],
 }) {
     const containerRef = useRef(null);
-    const chartInstanceRef = useRef(null);
 
     useEffect(() => {
         if (!containerRef.current || !data) {
             return undefined;
         }
 
-        if (!chartInstanceRef.current) {
-            chartInstanceRef.current = chartFactory();
-        }
-
-        const chart = chartInstanceRef.current;
+        const chart = chartFactory();
         const container = select(containerRef.current);
         const containerWidth = containerRef.current.clientWidth || 700;
 
