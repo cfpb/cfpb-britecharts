@@ -1,15 +1,14 @@
 # Britecharts
 
-> Britecharts is a client-side **reusable Charting Library** based on [D3.js v5][1] that offers easy and intuitive use of charts and components that can be composed together to create amazing visualizations.
+> Britecharts is a client-side **reusable Charting Library** based on [D3.js v7][1] that offers easy and intuitive use of charts and components that can be composed together to create amazing visualizations.
 
 [![Build Status](https://travis-ci.org/eventbrite/britecharts.svg?branch=master)](https://travis-ci.org/eventbrite/britecharts)
 [![npm version](https://badge.fury.io/js/britecharts.svg)](https://badge.fury.io/js/britecharts)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 [![Twitter Follow](https://img.shields.io/twitter/follow/britecharts.svg?style=social&label=Follow)](https://twitter.com/Britecharts/followers)
 
-| [![Line Chart][linechartimg]][linechartdemo] | [![Stacked Area Chart][stackedareachartlargeimg]][stackedareachartdemo] | [Row Chart][rowchartdemo] |
+| [![Line Chart][linechartimg]][linechartdemo] | [![Stacked Area Chart][stackedareachartlargeimg]][stackedareachartdemo] | [![Row Chart][rowchartimg]][rowchartdemo] |
 | ------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------- |
 
 Britecharts [components][32] have been written in ES2016 with a Test Driven methodology, so they are **fully tested**, and we are committed to keeping them that way.
@@ -74,23 +73,7 @@ If you work with Angular, check out [ngx-britecharts][angularwrapper] and their 
 
 ## Acknowledgments
 
-[Sun Dai][sunsdribble] designs Britecharts, and two books inspired the code, [Developing a D3.js Edge][19] and [Mastering D3.js][20]. It also leveraged a significant number of examples and articles from the [D3.js][1] community overall.
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/DalerAsrorov"><img src="https://avatars2.githubusercontent.com/u/9118852?v=4" width="100px;" alt="Daler Asrorov"/><br /><sub><b>Daler Asrorov</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Code">💻</a> <a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Documentation">📖</a> <a href="#ideas-DalerAsrorov" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-DalerAsrorov" title="Maintenance">🚧</a> <a href="#review-DalerAsrorov" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=DalerAsrorov" title="Tests">⚠️</a></td><td align="center"><a href="https://github.com/ryanwholey"><img src="https://avatars0.githubusercontent.com/u/8100360?v=4" width="100px;" alt="Ryan Wholey"/><br /><sub><b>Ryan Wholey</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Code">💻</a> <a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Documentation">📖</a> <a href="#ideas-ryanwholey" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-ryanwholey" title="Maintenance">🚧</a> <a href="#review-ryanwholey" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=ryanwholey" title="Tests">⚠️</a></td><td align="center"><a href="https://github.com/jchen85"><img src="https://avatars2.githubusercontent.com/u/14088460?v=4" width="100px;" alt="jchen85"/><br /><sub><b>jchen85</b></sub></a><br /><a href="https://github.com/eventbrite/britecharts/commits?author=jchen85" title="Code">💻</a> <a href="#ideas-jchen85" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-jchen85" title="Maintenance">🚧</a> <a href="#review-jchen85" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/eventbrite/britecharts/commits?author=jchen85" title="Tests">⚠️</a></td></tr></table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://allcontributors.org) specification.
-Contributions of any kind are welcome!
+This library is a fork of [Eventbrite Britecharts](https://github.com/eventbrite/britecharts). [Sun Dai][sunsdribble] designed the charts, and that styling is still the basis of this library. Two books inspired the original code, [Developing a D3.js Edge][19] and [Mastering D3.js][20].
 
 ## License
 
@@ -116,24 +99,24 @@ Read more in the [license document][15]
 [12]: https://nodejs.org/en/download/
 [13]: https://github.com/eventbrite/britecharts/releases
 [14]: https://www.apache.org/licenses/LICENSE-2.0
-[15]: https://github.com/eventbrite/britecharts/blob/master/LICENSE.md
+[15]: https://github.com/cfpb/cfpb-britecharts/blob/main/LICENSE.md
 [16]: https://github.com/eventbrite/britecharts/issues
 [17]: https://github.com/babel/babel
 [19]: https://bleedingedgepress.com/our-books/developing-a-d3-js-edge/
 [20]: https://www.packtpub.com/web-development/mastering-d3js
-[21]: http://localhost:8001/module-Donut.html
-[25]: http://localhost:8001/module-Line.html
-[26]: http://localhost:8001/module-Mini-tooltip.html
-[27]: http://localhost:8001/module-Tooltip.html
-[30]: http://localhost:8001/module-Stacked-area.html
-[31]: http://localhost:8001/
-[32]: http://localhost:8001/demos/kitchen-sink.html
+[21]: https://cfpb.github.io/cfpb-britecharts/module-Donut.html
+[25]: https://cfpb.github.io/cfpb-britecharts/module-Line.html
+[26]: https://cfpb.github.io/cfpb-britecharts/module-Mini-tooltip.html
+[27]: https://cfpb.github.io/cfpb-britecharts/module-Tooltip.html
+[30]: https://cfpb.github.io/cfpb-britecharts/module-Stacked-area.html
+[31]: https://cfpb.github.io/cfpb-britecharts/
+[32]: https://cfpb.github.io/cfpb-britecharts/demos/kitchen-sink.html
 [33]: https://github.com/eventbrite/britecharts
-[gettingstarted]: http://localhost:8001/getting-started.html
+[gettingstarted]: https://cfpb.github.io/cfpb-britecharts/getting-started.html
 [35]: https://github.com/eventbrite/britecharts/blob/master/.github/CONTRIBUTING.md
-[36]: http://localhost:8001/img/logo-stripes-small.png
+[36]: https://cfpb.github.io/cfpb-britecharts/img/logo-stripes-small.png
 [37]: https://github.com/d3/d3-selection
-[cdndemo]: http://localhost:8001/cdn.html
+[cdndemo]: https://cfpb.github.io/cfpb-britecharts/demos/kitchen-sink.html
 [cdnhome]: https://cdn.jsdelivr.net/npm/britecharts/dist/
 [jsbinsandbox]: https://jsbin.com/wativun/3/edit?html,js,output
 [codepensandbox]: https://codepen.io/Golodhros/pen/PprGeP?editors=1010
@@ -146,12 +129,13 @@ Read more in the [license document][15]
 [d3slack]: https://d3js.slack.com/
 [proposals]: https://github.com/eventbrite/britecharts/issues?q=is%3Aissue+is%3Aopen+label%3Aproposal
 [release3project]: https://github.com/eventbrite/britecharts/projects/2
-[linechartdemo]: http://localhost:8001/demos/line.html "Check the Demo"
-[rowchartdemo]: http://localhost:8001/demos/row.html "Check the Demo"
-[stackedareachartdemo]: http://localhost:8001/demos/stacked-area.html "Check the Demo"
+[linechartdemo]: https://cfpb.github.io/cfpb-britecharts/demos/line.html "Check the Demo"
+[rowchartdemo]: https://cfpb.github.io/cfpb-britecharts/demos/row.html "Check the Demo"
+[stackedareachartdemo]: https://cfpb.github.io/cfpb-britecharts/demos/stacked-area.html "Check the Demo"
 [linechartimg]: src/doc/images/thumbnails/line-chart.png
 [stackedareachartlargeimg]: src/doc/images/thumbnails/stacked-area-chart-large.png
-[tutorialsindex]: http://localhost:8001/tutorials-index.html
-[howtoindex]: http://localhost:8001/how-to-index.html
-[topicsindex]: http://localhost:8001/topics-index.html
-[stylingbritecharts]: http://localhost:8001/styling-charts.html
+[rowchartimg]: src/doc/images/thumbnails/row-chart.png
+[tutorialsindex]: https://cfpb.github.io/cfpb-britecharts/tutorials-index.html
+[howtoindex]: https://cfpb.github.io/cfpb-britecharts/how-to-index.html
+[topicsindex]: https://cfpb.github.io/cfpb-britecharts/topics-index.html
+[stylingbritecharts]: https://cfpb.github.io/cfpb-britecharts/styling-charts.html

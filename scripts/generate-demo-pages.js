@@ -24,8 +24,8 @@ const htmlTemplate = (demoName, demoContent) => `<!DOCTYPE html>
     <link type="text/css" rel="stylesheet" href="${withBase('demos/css/britecharts.css')}" />
     <link type="text/css" rel="stylesheet" href="${withBase('css/britecharts.css')}" />
 
-    <!-- D3 v5 -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- D3 v7 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!-- Britecharts Bundle -->
     <script src="${withBase('dist/bundled/britecharts.min.js')}"></script>

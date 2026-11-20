@@ -109,26 +109,7 @@ try {
     console.error('❌ Error copying demo assets:', err);
 }
 
-// Inject jQuery into all HTML files
-console.log('💉 Injecting jQuery...');
 const htmlFiles = globSync(path.join(docsPath, '**/*.html'));
-const jqueryScript = '<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>';
-
-let injectedCount = 0;
-htmlFiles.forEach(file => {
-    let content = fs.readFileSync(file, 'utf8');
-
-    // Only inject if jQuery is not already present
-    if (!content.includes('jquery') && !content.includes('jQuery')) {
-        // Insert jQuery before the closing </head> tag
-        content = content.replace('</head>', `    ${jqueryScript}\n</head>`);
-        fs.writeFileSync(file, content);
-        injectedCount++;
-    }
-});
-
-console.log(`  ✓ jQuery injected into ${injectedCount} HTML files`);
-
 const basePath = docsBasePath();
 
 if (basePath) {

@@ -16,7 +16,6 @@ tutorials.forEach(tutorial => {
     <title>${tutorial} Demo</title>
     <link type="text/css" rel="stylesheet" href="styles/custom.css">
     <link type="text/css" rel="stylesheet" href="styles/britecharts.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">

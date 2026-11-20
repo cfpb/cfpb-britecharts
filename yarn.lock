@@ -85,7 +85,6 @@ __metadata:
     globals: "npm:^17.14.0"
     happy-dom: "npm:^21.0.4"
     http-server: "npm:^14.1.1"
-    jquery: "npm:^4.1.0"
     jsdoc: "npm:^4.0.5"
     postcss: "npm:^8.5.33"
     postcss-cli: "npm:^12"
@@ -5402,13 +5401,6 @@ __metadata:
   version: 3.1.1
   resolution: "joycon@npm:3.1.1"
   checksum: 10c0/131fb1e98c9065d067fd49b6e685487ac4ad4d254191d7aa2c9e3b90f4e9ca70430c43cad001602bdbdabcf58717d3b5c5b7461c1bd8e39478c8de706b3fe6ae
-  languageName: node
-  linkType: hard
-
-"jquery@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "jquery@npm:4.1.0"
-  checksum: 10c0/e4fff455c4f604b64594e14b75ceeb89647bdcc79def4cbaa1d6089d9ae81bdcef6f4dab5a795a196939926e2b81e3fb0a7cd762c736ab4aaddaa308ed6a99d6
   languageName: node
   linkType: hard
 

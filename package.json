@@ -7,32 +7,6 @@
     "module": "dist/esm/index.js",
     "types": "dist/types/index.d.ts",
     "sideEffects": false,
-    "contributors": [
-        {
-            "name": "Marcos Iglesias",
-            "email": "golodhros@gmail.com"
-        },
-        {
-            "name": "Ryan Wholey",
-            "email": "rjwholey@gmail.com"
-        },
-        {
-            "name": "Sun Dai",
-            "email": "sundaisf@gmail.com"
-        },
-        {
-            "name": "Jaylum Chen",
-            "email": "jaylum@eventbrite.com"
-        },
-        {
-            "name": "Amber Rockwood",
-            "email": "arockwood@eventbrite.com"
-        },
-        {
-            "name": "Daler Asrorov",
-            "email": "daler.asrorov@eventbrite.com"
-        }
-    ],
     "scripts": {
         "demos:compile": "webpack --progress --env demos",
         "demos:watch": "webpack --watch --progress --env demos",
@@ -200,7 +174,6 @@
         "globals": "^17.14.0",
         "happy-dom": "^21.0.4",
         "http-server": "^14.1.1",
-        "jquery": "^4.1.0",
         "jsdoc": "^4.0.5",
         "postcss": "^8.5.33",
         "postcss-cli": "^12",

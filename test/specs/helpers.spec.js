@@ -1,5 +1,4 @@
 import { loadTestContainer, clearTestContainer } from '../support.js';
-import $ from 'jquery';
 import * as d3 from 'd3';
 import lineDataBuilder from '../fixtures/lineChartDataBuilder.js';
 import style from '../../src/charts/helpers/style.js';
@@ -26,7 +25,7 @@ import locale from '../../src/charts/helpers/locale.js';
 
         beforeEach(() => {
             loadTestContainer();
-            containerFixture = $('.test-container');
+            containerFixture = document.querySelector('.test-container');
         });
 
         afterEach(() => {
@@ -39,7 +38,10 @@ import locale from '../../src/charts/helpers/locale.js';
             let serializer;
 
             beforeEach(() => {
-                containerFixture.append($('<span></span>', { class: 'child' }));
+                const child = document.createElement('span');
+
+                child.className = 'child';
+                containerFixture.appendChild(child);
 
                 serializer = style.initializeSerializer();
                 styles = document.createElement('style');
@@ -61,7 +63,7 @@ import locale from '../../src/charts/helpers/locale.js';
 
             it('should add styles from stylesheets to inline of element', () => {
                 let actual;
-                node = containerFixture[0];
+                node = containerFixture;
 
                 styledHTML = serializer(node).replace(' ', '');
                 actual = styledHTML.indexOf(randomColor).length;
